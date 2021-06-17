@@ -1,11 +1,6 @@
 import javax.swing.UIManager;
 import javax.swing.ImageIcon;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
+import java.util.LinkedList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,11 +27,8 @@ public class Interface extends javax.swing.JFrame {
     static Dialogue dialogue;
     static Core core;
 
-    static Statement stm;
-    static Connection conn;
-    static ResultSet rs;
-
     static String s;
+    static LinkedList<String> ciList;
 
     /**
      * Creates new form Interface
@@ -269,6 +261,8 @@ public class Interface extends javax.swing.JFrame {
 
         if (dialogue.hasNext()) {
             jLabel3.setText("<html>" + dialogue.getNext() + "</html>");
+        } else {
+            jLabel3.setVisible(false);
         }
     }//GEN-LAST:event_jLabel3MouseClicked
 
@@ -326,8 +320,9 @@ public class Interface extends javax.swing.JFrame {
             @Override
             public void run() {
                 new Interface().setVisible(true);
-
-                current = new Room();
+                
+                ciList = new LinkedList<String>();
+                
                 start = new Room();
                 streetEmporium = new Room();
                 emporium = new Room();
