@@ -28,7 +28,6 @@ import java.util.Properties;
  * @author franc
  */
 public class Dialogue {
-
     private Statement stm;
     private ResultSet rs;
     private Connection conn;

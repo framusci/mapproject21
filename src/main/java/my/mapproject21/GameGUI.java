@@ -1,20 +1,18 @@
-package my.mapproject21;
-
-import javax.swing.UIManager;
-import javax.swing.ImageIcon;
-import java.util.LinkedList;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package my.mapproject21;
+
+import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+
 /**
  *
  * @author franc
  */
-public class InterfaceOLD extends javax.swing.JFrame {
-
+public class GameGUI extends javax.swing.JFrame {
     public static final int NORTH = 0;
     public static final int WEST = 1;
     public static final int SOUTH = 2;
@@ -26,15 +24,53 @@ public class InterfaceOLD extends javax.swing.JFrame {
 
     static Player player;
     static Dialogue dialogue;
-    static Core core;
+    static GameCore core;
 
     static String s;
 
     /**
      * Creates new form Interface
      */
-    public InterfaceOLD() {
+    public GameGUI(Room loadRoom, Player loadPlayer) {
         initComponents();
+        initRooms();
+        
+        jLabel3.setVisible(false);
+        
+        core = new GameCore(loadRoom, loadPlayer);
+    }
+
+    public GameGUI() {
+        initComponents();
+        initRooms();
+        
+        jLabel3.setVisible(false);
+        player = new Player();
+
+        core = new GameCore(start, player);
+
+    }
+
+    private void initRooms() {
+        start = new Room();
+        streetEmporium = new Room();
+        emporium = new Room();
+
+        //Ricordati il .png alla fine...
+        start.setAdjacentRoom(EAST, "1_E.png");
+        start.setAdjacentRoom(SOUTH, "1_S.png");
+        start.setAdjacentRoom(WEST, "1_W.png");
+        start.setAdjacentRoom(NORTH, "1_N.png", streetEmporium);
+
+        streetEmporium.setAdjacentRoom(SOUTH, "2_S.png", start);
+        streetEmporium.setAdjacentRoom(EAST, "2_E.png", emporium);
+        streetEmporium.setAdjacentRoom(NORTH, "2_N.png");
+        streetEmporium.setAdjacentRoom(WEST, "2_W.png");
+
+        emporium.setAdjacentRoom(NORTH, "3_N.png");
+        emporium.setAdjacentRoom(EAST, "3_E.png");
+        emporium.setAdjacentRoom(SOUTH, "3_S.png");
+        emporium.setAdjacentRoom(WEST, "3_W.png", streetEmporium);
     }
 
     /**
@@ -46,8 +82,10 @@ public class InterfaceOLD extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel3 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
@@ -57,17 +95,13 @@ public class InterfaceOLD extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("mapproject21");
-        setLocation(new java.awt.Point(0, 0));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
-
-        jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
@@ -86,94 +120,113 @@ public class InterfaceOLD extends javax.swing.JFrame {
                 jLabel3MouseClicked(evt);
             }
         });
-        jLayeredPane1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 540, 530, 70));
+        jLayeredPane1.add(jLabel3);
+        jLabel3.setBounds(380, 540, 530, 70);
+
+        jButton7.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
+        jButton7.setText("Salva ed esci");
+        jButton7.setDefaultCapable(false);
+        jButton7.setFocusPainted(false);
+        jButton7.setFocusable(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jLayeredPane1.add(jButton7);
+        jButton7.setBounds(0, 0, 160, 30);
 
         jList1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jList1.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jList1.setMaximumSize(new java.awt.Dimension(25, 80));
         jList1.setMinimumSize(new java.awt.Dimension(25, 80));
         jList1.setPreferredSize(new java.awt.Dimension(25, 80));
         jScrollPane1.setViewportView(jList1);
 
-        jLayeredPane1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 40, 120, 130));
+        jLayeredPane1.add(jScrollPane1);
+        jScrollPane1.setBounds(1160, 40, 120, 130);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Inventario");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jLabel2.setOpaque(true);
-        jLayeredPane1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 0, 120, 40));
+        jLayeredPane1.add(jLabel2);
+        jLabel2.setBounds(1160, 0, 120, 40);
 
-        jButton1.setText("^");
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.setFocusPainted(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 500, 100));
+        jLayeredPane1.add(jButton1);
+        jButton1.setBounds(410, 0, 500, 100);
 
-        jButton3.setText("<");
         jButton3.setBorderPainted(false);
         jButton3.setContentAreaFilled(false);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton3.setFocusPainted(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 190, 400));
+        jLayeredPane1.add(jButton3);
+        jButton3.setBounds(0, 150, 190, 390);
 
-        jButton2.setText("v");
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.setFocusPainted(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 640, 490, 80));
+        jLayeredPane1.add(jButton2);
+        jButton2.setBounds(410, 640, 490, 80);
 
-        jButton4.setText(">");
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton4.setFocusPainted(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 180, 180, 360));
+        jLayeredPane1.add(jButton4);
+        jButton4.setBounds(1100, 170, 180, 370);
 
+        jButton5.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
         jButton5.setText("Osserva");
         jButton5.setFocusPainted(false);
-        jLayeredPane1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 610, 190, 30));
+        jButton5.setFocusable(false);
+        jLayeredPane1.add(jButton5);
+        jButton5.setBounds(380, 610, 260, 30);
 
+        jButton6.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
         jButton6.setText("Parla");
         jButton6.setFocusPainted(false);
+        jButton6.setFocusable(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 610, 170, 30));
-
-        jButton7.setText("Inventario");
-        jButton7.setFocusPainted(false);
-        jLayeredPane1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 610, 170, 30));
+        jLayeredPane1.add(jButton6);
+        jButton6.setBounds(640, 610, 270, 30);
 
         jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         jLabel1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -181,74 +234,24 @@ public class InterfaceOLD extends javax.swing.JFrame {
                 jLabel1PropertyChange(evt);
             }
         });
-        jLayeredPane1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
+        jLayeredPane1.add(jLabel1);
+        jLabel1.setBounds(0, 0, 1280, 720);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1)
-        );
-
-        getAccessibleContext().setAccessibleName("Skyrim (vero)");
+        getContentPane().add(jLayeredPane1);
+        jLayeredPane1.setBounds(-1, -1, 1280, 720);
 
         setSize(new java.awt.Dimension(1296, 759));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        core.turnLeft();
-        setImage(core.currentRoom.getImage(player.getFacingDirection()), jLabel1);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        core.walkForward();
-        setImage(core.currentRoom.getImage(player.getFacingDirection()), jLabel1);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        core.turnRight();
-        setImage(core.currentRoom.getImage(player.getFacingDirection()), jLabel1);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    //+2 perché deve andare indietro rispetto a dove sta guardando ora
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        core.walkBackwards();
-        setImage(core.currentRoom.getImage(player.getFacingDirection()), jLabel1);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jLabel1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel1PropertyChange
-        /*
-        Usare regex (questo adesso fa schifo)
-        Rifare tutto con la direzione del giocatore e la current room
-        s = evt.getNewValue().toString().substring(evt.getNewValue().toString().lastIndexOf('/') + 1).trim();
-
-        if (s.equals(emporium.getImage(SOUTH))) {
-            jLabel3.setVisible(true);
-            jLabel3.setText("<html>Olio da lampada, corde, bombe a mano... li vuoi? Sono tuoi, amico mio, ma solo se hai abbastanza rupie. Devi scusarmi, ma non ti posso far credito: torna quando sei un po' più... ricco!</html>");
-        } else {
-            jLabel3.setVisible(false);
-        }
-        
-
-        if (jLabel3.isVisible()) {
-            jLabel3.setVisible(false);
-        }
-         */
-    }//GEN-LAST:event_jLabel1PropertyChange
-
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         //Per far avanzare il dialogo, fare una cosa con lista.next() che mantiene automaticamente l'ultimo indice. La lista carica i dati dal DB.
-//        if(dialogueIterator.hasNext()){
-//            jLabel3.setText("<html>" + dialogueIterator.next() + "</html>");
-//        } else {
-//            jLabel3.setVisible(false);
-//        }
-/*
+        //        if(dialogueIterator.hasNext()){
+        //            jLabel3.setText("<html>" + dialogueIterator.next() + "</html>");
+        //        } else {
+        //            jLabel3.setVisible(false);
+        //        }
+        /*
         try {
             if (rs.next()) {
                 jLabel3.setText("<html>" + rs.getString(1) + "</html>");
@@ -267,6 +270,26 @@ public class InterfaceOLD extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        core.walkForward();
+        setImage(core.getCurrentRoom().getImage(player.getFacingDirection()), jLabel1);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        core.turnLeft();
+        setImage(core.getCurrentRoom().getImage(player.getFacingDirection()), jLabel1);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        core.walkBackwards();
+        setImage(core.getCurrentRoom().getImage(player.getFacingDirection()), jLabel1);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        core.turnRight();
+        setImage(core.getCurrentRoom().getImage(player.getFacingDirection()), jLabel1);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         //s = jLabel1.getIcon().toString().substring(jLabel1.getIcon().toString().lastIndexOf('/') + 1).trim();
 
@@ -278,15 +301,45 @@ public class InterfaceOLD extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jLabel1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel1PropertyChange
+        /*
+        Usare regex (questo adesso fa schifo)
+        Rifare tutto con la direzione del giocatore e la current room
+        s = evt.getNewValue().toString().substring(evt.getNewValue().toString().lastIndexOf('/') + 1).trim();
+
+        if (s.equals(emporium.getImage(SOUTH))) {
+            jLabel3.setVisible(true);
+            jLabel3.setText("<html>Olio da lampada, corde, bombe a mano... li vuoi? Sono tuoi, amico mio, ma solo se hai abbastanza rupie. Devi scusarmi, ma non ti posso far credito: torna quando sei un po' più... ricco!</html>");
+        } else {
+            jLabel3.setVisible(false);
+        }
+
+        if (jLabel3.isVisible()) {
+            jLabel3.setVisible(false);
+        }
+         */
+    }//GEN-LAST:event_jLabel1PropertyChange
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        player.save();
+        core.getCurrentRoom().save();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     public void setImage(String image, javax.swing.JLabel jLab) {
         //System.out.println(getClass().getResource("/" + image));
+        //jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.currentRoom.getImage(player.getFacingDirection()))));
         jLab.setIcon(new ImageIcon(getClass().getResource("/" + image)));
+    }
+
+    public void setImage(String image, javax.swing.JButton jBut) {
+        //System.out.println(getClass().getResource("/" + image));
+        jBut.setIcon(new ImageIcon(getClass().getResource("/" + image)));
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void min(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -300,13 +353,13 @@ public class InterfaceOLD extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfaceOLD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfaceOLD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfaceOLD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfaceOLD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -321,37 +374,12 @@ public class InterfaceOLD extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new InterfaceOLD().setVisible(true);
-                
-                start = new Room();
-                streetEmporium = new Room();
-                emporium = new Room();
-
-                player = new Player(NORTH);
                 dialogue = new Dialogue("jdbc:h2:./resources/db/store", "sa", "");
-
-                //Ricordati il .png alla fine...
-                start.setAdjacentRoom(EAST, "1_E.png");
-                start.setAdjacentRoom(SOUTH, "1_S.png");
-                start.setAdjacentRoom(WEST, "1_W.png");
-                start.setAdjacentRoom(NORTH, "1_N.png", streetEmporium);
-
-                streetEmporium.setAdjacentRoom(SOUTH, "2_S.png", start);
-                streetEmporium.setAdjacentRoom(EAST, "2_E.png", emporium);
-                streetEmporium.setAdjacentRoom(NORTH, "2_N.png");
-                streetEmporium.setAdjacentRoom(WEST, "2_W.png");
-
-                emporium.setAdjacentRoom(NORTH, "3_N.png");
-                emporium.setAdjacentRoom(EAST, "3_E.png");
-                emporium.setAdjacentRoom(SOUTH, "3_S.png");
-                emporium.setAdjacentRoom(WEST, "3_W.png", streetEmporium);
-
-                core = new Core(start, player);
-
-                jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.currentRoom.getImage(player.getFacingDirection()))));
+                System.out.println(player.getFacingDirection());
+                System.out.println(core.getCurrentRoom().getImage(player.getFacingDirection()));
+                jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.getCurrentRoom().getImage(player.getFacingDirection()))));
             }
-        }
-        );
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -362,6 +390,7 @@ public class InterfaceOLD extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JDialog jDialog1;
     private static javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

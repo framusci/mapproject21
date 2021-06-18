@@ -5,18 +5,22 @@ package my.mapproject21;
  * and open the template in the editor.
  */
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Map;
 import java.util.HashMap;
+import java.io.Serializable;
 
 /**
  *
  * @author franc
  */
-public class Room {
-    //Provare a usare delle code circolari.
+public class Room implements Serializable {
     private Map<Integer, Room> rooms;
     private Map<Integer, String> images;
-    //private Map<Integer, Room, String> evry = new HashMap<Integer, Room, String>();
     private static final int DIRECTIONS = 4;
     
     public Room(){
@@ -43,5 +47,35 @@ public class Room {
         return this.images.get(Math.floorMod(direction, DIRECTIONS));
     }
     
-    
+    public void save() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("saveRoom.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this);
+            out.close();
+            fileOut.close();
+            System.out.println("Serialized data is saved in savegame.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public Room load() {
+        try {
+            FileInputStream fileIn = new FileInputStream("saveRoom.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            Room room = (Room) in.readObject();
+            in.close();
+            fileIn.close();
+            System.out.println("Serialized data loaded");
+            return room;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Core class not found");
+            c.printStackTrace();
+            return null;
+        }
+    }
 }

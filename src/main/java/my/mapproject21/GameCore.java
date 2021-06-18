@@ -1,4 +1,5 @@
 package my.mapproject21;
+
 /*
  * Copyright (C) 2021 franc
  *
@@ -15,48 +16,65 @@ package my.mapproject21;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import java.io.FileInputStream;
+import java.io.Serializable;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  *
  * @author franc
  */
-public class Core {
+public class GameCore {
+
     private final int LEFT = 1;
     private final int RIGHT = -1;
     private final int FORWARD = 0;
     private final int BACKWARDS = 2;
-    
-    public Room currentRoom;
-    public Player player;
-    
-    public Core(Room startingRoom, Player player){
+
+    private Room currentRoom;
+    private Player player;
+
+    public GameCore(Room startingRoom, Player player) {
         this.currentRoom = startingRoom;
         this.player = player;
     }
     
-    private void turn(final int direction){
+    public GameCore(){
+        
+    }
+
+    
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    private void turn(final int direction) {
         this.player.setFacingDirection(this.player.getFacingDirection() + direction);
     }
-    
-    public void turnRight(){
+
+    public void turnRight() {
         this.turn(RIGHT);
     }
-    
-    public void turnLeft(){
+
+    public void turnLeft() {
         this.turn(LEFT);
     }
-    
-    private void walk(final int direction){
+
+    private void walk(final int direction) {
         if (this.currentRoom.getAdjacentRoom((player.getFacingDirection()) + direction) != null) {
             this.currentRoom = this.currentRoom.getAdjacentRoom(player.getFacingDirection() + direction);
         }
     }
-    
-    public void walkForward(){
+
+    public void walkForward() {
         this.walk(FORWARD);
     }
-    
-    public void walkBackwards(){
+
+    public void walkBackwards() {
         this.walk(BACKWARDS);
     }
 }
