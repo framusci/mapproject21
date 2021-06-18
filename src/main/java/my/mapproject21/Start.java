@@ -7,12 +7,14 @@ package my.mapproject21;
 
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author franc
  */
 public class Start extends javax.swing.JFrame {
 
+    private String language;
     /**
      * Creates new form NewJFrame
      */
@@ -94,11 +96,21 @@ public class Start extends javax.swing.JFrame {
 
         jRadioButton1.setText("Italiano");
         jRadioButton1.setFocusPainted(false);
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jRadioButton1);
         jRadioButton1.setBounds(20, 50, 61, 22);
 
         jRadioButton2.setText("English");
         jRadioButton2.setFocusPainted(false);
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jRadioButton2);
         jRadioButton2.setBounds(90, 50, 58, 22);
 
@@ -115,7 +127,7 @@ public class Start extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if ((jRadioButton1.isSelected() || jRadioButton2.isSelected()) && !jTextField1.getText().isEmpty()) {
-            new GameGUI().setVisible(true);
+            new GameGUI(jTextField1.getText(), language).setVisible(true);
             this.setVisible(false);
             GameGUI.main(null);
         } else {
@@ -125,10 +137,21 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new GameGUI(new Room().load(), new Player().load()).setVisible(true);
-        this.setVisible(false);
-        GameGUI.main(null);
+        if ((jRadioButton1.isSelected() || jRadioButton2.isSelected()) && !jTextField1.getText().isEmpty()) {
+            new GameGUI(language, new Room().load(), new Player().load()).setVisible(true);
+            this.setVisible(false);
+            GameGUI.main(null);
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        language = "ita";
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        language = "eng";
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     /**
      * @param args the command line arguments

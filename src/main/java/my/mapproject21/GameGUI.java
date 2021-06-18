@@ -29,7 +29,7 @@ public class GameGUI extends javax.swing.JFrame {
     /**
      * Creates new form Interface
      */
-    public GameGUI(Room loadRoom, Player loadPlayer) {
+    public GameGUI(String Language, Room loadRoom, Player loadPlayer) {
         initComponents();
         initRooms();
         
@@ -38,7 +38,7 @@ public class GameGUI extends javax.swing.JFrame {
         core = new GameCore(loadRoom, loadPlayer);
     }
 
-    public GameGUI() {
+    public GameGUI(String playerName, String language) {
         initComponents();
         initRooms();
         
