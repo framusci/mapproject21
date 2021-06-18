@@ -32,7 +32,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>my.mapproject21.GameGUI</mainClass>
+                            <mainClass>my.mapproject21.Start</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

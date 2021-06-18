@@ -41,12 +41,6 @@ public class GameCore {
         this.currentRoom = startingRoom;
         this.player = player;
     }
-    
-    public GameCore(){
-        
-    }
-
-    
 
     public Room getCurrentRoom() {
         return currentRoom;

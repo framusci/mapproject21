@@ -6,7 +6,7 @@
 package my.mapproject21;
 
 import javax.swing.UIManager;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author franc
@@ -16,9 +16,10 @@ public class Start extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-
     public Start() {
         initComponents();
+        buttonGroup1.add(jRadioButton1);
+        buttonGroup1.add(jRadioButton2);
     }
 
     /**
@@ -30,11 +31,30 @@ public class Start extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jDialog1 = new javax.swing.JDialog();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         jButton1.setText("Nuova partita");
         jButton1.setDefaultCapable(false);
@@ -45,6 +65,8 @@ public class Start extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(180, 50, 120, 23);
 
         jButton2.setText("Carica partita");
         jButton2.setDefaultCapable(false);
@@ -55,46 +77,51 @@ public class Start extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(330, 50, 120, 23);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Titolo molto bello");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(230, 0, 174, 39);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(111, 111, 111))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Seleziona la lingua");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(20, 20, 130, 15);
 
-        setSize(new java.awt.Dimension(359, 246));
+        jRadioButton1.setText("Italiano");
+        jRadioButton1.setFocusPainted(false);
+        getContentPane().add(jRadioButton1);
+        jRadioButton1.setBounds(20, 50, 61, 22);
+
+        jRadioButton2.setText("English");
+        jRadioButton2.setFocusPainted(false);
+        getContentPane().add(jRadioButton2);
+        jRadioButton2.setBounds(90, 50, 58, 22);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("Seleziona il nome");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(520, 20, 100, 15);
+        getContentPane().add(jTextField1);
+        jTextField1.setBounds(500, 50, 140, 20);
+
+        setSize(new java.awt.Dimension(667, 129));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new GameGUI().setVisible(true);
-        this.setVisible(false);
-        GameGUI.main(null);
+        if ((jRadioButton1.isSelected() || jRadioButton2.isSelected()) && !jTextField1.getText().isEmpty()) {
+            new GameGUI().setVisible(true);
+            this.setVisible(false);
+            GameGUI.main(null);
+        } else {
+            JOptionPane.showMessageDialog(Start.this, "Devi inserire una lingua e un nome.", "Errore!", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -146,8 +173,15 @@ public class Start extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

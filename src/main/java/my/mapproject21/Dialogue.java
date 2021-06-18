@@ -32,6 +32,7 @@ public class Dialogue {
     private ResultSet rs;
     private Connection conn;
     private Properties dbprops;
+    private String language;
 
     public Dialogue(String dbURL, String user, String password) {
         dbprops = new Properties();
@@ -56,6 +57,14 @@ public class Dialogue {
         }
 
         return null;
+    }
+    
+    public void setLanguage(String language){
+        this.language = language;
+    }
+    
+    public String getLanguage(){
+        return this.language;
     }
     
     public boolean hasNext() {

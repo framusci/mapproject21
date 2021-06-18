@@ -47,6 +47,10 @@ public class Player implements Serializable {
         return direction;
     }
     
+    public String getName(){
+        return this.name;
+    }
+    
     public void takeItem(Item item){
         this.inventory.add(item);
     }

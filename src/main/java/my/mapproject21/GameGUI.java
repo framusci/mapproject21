@@ -26,8 +26,6 @@ public class GameGUI extends javax.swing.JFrame {
     static Dialogue dialogue;
     static GameCore core;
 
-    static String s;
-
     /**
      * Creates new form Interface
      */
@@ -82,7 +80,6 @@ public class GameGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel3 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
@@ -375,7 +372,7 @@ public class GameGUI extends javax.swing.JFrame {
             @Override
             public void run() {
                 dialogue = new Dialogue("jdbc:h2:./resources/db/store", "sa", "");
-                System.out.println(player.getFacingDirection());
+                //System.out.println(player.getFacingDirection());
                 System.out.println(core.getCurrentRoom().getImage(player.getFacingDirection()));
                 jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.getCurrentRoom().getImage(player.getFacingDirection()))));
             }
@@ -390,7 +387,6 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JDialog jDialog1;
     private static javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
