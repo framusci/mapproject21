@@ -1,4 +1,5 @@
 package my.mapproject21;
+
 /*
  * Copyright (C) 2021 franc
  *
@@ -21,6 +22,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
 import java.util.Properties;
 
 /**
@@ -28,6 +30,7 @@ import java.util.Properties;
  * @author franc
  */
 public class Dialogue {
+
     private Statement stm;
     private ResultSet rs;
     private Connection conn;
@@ -36,15 +39,34 @@ public class Dialogue {
 
     public Dialogue(String dbURL, String user, String password) {
         dbprops = new Properties();
-        
+
         try {
             conn = DriverManager.getConnection(dbURL, dbprops);
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
-        
+
         dbprops.setProperty("user", user);
         dbprops.setProperty("password", password);
+    }
+
+    public Dialogue(String language) {
+        this.setLanguage(language);
+    }
+
+    public Dialogue(String language, String dbURL, String user, String password) {
+        this.setLanguage(language);
+
+        this.dbprops = new Properties();
+
+        try {
+            this.conn = DriverManager.getConnection(dbURL, dbprops);
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+
+        this.dbprops.setProperty("user", user);
+        this.dbprops.setProperty("password", password);
     }
 
     public String getNext() {
@@ -58,15 +80,28 @@ public class Dialogue {
 
         return null;
     }
-    
-    public void setLanguage(String language){
+
+    public void setLanguage(String language) {
         this.language = language;
     }
-    
-    public String getLanguage(){
+
+    public String getLanguage() {
         return this.language;
     }
-    
+
+    public void setDatabase(String dbURL, String user, String password) {
+        this.dbprops = new Properties();
+
+        try {
+            this.conn = DriverManager.getConnection(dbURL, dbprops);
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+
+        this.dbprops.setProperty("user", user);
+        this.dbprops.setProperty("password", password);
+    }
+
     public boolean hasNext() {
         try {
             if (rs.next()) {

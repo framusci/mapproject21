@@ -22,6 +22,7 @@ public class Start extends javax.swing.JFrame {
         initComponents();
         buttonGroup1.add(jRadioButton1);
         buttonGroup1.add(jRadioButton2);
+        language = new String();
     }
 
     /**
@@ -127,7 +128,7 @@ public class Start extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if ((jRadioButton1.isSelected() || jRadioButton2.isSelected()) && !jTextField1.getText().isEmpty()) {
-            new GameGUI(jTextField1.getText(), language).setVisible(true);
+            new GameGUI(language, jTextField1.getText()).setVisible(true);
             this.setVisible(false);
             GameGUI.main(null);
         } else {

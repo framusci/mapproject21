@@ -5,6 +5,7 @@
  */
 package my.mapproject21;
 
+import java.util.HashSet;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
@@ -29,24 +30,24 @@ public class GameGUI extends javax.swing.JFrame {
     /**
      * Creates new form Interface
      */
-    public GameGUI(String Language, Room loadRoom, Player loadPlayer) {
+    public GameGUI(String language, Room loadRoom, Player loadPlayer) {
         initComponents();
         initRooms();
+        dialogue.setLanguage(language);
         
         jLabel3.setVisible(false);
-        
         core = new GameCore(loadRoom, loadPlayer);
+        dialogue = new Dialogue(language);
     }
 
-    public GameGUI(String playerName, String language) {
+    public GameGUI(String language, String playerName) {
         initComponents();
         initRooms();
         
         jLabel3.setVisible(false);
         player = new Player();
-
         core = new GameCore(start, player);
-
+        dialogue = new Dialogue(language);
     }
 
     private void initRooms() {
@@ -371,7 +372,8 @@ public class GameGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                dialogue = new Dialogue("jdbc:h2:./resources/db/store", "sa", "");
+                dialogue.setDatabase("jdbc:h2:./resources/db/store", "sa", "");
+
                 //System.out.println(player.getFacingDirection());
                 System.out.println(core.getCurrentRoom().getImage(player.getFacingDirection()));
                 jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.getCurrentRoom().getImage(player.getFacingDirection()))));
