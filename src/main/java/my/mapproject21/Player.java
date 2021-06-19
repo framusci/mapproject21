@@ -68,6 +68,7 @@ public class Player implements Serializable {
             fileOut.close();
             System.out.println("Serialized data is saved in savegame.ser");
         } catch (IOException i) {
+            //Rivedere catch
             i.printStackTrace();
         }
     }
@@ -76,12 +77,14 @@ public class Player implements Serializable {
         try {
             FileInputStream fileIn = new FileInputStream("savePlayer.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
+            //Possibile fare this = (this) in.readObject();
             Player pl = (Player) in.readObject();
             in.close();
             fileIn.close();
             System.out.println("Serialized data loaded");
             return pl;
         } catch (IOException i) {
+            //Rivedere questi catch
             i.printStackTrace();
             return null;
         } catch (ClassNotFoundException c) {

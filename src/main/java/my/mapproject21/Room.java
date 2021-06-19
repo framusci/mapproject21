@@ -24,27 +24,27 @@ public class Room implements Serializable {
     private static final int DIRECTIONS = 4;
     
     public Room(){
-        this.rooms = new HashMap<>();
-        this.images = new HashMap<>();
+        rooms = new HashMap<>();
+        images = new HashMap<>();
     }
     
     //Set room and image
     public void setAdjacentRoom(int direction, String roomImg, Room room){
-        this.rooms.put(direction, room);
-        this.images.put(direction, roomImg);
+        rooms.put(direction, room);
+        images.put(direction, roomImg);
     }
     
     //Set only image (no adjacent room in that direction)
     public void setAdjacentRoom(int direction, String roomImg){
-        this.images.put(direction, roomImg);
+        images.put(direction, roomImg);
     }
     
     public Room getAdjacentRoom(int direction){
-        return this.rooms.get(Math.floorMod(direction, DIRECTIONS));
+        return rooms.get(Math.floorMod(direction, DIRECTIONS));
     }
     
     public String getImage(int direction){
-        return this.images.get(Math.floorMod(direction, DIRECTIONS));
+        return images.get(Math.floorMod(direction, DIRECTIONS));
     }
     
     public void save() {
@@ -56,6 +56,7 @@ public class Room implements Serializable {
             fileOut.close();
             System.out.println("Serialized data is saved in savegame.ser");
         } catch (IOException i) {
+            //Rivedere catch
             i.printStackTrace();
         }
     }
@@ -64,12 +65,14 @@ public class Room implements Serializable {
         try {
             FileInputStream fileIn = new FileInputStream("saveRoom.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
+            //TODO: possibile fare this = (this) in.readObject();
             Room room = (Room) in.readObject();
             in.close();
             fileIn.close();
             System.out.println("Serialized data loaded");
             return room;
         } catch (IOException i) {
+            //Rivedere questi catch
             i.printStackTrace();
             return null;
         } catch (ClassNotFoundException c) {

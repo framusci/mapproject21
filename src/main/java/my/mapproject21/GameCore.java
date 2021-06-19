@@ -38,7 +38,7 @@ public class GameCore {
     private Player player;
 
     public GameCore(Room startingRoom, Player player) {
-        this.currentRoom = startingRoom;
+        currentRoom = startingRoom;
         this.player = player;
     }
 
@@ -47,7 +47,7 @@ public class GameCore {
     }
 
     private void turn(final int direction) {
-        this.player.setFacingDirection(this.player.getFacingDirection() + direction);
+        player.setFacingDirection(player.getFacingDirection() + direction);
     }
 
     public void turnRight() {
@@ -59,16 +59,16 @@ public class GameCore {
     }
 
     private void walk(final int direction) {
-        if (this.currentRoom.getAdjacentRoom((player.getFacingDirection()) + direction) != null) {
-            this.currentRoom = this.currentRoom.getAdjacentRoom(player.getFacingDirection() + direction);
+        if (currentRoom.getAdjacentRoom((player.getFacingDirection()) + direction) != null) {
+            currentRoom = currentRoom.getAdjacentRoom(player.getFacingDirection() + direction);
         }
     }
 
     public void walkForward() {
-        this.walk(FORWARD);
+        walk(FORWARD);
     }
 
     public void walkBackwards() {
-        this.walk(BACKWARDS);
+        walk(BACKWARDS);
     }
 }

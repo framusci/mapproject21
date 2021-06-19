@@ -29,6 +29,7 @@ import java.util.Properties;
  *
  * @author franc
  */
+//Magari rifare con interfaccia? 
 public class Dialogue {
 
     private Statement stm;
@@ -51,13 +52,13 @@ public class Dialogue {
     }
 
     public Dialogue(String language) {
-        this.setLanguage(language);
+        setLanguage(language);
     }
 
     public Dialogue(String language, String dbURL, String user, String password) {
-        this.setLanguage(language);
+        setLanguage(language);
 
-        this.dbprops = new Properties();
+        dbprops = new Properties();
 
         try {
             this.conn = DriverManager.getConnection(dbURL, dbprops);
@@ -65,8 +66,8 @@ public class Dialogue {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
 
-        this.dbprops.setProperty("user", user);
-        this.dbprops.setProperty("password", password);
+        dbprops.setProperty("user", user);
+        dbprops.setProperty("password", password);
     }
 
     public String getNext() {
@@ -86,14 +87,14 @@ public class Dialogue {
     }
 
     public String getLanguage() {
-        return this.language;
+        return language;
     }
 
-    public void setDatabase(String dbURL, String user, String password) {
-        this.dbprops = new Properties();
+    public void setDatabase(String dbURL, String user, String password) { //Rivedere con costruttore
+        dbprops = new Properties();
 
         try {
-            this.conn = DriverManager.getConnection(dbURL, dbprops);
+            conn = DriverManager.getConnection(dbURL, dbprops);
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
