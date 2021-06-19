@@ -30,6 +30,7 @@ public class GameGUI extends javax.swing.JFrame {
     /**
      * Creates new form Interface
      */
+    //Rifare tutto con Core
     public GameGUI(String language, Room loadRoom, Player loadPlayer) {
         initComponents();
         initRooms();
