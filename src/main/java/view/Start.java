@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package my.mapproject21;
+package view;
 
+import core.GameCore;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
 
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 public class Start extends javax.swing.JFrame {
 
     private String language;
+
     /**
      * Creates new form NewJFrame
      */
@@ -128,9 +130,10 @@ public class Start extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if ((jRadioButton1.isSelected() || jRadioButton2.isSelected()) && !jTextField1.getText().isEmpty()) {
-            new GameGUI(language, jTextField1.getText()).setVisible(true);
+            new GameGUI(new GameCore()).setVisible(true);
             this.setVisible(false);
             GameGUI.main(null);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(Start.this, "Devi inserire una lingua e un nome.", "Errore!", JOptionPane.ERROR_MESSAGE);
         }
@@ -138,12 +141,10 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if ((jRadioButton1.isSelected() || jRadioButton2.isSelected()) && !jTextField1.getText().isEmpty()) {
-            new GameGUI(language, new Room().load(), new Player().load()).setVisible(true);
-            this.setVisible(false);
-            GameGUI.main(null);
-        }
-
+        new GameGUI(new GameCore().load()).setVisible(true);
+        this.setVisible(false);
+        GameGUI.main(null);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed

@@ -1,4 +1,4 @@
-package my.mapproject21;
+package core;
 
 /*
  * Copyright (C) 2021 franc
@@ -16,13 +16,12 @@ package my.mapproject21;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
 import java.util.Properties;
 
 /**
@@ -30,13 +29,13 @@ import java.util.Properties;
  * @author franc
  */
 //Magari rifare con interfaccia? 
-public class Dialogue {
+class Dialogue {
 
     private Statement stm;
     private ResultSet rs;
     private Connection conn;
-    private Properties dbprops;
     private String language;
+    private Properties dbprops;
 
     public Dialogue(String dbURL, String user, String password) {
         dbprops = new Properties();
@@ -50,9 +49,9 @@ public class Dialogue {
         dbprops.setProperty("user", user);
         dbprops.setProperty("password", password);
     }
-
-    public Dialogue(String language) {
-        setLanguage(language);
+    
+    public Dialogue() {
+        dbprops = new Properties();
     }
 
     public Dialogue(String language, String dbURL, String user, String password) {
@@ -86,21 +85,19 @@ public class Dialogue {
         this.language = language;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setDatabase(String dbURL, String user, String password) { //Rivedere con costruttore
-        dbprops = new Properties();
-
+    public void setDatabase(String dbURL, String user, String password) {
         try {
             conn = DriverManager.getConnection(dbURL, dbprops);
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
 
-        this.dbprops.setProperty("user", user);
-        this.dbprops.setProperty("password", password);
+        dbprops.setProperty("user", user);
+        dbprops.setProperty("password", password);
+    }
+    
+    public String getLanguage() {
+        return language;
     }
 
     public boolean hasNext() {

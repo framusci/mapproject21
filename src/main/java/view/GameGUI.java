@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package my.mapproject21;
+package view;
 
-import java.util.HashSet;
+import core.GameCore;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
@@ -14,63 +14,32 @@ import javax.swing.UIManager;
  * @author franc
  */
 public class GameGUI extends javax.swing.JFrame {
+
     public static final int NORTH = 0;
     public static final int WEST = 1;
     public static final int SOUTH = 2;
     public static final int EAST = 3;
 
-    static Room start;
-    static Room streetEmporium;
-    static Room emporium;
-
-    static Player player;
-    static Dialogue dialogue;
-    static GameCore core;
+    public static GameCore core;
 
     /**
      * Creates new form Interface
      */
-    //Rifare tutto con Core
-    public GameGUI(String language, Room loadRoom, Player loadPlayer) {
+    //Carica partita
+    public GameGUI(GameCore core) {
         initComponents();
-        initRooms();
-        dialogue.setLanguage(language);
-        
+
         jLabel3.setVisible(false);
-        core = new GameCore(loadRoom, loadPlayer);
-        dialogue = new Dialogue(language);
+        this.core = core;
     }
 
-    public GameGUI(String language, String playerName) {
+    //Nuova partita
+    public GameGUI(String language) {
         initComponents();
-        initRooms();
-        
+
         jLabel3.setVisible(false);
-        player = new Player();
-        core = new GameCore(start, player);
-        dialogue = new Dialogue(language);
-    }
-
-    private void initRooms() {
-        start = new Room();
-        streetEmporium = new Room();
-        emporium = new Room();
-
-        //Ricordati il .png alla fine...
-        start.setAdjacentRoom(EAST, "1_E.png");
-        start.setAdjacentRoom(SOUTH, "1_S.png");
-        start.setAdjacentRoom(WEST, "1_W.png");
-        start.setAdjacentRoom(NORTH, "1_N.png", streetEmporium);
-
-        streetEmporium.setAdjacentRoom(SOUTH, "2_S.png", start);
-        streetEmporium.setAdjacentRoom(EAST, "2_E.png", emporium);
-        streetEmporium.setAdjacentRoom(NORTH, "2_N.png");
-        streetEmporium.setAdjacentRoom(WEST, "2_W.png");
-
-        emporium.setAdjacentRoom(NORTH, "3_N.png");
-        emporium.setAdjacentRoom(EAST, "3_E.png");
-        emporium.setAdjacentRoom(SOUTH, "3_S.png");
-        emporium.setAdjacentRoom(WEST, "3_W.png", streetEmporium);
+        core = new GameCore();
+        core.setDialogueLanguage(language);
     }
 
     /**
@@ -262,8 +231,8 @@ public class GameGUI extends javax.swing.JFrame {
         }
          */
 
-        if (dialogue.hasNext()) {
-            jLabel3.setText("<html>" + dialogue.getNext() + "</html>");
+        if (core.hasNextDialogue()) {
+            jLabel3.setText("<html>" + core.getNextDialogue() + "</html>");
         } else {
             jLabel3.setVisible(false);
         }
@@ -271,32 +240,30 @@ public class GameGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         core.walkForward();
-        setImage(core.getCurrentRoom().getImage(player.getFacingDirection()), jLabel1);
+        setImage(core.getFacingImage(), jLabel1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         core.turnLeft();
-        setImage(core.getCurrentRoom().getImage(player.getFacingDirection()), jLabel1);
+        setImage(core.getFacingImage(), jLabel1);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         core.walkBackwards();
-        setImage(core.getCurrentRoom().getImage(player.getFacingDirection()), jLabel1);
+        setImage(core.getFacingImage(), jLabel1);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         core.turnRight();
-        setImage(core.getCurrentRoom().getImage(player.getFacingDirection()), jLabel1);
+        setImage(core.getFacingImage(), jLabel1);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        //s = jLabel1.getIcon().toString().substring(jLabel1.getIcon().toString().lastIndexOf('/') + 1).trim();
+        core.loadDialogue("select " + core.getDialogueLanguage() + " from Dialoghi where npc = 'Rudolf' order by id");
 
-        dialogue.loadDialogue("select ita from Dialoghi where npc = 'Rudolf' order by id");
-
-        if (dialogue.hasNext()) {
+        if (core.hasNextDialogue()) {
             jLabel3.setVisible(true);
-            jLabel3.setText(dialogue.getNext());
+            jLabel3.setText(core.getNextDialogue());
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -320,8 +287,8 @@ public class GameGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1PropertyChange
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        player.save();
-        core.getCurrentRoom().save();
+        core.save();
+        this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     public void setImage(String image, javax.swing.JLabel jLab) {
@@ -373,11 +340,8 @@ public class GameGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                dialogue.setDatabase("jdbc:h2:./resources/db/store", "sa", "");
-
-                //System.out.println(player.getFacingDirection());
-                System.out.println(core.getCurrentRoom().getImage(player.getFacingDirection()));
-                jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.getCurrentRoom().getImage(player.getFacingDirection()))));
+                core.setDialogueDatabase("jdbc:h2:./resources/db/store", "sa", "");
+                jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.getFacingImage())));
             }
         });
     }
