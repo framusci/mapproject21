@@ -16,18 +16,20 @@ package core;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import java.io.FileInputStream;
-import java.io.Serializable;
-import java.io.FileOutputStream;
+import com.google.gson.Gson;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.util.List;
 
 /**
  *
  * @author franc
  */
-public class GameCore implements Serializable, GameCoreInterface {
+public class GameCore implements GameCoreInterface {
 
     private static final int LEFT = 1;
     private static final int RIGHT = -1;
@@ -37,18 +39,39 @@ public class GameCore implements Serializable, GameCoreInterface {
     private Room currentRoom;
     private Player player;
     private Dialogue dialogue;
-    private Map gameMap;
+    private Level gameMap;
+    private SaveGame saveGame;
 
     public GameCore() {
-        gameMap = new Map();
+        gameMap = new Level();
         currentRoom = gameMap.getStartingRoom();
         player = new Player();
         dialogue = new Dialogue();
     }
 
     @Override
+    public void setPlayerName(String name){
+        player.setName(name);
+    }
+    
+    @Override
+    public List getPlayerInventory(){
+        return player.getInventory();
+    }
+    
+    @Override
+    public void addToInventory(Object item){
+        player.takeItem((String)item);
+    }
+    
+    @Override
+    public void removeFromInventory(Object item){
+        player.leaveItem((String)item);
+    }
+    
+    @Override
     public String getFacingImage() {
-        return currentRoom.getImage(getFacingDirection());
+        return currentRoom.getImage(player.getFacingDirection());
     }
 
     @Override
@@ -65,7 +88,7 @@ public class GameCore implements Serializable, GameCoreInterface {
     public String getPlayerName() {
         return player.getName();
     }
-    
+
     @Override
     public void setDialogueDatabase(String dbURL, String user, String password) {
         dialogue.setDatabase(dbURL, user, password);
@@ -123,37 +146,33 @@ public class GameCore implements Serializable, GameCoreInterface {
 
     @Override
     public void save() {
+        saveGame = new SaveGame(player.getName(), player.getFacingDirection(), currentRoom.getId(), player.getInventory(), dialogue.getLanguage());
+        
         try {
-            FileOutputStream fileOut = new FileOutputStream("saveGame.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(this);
-            out.close();
-            fileOut.close();
-            System.out.println("Serialized data is saved in saveGame.ser");
-        } catch (IOException i) {
-            //Rivedere catch
-            i.printStackTrace();
+            BufferedWriter outputStream = new BufferedWriter(new FileWriter("saveGame.json"));
+            outputStream.write(new Gson().toJson(saveGame));
+            outputStream.close();
+        } catch (IOException ioe) {
+            System.err.println(ioe);
         }
     }
 
     @Override
-    public GameCore load() {
+    public void load() {
         try {
-            FileInputStream fileIn = new FileInputStream("saveGame.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            GameCore gc = (GameCore) in.readObject();
-            in.close();
-            fileIn.close();
-            System.out.println("Serialized data loaded");
-            return gc;
-        } catch (IOException i) {
-            //Rivedere questi catch
-            i.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException c) {
-            System.out.println("Core class not found");
-            c.printStackTrace();
-            return null;
+            BufferedReader inputStream = new BufferedReader(new FileReader("saveGame.json"));
+            saveGame = new Gson().fromJson(inputStream, SaveGame.class);
+            inputStream.close();
+        } catch (FileNotFoundException fnfe) {
+            System.err.println(fnfe);
+        } catch (IOException ioe) {
+            System.err.println(ioe);
         }
+        
+        player.setName(saveGame.getPlayerName());
+        player.setFacingDirection(saveGame.getFacingDirection());
+        currentRoom = gameMap.getRoomById(saveGame.getRoomId());
+        player.setInventory(saveGame.getInventory());
+        dialogue.setLanguage(saveGame.getLanguage());
     }
 }

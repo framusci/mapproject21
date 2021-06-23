@@ -130,7 +130,7 @@ public class Start extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if ((jRadioButton1.isSelected() || jRadioButton2.isSelected()) && !jTextField1.getText().isEmpty()) {
-            new GameGUI(new GameCore()).setVisible(true);
+            new GameGUI(language, jTextField1.getText()).setVisible(true);
             this.setVisible(false);
             GameGUI.main(null);
             this.dispose();
@@ -141,7 +141,8 @@ public class Start extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new GameGUI(new GameCore().load()).setVisible(true);
+
+        new GameGUI().setVisible(true);
         this.setVisible(false);
         GameGUI.main(null);
         this.dispose();

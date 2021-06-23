@@ -17,11 +17,14 @@ class Room {
 
     private Map<Integer, Room> rooms;
     private Map<Integer, String> images;
+    private int id;
     private static final int DIRECTIONS = 4;
 
-    public Room() {
+    public Room(int id) {
         rooms = new HashMap<>();
         images = new HashMap<>();
+        //Al primo avvio vengono assegnati degli ID.
+        this.id = id;
     }
 
     //Set room and image
@@ -42,5 +45,8 @@ class Room {
     public String getImage(int direction) {
         return images.get(Math.floorMod(direction, DIRECTIONS));
     }
-
+    
+    public int getId(){
+        return id;
+    }
 }

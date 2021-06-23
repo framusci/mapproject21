@@ -6,6 +6,7 @@
 package view;
 
 import core.GameCore;
+import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
@@ -15,31 +16,35 @@ import javax.swing.UIManager;
  */
 public class GameGUI extends javax.swing.JFrame {
 
-    public static final int NORTH = 0;
-    public static final int WEST = 1;
-    public static final int SOUTH = 2;
-    public static final int EAST = 3;
+    static final int NORTH = 0;
+    static final int WEST = 1;
+    static final int SOUTH = 2;
+    static final int EAST = 3;
 
-    public static GameCore core;
+    static GameCore core;
 
     /**
      * Creates new form Interface
      */
     //Carica partita
-    public GameGUI(GameCore core) {
+    public GameGUI() {
         initComponents();
 
-        jLabel3.setVisible(false);
-        this.core = core;
+        core = new GameCore();
+        core.load();
+        core.getPlayerInventory().forEach((Object item) -> {
+            jComboBox1.addItem(item.toString());
+        });
     }
 
     //Nuova partita
-    public GameGUI(String language) {
+    public GameGUI(String language, String name) {
         initComponents();
 
         jLabel3.setVisible(false);
         core = new GameCore();
         core.setDialogueLanguage(language);
+        core.setPlayerName(name);
     }
 
     /**
@@ -53,10 +58,14 @@ public class GameGUI extends javax.swing.JFrame {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -91,6 +100,25 @@ public class GameGUI extends javax.swing.JFrame {
         jLayeredPane1.add(jLabel3);
         jLabel3.setBounds(380, 540, 530, 70);
 
+        jComboBox1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jComboBox1.setFocusable(false);
+        jLayeredPane1.add(jComboBox1);
+        jComboBox1.setBounds(1160, 40, 120, 30);
+
+        jPanel1.setLayout(null);
+
+        jButton10.setText("aaa");
+        jPanel1.add(jButton10);
+        jButton10.setBounds(160, 110, 250, 100);
+
+        jButton11.setText("b");
+        jPanel1.add(jButton11);
+        jButton11.setBounds(550, 213, 41, 60);
+
+        jLayeredPane1.add(jPanel1);
+        jPanel1.setBounds(190, 100, 910, 440);
+
         jButton7.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
         jButton7.setText("Salva ed esci");
         jButton7.setDefaultCapable(false);
@@ -104,23 +132,6 @@ public class GameGUI extends javax.swing.JFrame {
         jLayeredPane1.add(jButton7);
         jButton7.setBounds(0, 0, 160, 30);
 
-        jList1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jList1.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jList1.setMaximumSize(new java.awt.Dimension(25, 80));
-        jList1.setMinimumSize(new java.awt.Dimension(25, 80));
-        jList1.setPreferredSize(new java.awt.Dimension(25, 80));
-        jScrollPane1.setViewportView(jList1);
-
-        jLayeredPane1.add(jScrollPane1);
-        jScrollPane1.setBounds(1160, 40, 120, 130);
-
         jLabel2.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Inventario");
@@ -128,6 +139,25 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel2.setOpaque(true);
         jLayeredPane1.add(jLabel2);
         jLabel2.setBounds(1160, 0, 120, 40);
+
+        jButton8.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
+        jButton8.setText("Osserva");
+        jButton8.setFocusPainted(false);
+        jButton8.setFocusable(false);
+        jLayeredPane1.add(jButton8);
+        jButton8.setBounds(380, 610, 260, 30);
+
+        jButton9.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
+        jButton9.setText("Mostra");
+        jButton9.setFocusPainted(false);
+        jButton9.setFocusable(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jLayeredPane1.add(jButton9);
+        jButton9.setBounds(1160, 70, 120, 30);
 
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -178,11 +208,16 @@ public class GameGUI extends javax.swing.JFrame {
         jButton4.setBounds(1100, 170, 180, 370);
 
         jButton5.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
-        jButton5.setText("Osserva");
+        jButton5.setText("Usa");
         jButton5.setFocusPainted(false);
         jButton5.setFocusable(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jLayeredPane1.add(jButton5);
-        jButton5.setBounds(380, 610, 260, 30);
+        jButton5.setBounds(1160, 100, 120, 30);
 
         jButton6.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
         jButton6.setText("Parla");
@@ -291,15 +326,28 @@ public class GameGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    public void setImage(String image, javax.swing.JLabel jLab) {
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void setImage(String image, javax.swing.JLabel jLab) {
         //System.out.println(getClass().getResource("/" + image));
         //jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.currentRoom.getImage(player.getFacingDirection()))));
         jLab.setIcon(new ImageIcon(getClass().getResource("/" + image)));
     }
 
-    public void setImage(String image, javax.swing.JButton jBut) {
+    private void setImage(String image, javax.swing.JButton jBut) {
         //System.out.println(getClass().getResource("/" + image));
         jBut.setIcon(new ImageIcon(getClass().getResource("/" + image)));
+    }
+
+    private static void addItem(String item) {
+        core.addToInventory(item);
+        jComboBox1.addItem(item);
     }
 
     /**
@@ -340,7 +388,8 @@ public class GameGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                core.setDialogueDatabase("jdbc:h2:./resources/db/store", "sa", "");
+                core.setDialogueDatabase("jdbc:h2:./db/store", "sa", "");
+                
                 jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.getFacingImage())));
             }
         });
@@ -348,17 +397,21 @@ public class GameGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private static javax.swing.JComboBox<String> jComboBox1;
     private static javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

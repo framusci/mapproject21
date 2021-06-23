@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author franc
  */
-//Possibile fare Player extends Character
+
 class Player {
     private String name;
     private List<String> inventory;
@@ -38,6 +38,14 @@ class Player {
     
     public int getFacingDirection(){
         return facingDirection;
+    }
+    
+    public List getInventory(){
+        return inventory;
+    }
+    
+    public void setInventory(List inventory){
+        this.inventory = inventory;
     }
     
     public String getName(){
