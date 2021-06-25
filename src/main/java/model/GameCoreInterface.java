@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core;
+package model;
 
 /**
  *
@@ -27,10 +27,10 @@ public interface GameCoreInterface {
     Object getNextDialogue();
 
     void setDialogueDatabase(String dbURL, String user, String password);
+    
+    Object getObservation();
 
-    boolean hasNextDialogue();
-
-    void loadDialogue(String query);
+    void loadDialogue();
 
     void setDialogueLanguage(String language);
 

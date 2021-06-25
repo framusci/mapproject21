@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core;
+package model;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ class SaveGame {
     private String name;
     private int facingDirection;
     private int roomId;
-    private List inventory;
+    private List<Item> inventory;
     private String language;
     
     public SaveGame(String name, int facingDirection, int roomId, List inventory, String language) {

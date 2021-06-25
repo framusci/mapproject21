@@ -1,4 +1,4 @@
-package core;
+package model;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,7 +23,6 @@ class Room {
     public Room(int id) {
         rooms = new HashMap<>();
         images = new HashMap<>();
-        //Al primo avvio vengono assegnati degli ID.
         this.id = id;
     }
 

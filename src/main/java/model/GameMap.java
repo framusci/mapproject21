@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core;
+package model;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.HashMap;
  *
  * @author franc
  */
-class Level {
+class GameMap {
     static Room start;
     static Room streetEmporium;
     static Room emporium;
@@ -22,7 +22,7 @@ class Level {
     public static final int SOUTH = 2;
     public static final int EAST = 3;
     
-    public Level() {
+    public GameMap() {
         start = new Room(1);
         streetEmporium = new Room(2);
         emporium = new Room(3);

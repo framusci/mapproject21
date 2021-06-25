@@ -1,4 +1,4 @@
-package core;
+package model;
 
 /*
  * Copyright (C) 2021 franc
@@ -39,14 +39,16 @@ public class GameCore implements GameCoreInterface {
     private Room currentRoom;
     private Player player;
     private Dialogue dialogue;
-    private Level gameMap;
+    private GameMap gameMap;
     private SaveGame saveGame;
 
     public GameCore() {
-        gameMap = new Level();
+        gameMap = new GameMap();
         currentRoom = gameMap.getStartingRoom();
         player = new Player();
         dialogue = new Dialogue();
+        dialogue.setDatabase("jdbc:h2:./db/store", "sa", "");
+        //dialogue.init();
     }
 
     @Override
@@ -57,6 +59,19 @@ public class GameCore implements GameCoreInterface {
     @Override
     public List getPlayerInventory(){
         return player.getInventory();
+    }
+    
+    public void loadObservation(){
+        dialogue.loadQuery("select " + dialogue.getLanguage() + ", npc from Dialoghi where roomId = " + currentRoom.getId() + " AND facingDirection = " + player.getFacingDirection() + " AND npc = '$playerName$' order by sequence");
+    } 
+    
+    public int getRoomId(){
+        return currentRoom.getId();
+    }
+    
+    @Override
+    public String[] getObservation(){
+        return dialogue.getNext();
     }
     
     @Override
@@ -80,7 +95,7 @@ public class GameCore implements GameCoreInterface {
     }
 
     @Override
-    public String getNextDialogue() {
+    public String[] getNextDialogue() {
         return dialogue.getNext();
     }
 
@@ -95,13 +110,8 @@ public class GameCore implements GameCoreInterface {
     }
 
     @Override
-    public boolean hasNextDialogue() {
-        return dialogue.hasNext();
-    }
-
-    @Override
-    public void loadDialogue(String query) {
-        dialogue.loadDialogue(query);
+    public void loadDialogue() {
+        dialogue.loadQuery("select " + dialogue.getLanguage() + ", npc from Dialoghi where roomId = " + currentRoom.getId() + " AND facingDirection = " + player.getFacingDirection() + " AND npc != '$playerName$' order by sequence");
     }
 
     @Override
@@ -114,10 +124,6 @@ public class GameCore implements GameCoreInterface {
         return dialogue.getLanguage();
     }
 
-    private void turn(final int direction) {
-        player.setFacingDirection(player.getFacingDirection() + direction);
-    }
-
     @Override
     public void turnRight() {
         turn(RIGHT);
@@ -126,12 +132,6 @@ public class GameCore implements GameCoreInterface {
     @Override
     public void turnLeft() {
         turn(LEFT);
-    }
-
-    private void walk(final int direction) {
-        if (currentRoom.getAdjacentRoom((player.getFacingDirection()) + direction) != null) {
-            currentRoom = currentRoom.getAdjacentRoom(player.getFacingDirection() + direction);
-        }
     }
 
     @Override
@@ -174,5 +174,15 @@ public class GameCore implements GameCoreInterface {
         currentRoom = gameMap.getRoomById(saveGame.getRoomId());
         player.setInventory(saveGame.getInventory());
         dialogue.setLanguage(saveGame.getLanguage());
+    }
+    
+    private void turn(final int direction) {
+        player.setFacingDirection(player.getFacingDirection() + direction);
+    }
+ 
+    private void walk(final int direction) {
+        if (currentRoom.getAdjacentRoom((player.getFacingDirection()) + direction) != null) {
+            currentRoom = currentRoom.getAdjacentRoom(player.getFacingDirection() + direction);
+        }
     }
 }

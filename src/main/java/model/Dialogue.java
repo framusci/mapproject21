@@ -1,4 +1,4 @@
-package core;
+package model;
 
 /*
  * Copyright (C) 2021 franc
@@ -49,9 +49,22 @@ class Dialogue {
         dbprops.setProperty("user", user);
         dbprops.setProperty("password", password);
     }
-    
+
     public Dialogue() {
         dbprops = new Properties();
+    }
+
+    public void init() {
+
+        try {
+            stm = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stm.executeUpdate("create table if not exists Dialoghi (sequence int, roomId int, facingDirection int, ita varchar, eng varchar, npc varchar)");
+            stm.executeUpdate("insert into Dialoghi values (1, 3, 2, 'Ciao!', 'Hello!', 'Rudolf')");
+            stm.executeUpdate("insert into Dialoghi values (2, 3, 2, 'Torna quando sei un po'' più... ricco!', 'Come back when you''re a little... richer!', 'Rudolf')");
+            stm.executeUpdate("insert into Dialoghi values (1, 1, 1,'Perché mi guarda male?', 'Why does he look at me that way?', '$playerName$')");
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
     }
 
     public Dialogue(String language, String dbURL, String user, String password) {
@@ -69,16 +82,19 @@ class Dialogue {
         dbprops.setProperty("password", password);
     }
 
-    public String getNext() {
+    public String[] getNext() {
+        String[] query = {"", ""};
+        
         try {
             if (rs.next()) {
-                return rs.getString(1);
+                query[0] = rs.getString(getLanguage());
+                query[1] = rs.getString("npc");
             }
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
-
-        return null;
+        
+        return query;
     }
 
     public void setLanguage(String language) {
@@ -95,25 +111,12 @@ class Dialogue {
         dbprops.setProperty("user", user);
         dbprops.setProperty("password", password);
     }
-    
+
     public String getLanguage() {
         return language;
     }
 
-    public boolean hasNext() {
-        try {
-            if (rs.next()) {
-                rs.previous();
-                return true;
-            }
-        } catch (SQLException ex) {
-            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
-        }
-
-        return false;
-    }
-
-    public void loadDialogue(String query) {
+    public void loadQuery(String query) {
         try {
             stm = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = stm.executeQuery(query);
