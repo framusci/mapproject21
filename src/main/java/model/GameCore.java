@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @author franc
  */
-public class GameCore implements GameCoreInterface {
+public class GameCore {
 
     private static final int LEFT = 1;
     private static final int RIGHT = -1;
@@ -48,103 +48,79 @@ public class GameCore implements GameCoreInterface {
         player = new Player();
         dialogue = new Dialogue();
         dialogue.setDatabase("jdbc:h2:./db/store", "sa", "");
-        //dialogue.init();
+        dialogue.init();
     }
 
-    @Override
     public void setPlayerName(String name){
         player.setName(name);
     }
     
-    @Override
     public List getPlayerInventory(){
         return player.getInventory();
     }
     
-    public void loadObservation(){
-        dialogue.loadQuery("select " + dialogue.getLanguage() + ", npc from Dialoghi where roomId = " + currentRoom.getId() + " AND facingDirection = " + player.getFacingDirection() + " AND npc = '$playerName$' order by sequence");
+    public String[] loadObservation(){
+        dialogue.loadQuery("select " + dialogue.getLanguage() + ", npc from Dialoghi where roomId = " + currentRoom.getId() + " AND facingDirection = " + player.getFacingDirection() + " AND npc = 'player'");
+        return dialogue.getDialogue();
     } 
     
     public int getRoomId(){
         return currentRoom.getId();
     }
     
-    @Override
-    public String[] getObservation(){
-        return dialogue.getNext();
-    }
-    
-    @Override
     public void addToInventory(Object item){
         player.takeItem((String)item);
     }
     
-    @Override
     public void removeFromInventory(Object item){
         player.leaveItem((String)item);
     }
     
-    @Override
     public String getFacingImage() {
         return currentRoom.getImage(player.getFacingDirection());
     }
 
-    @Override
     public int getFacingDirection() {
         return player.getFacingDirection();
     }
 
-    @Override
-    public String[] getNextDialogue() {
-        return dialogue.getNext();
-    }
-
-    @Override
     public String getPlayerName() {
         return player.getName();
     }
 
-    @Override
     public void setDialogueDatabase(String dbURL, String user, String password) {
         dialogue.setDatabase(dbURL, user, password);
     }
 
-    @Override
-    public void loadDialogue() {
-        dialogue.loadQuery("select " + dialogue.getLanguage() + ", npc from Dialoghi where roomId = " + currentRoom.getId() + " AND facingDirection = " + player.getFacingDirection() + " AND npc != '$playerName$' order by sequence");
+    public String[] loadDialogue() {
+        dialogue.loadQuery("select " + dialogue.getLanguage() + ", npc from Dialoghi where roomId = " + currentRoom.getId() + " AND facingDirection = " + player.getFacingDirection() + " AND npc != 'player'");
+        return dialogue.getDialogue();
     }
 
-    @Override
     public void setDialogueLanguage(String language) {
         dialogue.setLanguage(language);
     }
 
-    @Override
     public String getDialogueLanguage() {
         return dialogue.getLanguage();
     }
 
-    @Override
     public void turnRight() {
         turn(RIGHT);
     }
 
-    @Override
     public void turnLeft() {
         turn(LEFT);
     }
 
-    @Override
     public void walkForward() {
         walk(FORWARD);
     }
 
-    @Override
     public void walkBackwards() {
         walk(BACKWARDS);
     }
 
-    @Override
     public void save() {
         saveGame = new SaveGame(player.getName(), player.getFacingDirection(), currentRoom.getId(), player.getInventory(), dialogue.getLanguage());
         
@@ -157,7 +133,6 @@ public class GameCore implements GameCoreInterface {
         }
     }
 
-    @Override
     public void load() {
         try {
             BufferedReader inputStream = new BufferedReader(new FileReader("saveGame.json"));

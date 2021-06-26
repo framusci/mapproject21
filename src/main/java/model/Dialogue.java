@@ -16,7 +16,6 @@ package model;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -55,13 +54,14 @@ class Dialogue {
     }
 
     public void init() {
-
         try {
             stm = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            stm.executeUpdate("create table if not exists Dialoghi (sequence int, roomId int, facingDirection int, ita varchar, eng varchar, npc varchar)");
-            stm.executeUpdate("insert into Dialoghi values (1, 3, 2, 'Ciao!', 'Hello!', 'Rudolf')");
-            stm.executeUpdate("insert into Dialoghi values (2, 3, 2, 'Torna quando sei un po'' più... ricco!', 'Come back when you''re a little... richer!', 'Rudolf')");
-            stm.executeUpdate("insert into Dialoghi values (1, 1, 1,'Perché mi guarda male?', 'Why does he look at me that way?', '$playerName$')");
+            stm.executeUpdate("drop table if exists Dialoghi");
+            stm.executeUpdate("create table Dialoghi (roomId int, facingDirection int, npc varchar, condition varchar, ita varchar, eng varchar)");
+            stm.executeUpdate("insert into Dialoghi values (3, 2, 'Rudolf', null, 'Olio da lampada, corde, bombe, li vuoi?\nSono tuoi, amico mio, ma solo se te li puoi permettere.\nDevi scusarmi, $playerName, ma non ti posso far credito: torna quando sarai un po'' più... ricco!','Lamp oil, rope, bombs, you want it?\nIt''s yours, my friend, as long as you have enough money.\nI''m sorry, I can''t give credit: come back when you''re a little... richer!')");
+            stm.executeUpdate("insert into Dialoghi values (3, 2, 'Rudolf', 'sword', 'Ah, vedo che hai una spada...', 'Oh, I see you''ve got a sword...')");
+            stm.executeUpdate("insert into Dialoghi values (1, 1, '???', null, 'Ehi, cosa guardi?', 'Hey, what are you looking at?')");
+            stm.executeUpdate("insert into Dialoghi values (2, 1, 'Jarl', null, 'Uno spettro si aggira per Riverwoord...\nSei la nostra ultima speranza, $playerName.', 'A spectre is haunting Riverwood...\nYou''re our last hope, $playerName.')");
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
@@ -82,18 +82,17 @@ class Dialogue {
         dbprops.setProperty("password", password);
     }
 
-    public String[] getNext() {
+    public String[] getDialogue() {
         String[] query = {"", ""};
-        
+
         try {
-            if (rs.next()) {
-                query[0] = rs.getString(getLanguage());
-                query[1] = rs.getString("npc");
-            }
+            rs.next();
+            query[0] = rs.getString(getLanguage());
+            query[1] = rs.getString("npc");
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
-        
+
         return query;
     }
 

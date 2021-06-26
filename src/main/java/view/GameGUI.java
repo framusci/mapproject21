@@ -6,9 +6,11 @@
 package view;
 
 import java.awt.CardLayout;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import model.GameCore;
-import java.io.Serializable;
-import javafx.scene.Cursor;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
@@ -16,7 +18,7 @@ import javax.swing.UIManager;
  *
  * @author franc
  */
-public class GameGUI extends javax.swing.JFrame implements Serializable {
+public class GameGUI extends javax.swing.JFrame {
 
     static final int NORTH = 0;
     static final int WEST = 1;
@@ -25,6 +27,7 @@ public class GameGUI extends javax.swing.JFrame implements Serializable {
 
     static GameCore core;
     static CardLayout cl;
+    static Iterator dialogue;
 
     /**
      * Creates new form Interface
@@ -238,7 +241,6 @@ public class GameGUI extends javax.swing.JFrame implements Serializable {
         jButton10.setDefaultCapable(false);
         jButton10.setDoubleBuffered(true);
         jButton10.setFocusPainted(false);
-        jButton10.setOpaque(false);
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -285,7 +287,6 @@ public class GameGUI extends javax.swing.JFrame implements Serializable {
         jLayeredPane1.add(jPanel1);
         jPanel1.setBounds(0, 0, 1280, 720);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/3_S.png"))); // NOI18N
         jLabel1.setMinimumSize(new java.awt.Dimension(10, 20));
         jLabel1.setPreferredSize(new java.awt.Dimension(20, 20));
         jLabel1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -347,7 +348,12 @@ public class GameGUI extends javax.swing.JFrame implements Serializable {
     }//GEN-LAST:event_jLabel1PropertyChange
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        displayDialogue(core.getNextDialogue());
+        if(dialogue.hasNext()){
+            jLabel4.setText("<html>" + dialogue.next() + "</html>");
+        } else {
+            jLabel4.setVisible(false);
+            jLabel3.setVisible(false);
+        }
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -355,13 +361,11 @@ public class GameGUI extends javax.swing.JFrame implements Serializable {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        core.loadDialogue();
-        displayDialogue(core.getNextDialogue());
+        displayDialogue(core.loadDialogue());
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        core.loadObservation();
-        displayDialogue(core.getNextDialogue());
+        displayDialogue(core.loadDialogue());
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -381,12 +385,14 @@ public class GameGUI extends javax.swing.JFrame implements Serializable {
     }
 
     private void displayDialogue(String[] query) {
-        query[1] = query[1].replace("$playerName$", core.getPlayerName());
-        query[0] = query[0].replace("$playerName$", core.getPlayerName());
-
-        if (!query[0].isEmpty()) {
+        query[0] = query[0].replace("$playerName", core.getPlayerName());
+        List d = new ArrayList<>();
+        d.addAll(Arrays.asList(query[0].split("\\n")));
+        dialogue = d.iterator();
+        
+        if (dialogue.hasNext()) {
             jLabel3.setText(query[1]);
-            jLabel4.setText("<html>" + query[0] + "</html>");
+            jLabel4.setText("<html>" + dialogue.next() + "</html>");
             jLabel3.setVisible(true);
             jLabel4.setVisible(true);
         } else {
@@ -442,7 +448,6 @@ public class GameGUI extends javax.swing.JFrame implements Serializable {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                
                 jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.getFacingImage())));
             }
         });
