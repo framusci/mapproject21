@@ -15,15 +15,13 @@ class SaveGame {
     private String name;
     private int facingDirection;
     private int roomId;
-    private List<Item> inventory;
-    private String language;
+    private List<String> inventory;
     
-    public SaveGame(String name, int facingDirection, int roomId, List inventory, String language) {
+    public SaveGame(String name, int facingDirection, int roomId, List inventory) {
         this.name = name;
         this.facingDirection = facingDirection;
         this.roomId = roomId;
         this.inventory = inventory;
-        this.language = language;
     }
     
     public String getPlayerName(){
@@ -40,9 +38,5 @@ class SaveGame {
     
     public List getInventory(){
         return inventory;
-    }
-    
-    public String getLanguage(){
-        return language;
     }
 }

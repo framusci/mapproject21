@@ -13,13 +13,6 @@
     </properties>
     
     <dependencies>
-        
-        <dependency>
-            <groupId>org.netbeans.external</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>RELEASE123</version>
-        </dependency>
-        
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -40,7 +33,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>view.Start</mainClass>
+                            <mainClass>view.GameGUI</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

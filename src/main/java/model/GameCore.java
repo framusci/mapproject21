@@ -35,12 +35,16 @@ public class GameCore {
     private static final int RIGHT = -1;
     private static final int FORWARD = 0;
     private static final int BACKWARDS = 2;
+    public static final String WIN = JabberServer.WIN_PHRASE;
+    public static final String LOSE = JabberServer.LOSE_PHRASE;
 
     private Room currentRoom;
     private Player player;
     private Dialogue dialogue;
     private GameMap gameMap;
     private SaveGame saveGame;
+    private JabberClient playerClient;
+    private JabberServer server;
 
     public GameCore() {
         gameMap = new GameMap();
@@ -49,33 +53,47 @@ public class GameCore {
         dialogue = new Dialogue();
         dialogue.setDatabase("jdbc:h2:./db/store", "sa", "");
         dialogue.init();
+        playerClient = new JabberClient();
+        server = new JabberServer();
+    }
+    
+    public void startMiniGame(){
+        server.start();
+        playerClient.run();
+    }
+    
+    public void guessGame(String s){
+        playerClient.attempt(s);
+    }
+    
+    public String getGameResult(){
+        return playerClient.getResult();
+    }
+    
+    public enum dialogues {
+        RUDOLF_FIRST, RUDOLF_SWORD, GUARD, KID_FIRST, KID_LOSE, KID_WIN, JARL_FIRST, JARL_END,
     }
 
-    public void setPlayerName(String name){
+    public void setPlayerName(String name) {
         player.setName(name);
     }
-    
-    public List getPlayerInventory(){
+
+    public List getPlayerInventory() {
         return player.getInventory();
     }
-    
-    public String[] loadObservation(){
-        dialogue.loadQuery("select " + dialogue.getLanguage() + ", npc from Dialoghi where roomId = " + currentRoom.getId() + " AND facingDirection = " + player.getFacingDirection() + " AND npc = 'player'");
-        return dialogue.getDialogue();
-    } 
-    
-    public int getRoomId(){
+
+    public int getRoomId() {
         return currentRoom.getId();
     }
-    
-    public void addToInventory(Object item){
-        player.takeItem((String)item);
+
+    public void addToInventory(String item) {
+        player.takeItem(item);
     }
-    
-    public void removeFromInventory(Object item){
-        player.leaveItem((String)item);
+
+    public void removeFromInventory(String item) {
+        player.leaveItem(item);
     }
-    
+
     public String getFacingImage() {
         return currentRoom.getImage(player.getFacingDirection());
     }
@@ -92,17 +110,9 @@ public class GameCore {
         dialogue.setDatabase(dbURL, user, password);
     }
 
-    public String[] loadDialogue() {
-        dialogue.loadQuery("select " + dialogue.getLanguage() + ", npc from Dialoghi where roomId = " + currentRoom.getId() + " AND facingDirection = " + player.getFacingDirection() + " AND npc != 'player'");
+    public String[] loadDialogue(dialogues dl) {
+        dialogue.loadQuery("select text, npc from Dialoghi where id = " + dl.ordinal());
         return dialogue.getDialogue();
-    }
-
-    public void setDialogueLanguage(String language) {
-        dialogue.setLanguage(language);
-    }
-
-    public String getDialogueLanguage() {
-        return dialogue.getLanguage();
     }
 
     public void turnRight() {
@@ -122,8 +132,8 @@ public class GameCore {
     }
 
     public void save() {
-        saveGame = new SaveGame(player.getName(), player.getFacingDirection(), currentRoom.getId(), player.getInventory(), dialogue.getLanguage());
-        
+        saveGame = new SaveGame(player.getName(), player.getFacingDirection(), currentRoom.getId(), player.getInventory());
+
         try {
             BufferedWriter outputStream = new BufferedWriter(new FileWriter("saveGame.json"));
             outputStream.write(new Gson().toJson(saveGame));
@@ -143,18 +153,17 @@ public class GameCore {
         } catch (IOException ioe) {
             System.err.println(ioe);
         }
-        
+
         player.setName(saveGame.getPlayerName());
         player.setFacingDirection(saveGame.getFacingDirection());
         currentRoom = gameMap.getRoomById(saveGame.getRoomId());
         player.setInventory(saveGame.getInventory());
-        dialogue.setLanguage(saveGame.getLanguage());
     }
-    
+
     private void turn(final int direction) {
         player.setFacingDirection(player.getFacingDirection() + direction);
     }
- 
+
     private void walk(final int direction) {
         if (currentRoom.getAdjacentRoom((player.getFacingDirection()) + direction) != null) {
             currentRoom = currentRoom.getAdjacentRoom(player.getFacingDirection() + direction);
