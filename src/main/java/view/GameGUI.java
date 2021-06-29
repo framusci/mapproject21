@@ -13,9 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import model.GameCore;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.GameCore.dialogues;
@@ -64,16 +62,16 @@ public class GameGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        jButton7 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
@@ -91,8 +89,8 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jButton13 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
         jButton14 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -102,20 +100,6 @@ public class GameGUI extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jLayeredPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jButton7.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
-        jButton7.setText("Salva ed esci");
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton7.setDefaultCapable(false);
-        jButton7.setFocusPainted(false);
-        jButton7.setFocusable(false);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jLayeredPane1.add(jButton7);
-        jButton7.setBounds(0, 0, 160, 30);
 
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -153,20 +137,6 @@ public class GameGUI extends javax.swing.JFrame {
         jLayeredPane1.add(jButton2);
         jButton2.setBounds(410, 670, 490, 50);
 
-        jButton9.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
-        jButton9.setText("Esamina");
-        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton9.setDefaultCapable(false);
-        jButton9.setFocusPainted(false);
-        jButton9.setFocusable(false);
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jLayeredPane1.add(jButton9);
-        jButton9.setBounds(1160, 30, 120, 30);
-
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -178,14 +148,6 @@ public class GameGUI extends javax.swing.JFrame {
         });
         jLayeredPane1.add(jButton4);
         jButton4.setBounds(1180, 170, 100, 370);
-
-        jButton5.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
-        jButton5.setText("Usa");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton5.setFocusPainted(false);
-        jButton5.setFocusable(false);
-        jLayeredPane1.add(jButton5);
-        jButton5.setBounds(1160, 60, 120, 30);
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
@@ -201,6 +163,49 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel3.setOpaque(true);
         jLayeredPane1.add(jLabel3);
         jLabel3.setBounds(380, 560, 220, 40);
+
+        jButton7.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
+        jButton7.setText("Salva ed esci");
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.setDefaultCapable(false);
+        jButton7.setFocusPainted(false);
+        jButton7.setFocusable(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jLayeredPane1.add(jButton7);
+        jButton7.setBounds(1120, 0, 160, 30);
+
+        jButton5.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
+        jButton5.setText("Usa");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.setFocusPainted(false);
+        jButton5.setFocusable(false);
+        jLayeredPane1.add(jButton5);
+        jButton5.setBounds(100, 30, 100, 30);
+
+        jButton9.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
+        jButton9.setText("Esamina");
+        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton9.setDefaultCapable(false);
+        jButton9.setFocusPainted(false);
+        jButton9.setFocusable(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jLayeredPane1.add(jButton9);
+        jButton9.setBounds(0, 30, 100, 30);
+
+        jComboBox1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 1));
+        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox1.setFocusable(false);
+        jLayeredPane1.add(jComboBox1);
+        jComboBox1.setBounds(0, 0, 200, 30);
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
@@ -221,13 +226,6 @@ public class GameGUI extends javax.swing.JFrame {
         });
         jLayeredPane1.add(jLabel4);
         jLabel4.setBounds(380, 600, 530, 70);
-
-        jComboBox1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jComboBox1.setFocusable(false);
-        jLayeredPane1.add(jComboBox1);
-        jComboBox1.setBounds(1160, 0, 120, 30);
 
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.setEnabled(false);
@@ -360,26 +358,24 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel6.add(jButton13);
         jButton13.setBounds(740, 393, 70, 110);
 
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField2KeyReleased(evt);
-            }
-        });
-        jPanel6.add(jTextField2);
-        jTextField2.setBounds(630, 560, 50, 30);
-
         jButton14.setText("Tenta");
-        jButton14.setDefaultCapable(false);
         jButton14.setEnabled(false);
         jButton14.setFocusPainted(false);
-        jButton14.setFocusable(false);
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton14ActionPerformed(evt);
             }
         });
         jPanel6.add(jButton14);
-        jButton14.setBounds(690, 560, 170, 30);
+        jButton14.setBounds(760, 500, 140, 30);
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
+        jPanel6.add(jTextField2);
+        jTextField2.setBounds(700, 500, 50, 30);
 
         jPanel1.add(jPanel6, "card6");
 
@@ -436,7 +432,6 @@ public class GameGUI extends javax.swing.JFrame {
                 cl.show(jPanel1, "card3");
             } else if (core.getRoomId() == 4 && core.getFacingDirection() == 3) {
                 cl.show(jPanel1, "card6");
-
             } else {
                 cl.show(jPanel1, "card4");
             }
@@ -510,6 +505,7 @@ public class GameGUI extends javax.swing.JFrame {
         displayDialogue(core.loadDialogue(dialogues.KID_FIRST));
         jTextField2.setVisible(true);
         jButton14.setVisible(true);
+        jButton13.setVisible(false);
         core.startMiniGame();
     }//GEN-LAST:event_jButton13ActionPerformed
 
@@ -527,20 +523,22 @@ public class GameGUI extends javax.swing.JFrame {
             core.guessGame(jTextField2.getText());
             jLabel4.setVisible(true);
             jLabel4.setText("<html>" + core.getGameResult().replace(". ", ".<br>") + "</html>");
+            
+            String result = jLabel4.getText();
 
-            if (jLabel4.getText().contains(GameCore.WIN)) {
-                jTextField2.setVisible(false);
+            if (result.contains(GameCore.WIN) || result.contains(GameCore.LOSE)) {
                 jTextField2.setText("");
-                jButton14.setVisible(false);
-                displayDialogue(core.loadDialogue(dialogues.KID_WIN));
-                addItem("Chiave");
-            } else if (jLabel4.getText().contains(GameCore.LOSE)) {
-                jTextField2.setVisible(false);
-                jTextField2.setText("");
-                jButton14.setVisible(false);
-                displayDialogue(core.loadDialogue(dialogues.KID_LOSE));
+                
+                if(result.contains(GameCore.WIN)){
+                    jTextField2.setVisible(false);
+                    jButton14.setVisible(false);
+                    displayDialogue(core.loadDialogue(dialogues.KID_WIN));
+                    addItem("Biscottino");
+                } else if (result.contains(GameCore.LOSE)){
+                    displayDialogue(core.loadDialogue(dialogues.KID_LOSE));
+                }
+                
             }
-
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(jPanel1, "Errore! Inserire solo numeri.");
         }

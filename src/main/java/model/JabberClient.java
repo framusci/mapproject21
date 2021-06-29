@@ -18,7 +18,7 @@ import java.net.Socket;
  *
  * @author franc
  */
-public class JabberClient {
+class JabberClient {
 
     private static Socket socket;
     private static BufferedReader in;
@@ -43,7 +43,7 @@ public class JabberClient {
     public String getResult() {
         try {
             return in.readLine();
-        } catch (Exception ioe) {
+        } catch (IOException ioe) {
             System.err.println(ioe);
         }
         

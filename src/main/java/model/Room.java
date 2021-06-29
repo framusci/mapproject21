@@ -14,7 +14,6 @@ import java.util.HashMap;
  * @author franc
  */
 class Room {
-
     private Map<Integer, Room> rooms;
     private Map<Integer, String> images;
     private int id;

@@ -55,15 +55,15 @@ class Dialogue {
     public void init() {
         try {
             stm = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            stm.executeUpdate("drop table if exists Dialoghi");
+            stm.executeUpdate("drop table if exists Dialoghi"); //table if exists fare con controllo file
             stm.executeUpdate("create table if not exists Dialoghi (id int primary key, npc varchar, text varchar)");
             stm.executeUpdate("insert into Dialoghi values (" + dialogues.RUDOLF_FIRST.ordinal() + ", 'Rudolf', 'Olio da lampada, corde, bombe, li vuoi?§Sono tuoi, amico mio, ma solo se te li puoi permettere.§Devi scusarmi, $playerName, ma non ti posso far credito: torna quando sarai un po'' più... ricco!')");
             stm.executeUpdate("insert into Dialoghi values (" + dialogues.RUDOLF_SWORD.ordinal() + ", 'Rudolf', 'Ah, vedo che hai una spada...')");
             stm.executeUpdate("insert into Dialoghi values (" + dialogues.GUARD.ordinal() + ", '???', 'Ehi, cosa guardi?')");
             stm.executeUpdate("insert into Dialoghi values (" + dialogues.JARL_FIRST.ordinal() + ", 'Jarl', 'Uno spettro si aggira per Riverwoord...§Sei la nostra ultima speranza, $playerName.')");
-            stm.executeUpdate("insert into Dialoghi values (" + dialogues.KID_FIRST.ordinal() + ", 'Bimbo', '$playerName! $playerName!§Ti sfido!§Io invento un numero di quattro cifre e tu lo dovrai indovinare.§Tu mi dirai un numero e io ti dirò: quante cifre sono giuste nella posizione giusta, quante cifre sono giuste nella posizione sbagliata.§Attento: non inserire cifre ripetute nel numero.')");
+            stm.executeUpdate("insert into Dialoghi values (" + dialogues.KID_FIRST.ordinal() + ", 'Bimbo', '$playerName! $playerName! Ti sfido!§Io invento un numero di quattro cifre (tutte diverse fra loro) e tu lo dovrai indovinare.§Tu mi dirai un numero e io ti dirò quante cifre sono giuste e nella posizione giusta e quante cifre sono giuste ma nella posizione sbagliata.§Attento: hai solo venti tentativi, dopodiché dovrai ricominciare con un altro numero.')");
             stm.executeUpdate("insert into Dialoghi values (" + dialogues.KID_WIN.ordinal() + ", 'Bimbo', 'Sei proprio bravo...')");
-            stm.executeUpdate("insert into Dialoghi values (" + dialogues.KID_LOSE.ordinal() + ", 'Bimbo', 'Eheh! Che scarso!')");
+            stm.executeUpdate("insert into Dialoghi values (" + dialogues.KID_LOSE.ordinal() + ", 'Bimbo', 'Eheh! Che scarso! Riproviamo...')");
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
