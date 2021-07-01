@@ -24,6 +24,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  *
@@ -35,43 +36,50 @@ public class GameCore {
     private static final int RIGHT = -1;
     private static final int FORWARD = 0;
     private static final int BACKWARDS = 2;
-    public static final String WIN = JabberServer.WIN_PHRASE;
-    public static final String LOSE = JabberServer.LOSE_PHRASE;
+    
+    public static final String WIN = MinigameJabberServer.WIN_PHRASE;
+    public static final String LOSE = MinigameJabberServer.LOSE_PHRASE;
+    
+    public static final String KID_INTERACTION = "43";
+    public static final String GUARD_INTERACTION = "11";
+    public static final String MERCHANT_INTERACTION = "32";
 
     private Room currentRoom;
     private Player player;
     private Dialogue dialogue;
     private GameMap gameMap;
     private SaveGame saveGame;
-    private JabberClient playerClient;
-    private JabberServer server;
+    private MinigameJabberClient playerClient;
+    private MinigameJabberServer server;
 
     public GameCore() {
         gameMap = new GameMap();
         currentRoom = gameMap.getStartingRoom();
         player = new Player();
-        dialogue = new Dialogue();
-        dialogue.setDatabase("jdbc:h2:./db/store", "sa", "");
-        dialogue.init();
-        playerClient = new JabberClient();
-        server = new JabberServer();
+        dialogue = new Dialogue("jdbc:h2:./db/store", "sa", "");
+        playerClient = new MinigameJabberClient();
+        server = new MinigameJabberServer();
     }
-    
-    public void startMiniGame(){
+
+    public String getEvent() {
+        return String.valueOf(currentRoom.getId()) + String.valueOf(player.getFacingDirection());
+    }
+
+    public void startMiniGame() {
         server.start();
         playerClient.run();
     }
-    
-    public void guessGame(String s){
+
+    public void guessGame(String s) {
         playerClient.attempt(s);
     }
-    
-    public String getGameResult(){
+
+    public String getGameResult() {
         return playerClient.getResult();
     }
-    
+
     public enum dialogues {
-        RUDOLF_FIRST, RUDOLF_SWORD, GUARD, KID_FIRST, KID_LOSE, KID_WIN, JARL_FIRST, JARL_END,
+        MERCHANT_FIRST, MERCHANT_SWORD, GUARD, KID_FIRST, KID_LOSE, KID_WIN, JARL_FIRST, JARL_END,
     }
 
     public void setPlayerName(String name) {
@@ -94,7 +102,7 @@ public class GameCore {
         player.leaveItem(item);
     }
 
-    public String getFacingImage() {
+    public String getFacingImageFileName() {
         return currentRoom.getImage(player.getFacingDirection());
     }
 
@@ -102,17 +110,12 @@ public class GameCore {
         return player.getFacingDirection();
     }
 
-    public String getPlayerName() {
-        return player.getName();
-    }
-
     public void setDialogueDatabase(String dbURL, String user, String password) {
         dialogue.setDatabase(dbURL, user, password);
     }
 
-    public String[] loadDialogue(dialogues dl) {
-        dialogue.loadQuery("select text, npc from Dialoghi where id = " + dl.ordinal());
-        return dialogue.getDialogue();
+    public OrderedPair<String, ListIterator> loadDialogue(dialogues dl) {
+        return dialogue.getDialogue(dl.ordinal());
     }
 
     public void turnRight() {

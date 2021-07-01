@@ -7,16 +7,14 @@ package view;
 
 import java.awt.CardLayout;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.ListIterator;
 import model.GameCore;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.GameCore.dialogues;
+import model.OrderedPair;
 
 /**
  *
@@ -31,7 +29,7 @@ public class GameGUI extends javax.swing.JFrame {
 
     static GameCore core;
     static CardLayout cl;
-    static Iterator dialogue;
+    static OrderedPair<String, ListIterator> dialogue;
 
     /**
      * Creates new form Interface
@@ -399,73 +397,93 @@ public class GameGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //walkForward
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         core.walkForward();
-        setImage(core.getFacingImage(), jLabel1);
+        setImage(core.getFacingImageFileName(), jLabel1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    //turnLeft
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         core.turnLeft();
-        setImage(core.getFacingImage(), jLabel1);
+        setImage(core.getFacingImageFileName(), jLabel1);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    //walkBackwards
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         core.walkBackwards();
-        setImage(core.getFacingImage(), jLabel1);
+        setImage(core.getFacingImageFileName(), jLabel1);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    //turnRight
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         core.turnRight();
-        setImage(core.getFacingImage(), jLabel1);
+        setImage(core.getFacingImageFileName(), jLabel1);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    //Salva ed esci
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         core.save();
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    //Cambio immagine
     private void jLabel1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel1PropertyChange
         try {
-            if (core.getRoomId() == 3 && core.getFacingDirection() == 2) {
-                cl.show(jPanel1, "card2");
-            } else if (core.getRoomId() == 1 && core.getFacingDirection() == 1) {
-                cl.show(jPanel1, "card3");
-            } else if (core.getRoomId() == 4 && core.getFacingDirection() == 3) {
-                cl.show(jPanel1, "card6");
-            } else {
-                cl.show(jPanel1, "card4");
+            switch (core.getEvent()){
+                case GameCore.KID_INTERACTION:
+                    cl.show(jPanel1, "card6");
+                    break;
+                    
+                case GameCore.GUARD_INTERACTION:
+                    cl.show(jPanel1, "card3");
+                    break;
+                    
+                case GameCore.MERCHANT_INTERACTION:
+                    cl.show(jPanel1, "card2");
+                    break;
+                    
+                default:
+                    cl.show(jPanel1, "card4");
             }
         } catch (Exception e) {
+            //Capire perché dà NullPointerException
             System.err.println(e);
         }
     }//GEN-LAST:event_jLabel1PropertyChange
 
+    //jLabel dialogo
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        if (dialogue.hasNext()) {
-            jLabel4.setText("<html>" + dialogue.next() + "</html>");
+        if (dialogue.getSecond().hasNext()) {
+            jLabel4.setText("<html>" + dialogue.getSecond().next() + "</html>");
         } else {
             jLabel4.setVisible(false);
             jLabel3.setVisible(false);
         }
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    //TODO
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    //Mercante
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        displayDialogue(core.loadDialogue(dialogues.RUDOLF_FIRST));
+        displayDialogue(core.loadDialogue(dialogues.MERCHANT_FIRST));
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    //Guardia
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         displayDialogue(core.loadDialogue(dialogues.GUARD));
     }//GEN-LAST:event_jButton12ActionPerformed
-
+    
+    //Spada
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         addItem("Sword");
         jButton6.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    //Nuova partita
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         //Aggiungere "Sei sicuro di voler sovrascrivere?".
         if (!jTextField1.getText().isEmpty()) {
@@ -485,8 +503,8 @@ public class GameGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    //Carica partita
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-
         if (new File("saveGame.json").isFile()) {
             core.load();
 
@@ -501,6 +519,7 @@ public class GameGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    //Bimbo
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         displayDialogue(core.loadDialogue(dialogues.KID_FIRST));
         jTextField2.setVisible(true);
@@ -509,6 +528,7 @@ public class GameGUI extends javax.swing.JFrame {
         core.startMiniGame();
     }//GEN-LAST:event_jButton13ActionPerformed
 
+    //Controllo lunghezza numero minigioco
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
         if (jTextField2.getText().length() == 4) {
             jButton14.setEnabled(true);
@@ -517,40 +537,42 @@ public class GameGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField2KeyReleased
 
+    //Tentativo minigioco
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         try {
             Integer.parseInt(jTextField2.getText());
+            
             core.guessGame(jTextField2.getText());
             jLabel4.setVisible(true);
-            jLabel4.setText("<html>" + core.getGameResult().replace(". ", ".<br>") + "</html>");
-            
-            String result = jLabel4.getText();
+            String result = core.getGameResult();
+            jLabel4.setText("<html>" + result.replace(". ", ".<br>") + "</html>");
 
-            if (result.contains(GameCore.WIN) || result.contains(GameCore.LOSE)) {
+            if (result.equals(GameCore.WIN) || result.equals(GameCore.LOSE)) {
                 jTextField2.setText("");
-                
-                if(result.contains(GameCore.WIN)){
+
+                if (result.equals(GameCore.WIN)) {
                     jTextField2.setVisible(false);
                     jButton14.setVisible(false);
                     displayDialogue(core.loadDialogue(dialogues.KID_WIN));
-                    addItem("Biscottino");
-                } else if (result.contains(GameCore.LOSE)){
+                    addItem("Biscotto"); //Farlo fare a GameCore
+                } else if (result.equals(GameCore.LOSE)) {
                     displayDialogue(core.loadDialogue(dialogues.KID_LOSE));
                 }
-                
+
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(jPanel1, "Errore! Inserire solo numeri.");
         }
     }//GEN-LAST:event_jButton14ActionPerformed
 
+    //Custom methods
     private void setImage(String image, javax.swing.JLabel jLab) {
         jLab.setIcon(new ImageIcon(getClass().getResource("/" + image)));
     }
 
     private void startGame() {
         cl.show(jPanel1, "card4");
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.getFacingImage())));
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.getFacingImageFileName())));
 
         jButton7.setVisible(true);
         jComboBox1.setVisible(true);
@@ -558,18 +580,14 @@ public class GameGUI extends javax.swing.JFrame {
         jButton5.setVisible(true);
     }
 
-    private void displayDialogue(String[] query) {
-        //Restituire direttamente l'array con il nome sostituito.
-        query[0] = query[0].replace("$playerName", core.getPlayerName());
-        List d = new ArrayList<>();
-        d.addAll(Arrays.asList(query[0].split("§")));
-        dialogue = d.iterator();
+    private void displayDialogue(OrderedPair<String, ListIterator> dl) {      
+        dialogue = dl;
 
-        if (dialogue.hasNext()) {
-            jLabel3.setText(query[1]);
-            jLabel4.setText("<html>" + dialogue.next() + "</html>");
+        if (dialogue.getSecond().hasNext()) {
+            jLabel3.setText(dialogue.getFirst());
+            jLabel4.setText("<html>" + dialogue.getSecond().next() + "</html>");
 
-            if (query[1] != null) {
+            if (dialogue.getFirst() != null) {
                 jLabel3.setVisible(true);
             }
             jLabel4.setVisible(true);

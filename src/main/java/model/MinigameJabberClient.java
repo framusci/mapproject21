@@ -18,7 +18,7 @@ import java.net.Socket;
  *
  * @author franc
  */
-class JabberClient {
+class MinigameJabberClient {
 
     private static Socket socket;
     private static BufferedReader in;

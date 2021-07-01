@@ -21,7 +21,7 @@ import java.util.Collections;
  *
  * @author franc
  */
-class JabberServer extends Thread {
+class MinigameJabberServer extends Thread {
 
     private static BufferedReader in;
     private static PrintWriter out;
