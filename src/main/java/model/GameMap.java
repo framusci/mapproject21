@@ -12,10 +12,10 @@ import java.util.HashMap;
  * @author franc
  */
 class GameMap {
-    static CircularList<Room> start = new CircularArrayList();
-    static CircularList<Room> streetEmporium = new CircularArrayList();
-    static CircularList<Room> emporium = new CircularArrayList();
-    static CircularList<Room> kid = new CircularArrayList();
+    static Room start = new Room();
+    static Room streetEmporium = new Room();
+    static Room emporium = new Room();
+    static Room kid = new Room();
     private Map<Integer, Room> rooms;
     
     public static final int NORTH = 0;
@@ -24,13 +24,21 @@ class GameMap {
     public static final int EAST = 3;
     
     public GameMap() {
+        rooms = new HashMap();
+        
+        start.addPanel(new RoomPanel("1_N.png"));
+        start.addPanel(new RoomPanel("1_E.png"));
+        start.addPanel(new RoomPanel("1_S.png"));
+        start.addPanel(new RoomPanel("1_W.png"));
+        
+        rooms.put(start.getId(), start);
     }
     
-    public CircularList<Room> getStartingRoom(){
+    public Room getStartingRoom(){
         return start;
     }
     
-    public Room getRoomById(final int roomId){
+    public Room getRoomById(int roomId){
         return rooms.get(roomId);
     }
 }

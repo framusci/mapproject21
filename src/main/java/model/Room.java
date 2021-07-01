@@ -5,15 +5,13 @@ package model;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  *
  * @author franc
  */
 class Room {
-
     private int id;
-    private static final int DIRECTIONS = 4;
-
     private CircularList<RoomPanel> panels;
 
     public Room() {
@@ -34,5 +32,21 @@ class Room {
     
     public RoomPanel previousPanel(){
         return panels.previous();
+    }
+    
+    public RoomPanel currentPanel(){
+        return panels.current();
+    }
+    
+    public int getId(){
+        return id;
+    }
+    
+    public String getImage(){
+        return panels.current().getImage();
+    }
+    
+    public Room getForward(){
+        return panels.current().getNextRoom();
     }
 }

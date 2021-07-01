@@ -13,10 +13,20 @@ import java.util.Map;
  * @author franc
  */
 class RoomPanel {
-
     private String image;
-    private Map<Integer, Boolean> events = new HashMap<Integer, Boolean>();
-    private Room adjacentRoom;
+    private Map<Integer, Boolean> events;
+    private Room nextRoom;
+    
+    public RoomPanel(String image){
+        events = new HashMap<>();
+        this.image = image;
+    }
+    
+    public RoomPanel(String image, Room nextRoom){
+        events = new HashMap<>();
+        this.image = image;
+        this.nextRoom = nextRoom;
+    }
 
     //Fare classe pubblica a parte (perché GameGUI la deve vedere)
     public enum Event {
@@ -41,5 +51,13 @@ class RoomPanel {
 
     public void makeHappen(Event e) {
         events.replace(e.ordinal(), true);
+    }
+    
+    public void setNextRoomId(Room nextRoom){
+        this.nextRoom = nextRoom;
+    }
+    
+    public Room getNextRoom(){
+        return nextRoom;
     }
 }

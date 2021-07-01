@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import model.CircularArrayList;
+import model.CircularList;
 import model.GameCore.dialogues;
 import model.OrderedPair;
 
@@ -62,18 +64,17 @@ public class GameGUI extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton12 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -123,18 +124,6 @@ public class GameGUI extends javax.swing.JFrame {
         jLayeredPane1.add(jButton3);
         jButton3.setBounds(0, 150, 80, 390);
 
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setFocusPainted(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jLayeredPane1.add(jButton2);
-        jButton2.setBounds(410, 670, 490, 50);
-
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -146,21 +135,6 @@ public class GameGUI extends javax.swing.JFrame {
         });
         jLayeredPane1.add(jButton4);
         jButton4.setBounds(1180, 170, 100, 370);
-
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Bottom text");
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel3.setAlignmentY(0.0F);
-        jLabel3.setAutoscrolls(true);
-        jLabel3.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel3.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel3.setOpaque(true);
-        jLayeredPane1.add(jLabel3);
-        jLabel3.setBounds(380, 560, 220, 40);
 
         jButton7.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
         jButton7.setText("Salva ed esci");
@@ -205,26 +179,6 @@ public class GameGUI extends javax.swing.JFrame {
         jLayeredPane1.add(jComboBox1);
         jComboBox1.setBounds(0, 0, 200, 30);
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Bottom text");
-        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel4.setAlignmentY(0.0F);
-        jLabel4.setAutoscrolls(true);
-        jLabel4.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel4.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel4.setOpaque(true);
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-        });
-        jLayeredPane1.add(jLabel4);
-        jLabel4.setBounds(380, 600, 530, 70);
-
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.setEnabled(false);
         jPanel1.setOpaque(false);
@@ -260,6 +214,41 @@ public class GameGUI extends javax.swing.JFrame {
         });
         jPanel2.add(jButton6);
         jButton6.setBounds(645, 524, 370, 100);
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("Bottom text");
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel3.setAlignmentY(0.0F);
+        jLabel3.setAutoscrolls(true);
+        jLabel3.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel3.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel3.setOpaque(true);
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(340, 580, 320, 40);
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Bottom text");
+        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel4.setAlignmentY(0.0F);
+        jLabel4.setAutoscrolls(true);
+        jLabel4.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel4.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel4.setOpaque(true);
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel4);
+        jLabel4.setBounds(340, 620, 630, 70);
 
         jPanel1.add(jPanel2, "card2");
 
@@ -347,7 +336,6 @@ public class GameGUI extends javax.swing.JFrame {
         jButton13.setContentAreaFilled(false);
         jButton13.setDefaultCapable(false);
         jButton13.setFocusPainted(false);
-        jButton13.setOpaque(false);
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
@@ -409,12 +397,6 @@ public class GameGUI extends javax.swing.JFrame {
         setImage(core.getFacingImageFileName(), jLabel1);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    //walkBackwards
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        core.walkBackwards();
-        setImage(core.getFacingImageFileName(), jLabel1);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     //turnRight
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         core.turnRight();
@@ -430,19 +412,19 @@ public class GameGUI extends javax.swing.JFrame {
     //Cambio immagine
     private void jLabel1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel1PropertyChange
         try {
-            switch (core.getEvent()){
+            switch (core.getEvent()) {
                 case GameCore.KID_INTERACTION:
                     cl.show(jPanel1, "card6");
                     break;
-                    
+
                 case GameCore.GUARD_INTERACTION:
                     cl.show(jPanel1, "card3");
                     break;
-                    
+
                 case GameCore.MERCHANT_INTERACTION:
                     cl.show(jPanel1, "card2");
                     break;
-                    
+
                 default:
                     cl.show(jPanel1, "card4");
             }
@@ -476,7 +458,7 @@ public class GameGUI extends javax.swing.JFrame {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         displayDialogue(core.loadDialogue(dialogues.GUARD));
     }//GEN-LAST:event_jButton12ActionPerformed
-    
+
     //Spada
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         addItem("Sword");
@@ -541,7 +523,7 @@ public class GameGUI extends javax.swing.JFrame {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         try {
             Integer.parseInt(jTextField2.getText());
-            
+
             core.guessGame(jTextField2.getText());
             jLabel4.setVisible(true);
             String result = core.getGameResult();
@@ -580,7 +562,7 @@ public class GameGUI extends javax.swing.JFrame {
         jButton5.setVisible(true);
     }
 
-    private void displayDialogue(OrderedPair<String, ListIterator> dl) {      
+    private void displayDialogue(OrderedPair<String, ListIterator> dl) {
         dialogue = dl;
 
         if (dialogue.getSecond().hasNext()) {
@@ -654,7 +636,6 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

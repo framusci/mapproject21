@@ -35,4 +35,15 @@ public class CircularArrayList<E> extends ArrayList<E> implements CircularList<E
         
         return super.get(index++);
     }
+    
+    @Override
+    public E current(){
+        if(index == super.size()){
+            index = 0;
+        } else if (index < 0){
+            index = super.size() - 1;
+        }
+        
+        return super.get(index);
+    }
 }

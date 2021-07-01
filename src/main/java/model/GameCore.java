@@ -103,7 +103,7 @@ public class GameCore {
     }
 
     public String getFacingImageFileName() {
-        return currentRoom.getImage(player.getFacingDirection());
+        return currentRoom.getImage();
     }
 
     public int getFacingDirection() {
@@ -119,19 +119,17 @@ public class GameCore {
     }
 
     public void turnRight() {
-        turn(RIGHT);
+        currentRoom.nextPanel();
     }
 
     public void turnLeft() {
-        turn(LEFT);
+        currentRoom.previousPanel();
     }
 
     public void walkForward() {
-        walk(FORWARD);
-    }
-
-    public void walkBackwards() {
-        walk(BACKWARDS);
+        if(currentRoom.getForward() != null){
+            currentRoom = currentRoom.getForward();
+        }
     }
 
     public void save() {
@@ -161,15 +159,5 @@ public class GameCore {
         player.setFacingDirection(saveGame.getFacingDirection());
         currentRoom = gameMap.getRoomById(saveGame.getRoomId());
         player.setInventory(saveGame.getInventory());
-    }
-
-    private void turn(final int direction) {
-        player.setFacingDirection(player.getFacingDirection() + direction);
-    }
-
-    private void walk(final int direction) {
-        if (currentRoom.getAdjacentRoom((player.getFacingDirection()) + direction) != null) {
-            currentRoom = currentRoom.getAdjacentRoom(player.getFacingDirection() + direction);
-        }
     }
 }
