@@ -23,7 +23,6 @@ import model.OrderedPair;
  * @author franc
  */
 public class GameGUI extends javax.swing.JFrame {
-
     static final int NORTH = 0;
     static final int WEST = 1;
     static final int SOUTH = 2;

@@ -21,17 +21,29 @@ class GameMap {
     public static final int NORTH = 0;
     public static final int WEST = 1;
     public static final int SOUTH = 2;
-    public static final int EAST = 3;
+    public static final int EAST = 1;
     
     public GameMap() {
         rooms = new HashMap();
         
-        start.addPanel(new RoomPanel("1_N.png"));
+        start.addPanel(new RoomPanel("1_N.png", streetEmporium));
         start.addPanel(new RoomPanel("1_E.png"));
-        start.addPanel(new RoomPanel("1_S.png"));
+        start.addPanel(new RoomPanel("1_S.png", kid));
         start.addPanel(new RoomPanel("1_W.png"));
         
+        streetEmporium.addPanel(new RoomPanel("2_N.png"));
+        streetEmporium.addPanel(new RoomPanel("2_E.png", emporium));
+        streetEmporium.addPanel(new RoomPanel("2_S.png", start));
+        streetEmporium.addPanel(new RoomPanel("2_W.png"));
+        
+        kid.addPanel(new RoomPanel("test_N.png", start));
+        kid.addPanel(new RoomPanel("test_E.png"));
+        kid.addPanel(new RoomPanel("test_S.png"));
+        kid.addPanel(new RoomPanel("test_W.png"));
+        
         rooms.put(start.getId(), start);
+        rooms.put(streetEmporium.getId(), streetEmporium);
+        rooms.put(kid.getId(), start);
     }
     
     public Room getStartingRoom(){
