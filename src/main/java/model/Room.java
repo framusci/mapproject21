@@ -5,46 +5,34 @@ package model;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-import java.util.Map;
-import java.util.HashMap;
-
 /**
  *
  * @author franc
  */
 class Room {
-    private Map<Integer, Room> rooms;
-    private Map<Integer, String> images;
+
     private int id;
     private static final int DIRECTIONS = 4;
 
-    public Room(int id) {
-        rooms = new HashMap<>();
-        images = new HashMap<>();
-        this.id = id;
-    }
+    private CircularList<RoomPanel> panels;
 
-    //Set room and image
-    public void setAdjacentRoom(int direction, String roomImg, Room room) {
-        rooms.put(direction, room);
-        images.put(direction, roomImg);
-    }
-
-    //Set only image (no adjacent room in that direction)
-    public void setAdjacentRoom(int direction, String roomImg) {
-        images.put(direction, roomImg);
-    }
-
-    public Room getAdjacentRoom(int direction) {
-        return rooms.get(Math.floorMod(direction, DIRECTIONS));
-    }
-
-    public String getImage(int direction) {
-        return images.get(Math.floorMod(direction, DIRECTIONS));
+    public Room() {
+        this.panels = new CircularArrayList();
     }
     
-    public int getId(){
-        return id;
+    public void addPanel(RoomPanel rp){
+        panels.add(rp);
+    }
+    
+    public void removePanel(int index){
+        panels.remove(index);
+    }
+    
+    public RoomPanel nextPanel(){
+        return panels.next();
+    }
+    
+    public RoomPanel previousPanel(){
+        return panels.previous();
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author franc
  */
-public interface CircularList<E> extends List {
-    public Object next();
-    public Object previous();
+public interface CircularList<E> extends List<E> {
+    public E next();
+    public E previous();
 }
