@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Properties;
-import model.GameCore.dialogues;
+import model.GameController.dialogues;
 
 /**
  *

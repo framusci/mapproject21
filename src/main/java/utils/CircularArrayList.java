@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package utils;
 
+import utils.CircularList;
 import java.util.ArrayList;
 
 /**
  *
  * @author franc
  */
-public class CircularArrayList<E> extends ArrayList implements CircularList {
+public class CircularArrayList<E> extends ArrayList<E> implements CircularList<E> {
     private int index;
     
     public CircularArrayList(){
@@ -19,7 +20,7 @@ public class CircularArrayList<E> extends ArrayList implements CircularList {
     }
     
     @Override
-    public Object previous(){
+    public E previous(){
         if(index < 0){
             index = super.size() - 1;
         }
@@ -28,11 +29,22 @@ public class CircularArrayList<E> extends ArrayList implements CircularList {
     }
     
     @Override
-    public Object next(){
+    public E next(){
         if(index == super.size()){
             index = 0;
         }
         
         return super.get(index++);
+    }
+    
+    @Override
+    public E current(){
+        if(index == super.size()){
+            index = 0;
+        } else if (index < 0){
+            index = super.size() - 1;
+        }
+        
+        return super.get(index);
     }
 }

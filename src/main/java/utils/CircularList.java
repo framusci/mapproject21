@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package utils;
 
 import java.util.List;
 
@@ -11,7 +11,8 @@ import java.util.List;
  *
  * @author franc
  */
-public interface CircularList<E> extends List {
-    public Object next();
-    public Object previous();
+public interface CircularList<E> extends List<E> {
+    public E next();
+    public E previous();
+    public E current();
 }

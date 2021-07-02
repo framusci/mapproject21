@@ -8,12 +8,12 @@ package view;
 import java.awt.CardLayout;
 import java.io.File;
 import java.util.ListIterator;
-import model.GameCore;
+import model.GameController;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import model.GameCore.dialogues;
+import model.GameController.dialogues;
 import model.OrderedPair;
 
 /**
@@ -27,7 +27,7 @@ public class GameGUI extends javax.swing.JFrame {
     static final int SOUTH = 2;
     static final int EAST = 3;
 
-    static GameCore core;
+    static GameController core;
     static CardLayout cl;
     static OrderedPair<String, ListIterator> dialogue;
 
@@ -431,15 +431,15 @@ public class GameGUI extends javax.swing.JFrame {
     private void jLabel1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel1PropertyChange
         try {
             switch (core.getEvent()){
-                case GameCore.KID_INTERACTION:
+                case GameController.KID_INTERACTION:
                     cl.show(jPanel1, "card6");
                     break;
                     
-                case GameCore.GUARD_INTERACTION:
+                case GameController.GUARD_INTERACTION:
                     cl.show(jPanel1, "card3");
                     break;
                     
-                case GameCore.MERCHANT_INTERACTION:
+                case GameController.MERCHANT_INTERACTION:
                     cl.show(jPanel1, "card2");
                     break;
                     
@@ -547,15 +547,15 @@ public class GameGUI extends javax.swing.JFrame {
             String result = core.getGameResult();
             jLabel4.setText("<html>" + result.replace(". ", ".<br>") + "</html>");
 
-            if (result.equals(GameCore.WIN) || result.equals(GameCore.LOSE)) {
+            if (result.equals(GameController.WIN) || result.equals(GameController.LOSE)) {
                 jTextField2.setText("");
 
-                if (result.equals(GameCore.WIN)) {
+                if (result.equals(GameController.WIN)) {
                     jTextField2.setVisible(false);
                     jButton14.setVisible(false);
                     displayDialogue(core.loadDialogue(dialogues.KID_WIN));
-                    addItem("Biscotto"); //Farlo fare a GameCore
-                } else if (result.equals(GameCore.LOSE)) {
+                    addItem("Biscotto"); //Farlo fare a GameController
+                } else if (result.equals(GameController.LOSE)) {
                     displayDialogue(core.loadDialogue(dialogues.KID_LOSE));
                 }
 
@@ -643,7 +643,7 @@ public class GameGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new GameGUI().setVisible(true);
-            core = new GameCore();
+            core = new GameController();
         });
     }
 

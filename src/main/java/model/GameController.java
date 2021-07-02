@@ -30,7 +30,7 @@ import java.util.ListIterator;
  *
  * @author franc
  */
-public class GameCore {
+public class GameController {
 
     private static final int LEFT = 1;
     private static final int RIGHT = -1;
@@ -52,7 +52,7 @@ public class GameCore {
     private MinigameJabberClient playerClient;
     private MinigameJabberServer server;
 
-    public GameCore() {
+    public GameController() {
         gameMap = new GameMap();
         currentRoom = gameMap.getStartingRoom();
         player = new Player();
