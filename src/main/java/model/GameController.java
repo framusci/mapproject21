@@ -16,7 +16,7 @@ package model;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import utils.OrderedPair;
+import model.utils.Couple;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,8 +24,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 /**
  *
@@ -52,6 +54,7 @@ public class GameController {
     private SaveGame saveGame;
     private MinigameJabberClient playerClient;
     private MinigameJabberServer server;
+    private Map<Event, Boolean> events;
 
     public GameController() {
         gameMap = new GameMap();
@@ -60,6 +63,17 @@ public class GameController {
         dialogue = new Dialogue("jdbc:h2:./db/store", "sa", "");
         playerClient = new MinigameJabberClient();
         server = new MinigameJabberServer();
+        events = new HashMap<>();
+        
+        events.put(Event.MINIGAME, false);
+    }
+    
+    public enum Event {
+        MINIGAME
+    }
+    
+    public enum Dialogues {
+        MERCHANT_FIRST, MERCHANT_SWORD, GUARD, KID_FIRST, KID_LOSE, KID_WIN, JARL_FIRST, JARL_END,
     }
 
     public String getEvent() {
@@ -77,10 +91,6 @@ public class GameController {
 
     public String getGameResult() {
         return playerClient.getResult();
-    }
-
-    public enum dialogues {
-        MERCHANT_FIRST, MERCHANT_SWORD, GUARD, KID_FIRST, KID_LOSE, KID_WIN, JARL_FIRST, JARL_END,
     }
 
     public void setPlayerName(String name) {
@@ -111,11 +121,7 @@ public class GameController {
         return player.getFacingDirection();
     }
 
-    public void setDialogueDatabase(String dbURL, String user, String password) {
-        dialogue.setDatabase(dbURL, user, password);
-    }
-
-    public OrderedPair<String, ListIterator> loadDialogue(dialogues dl) {
+    public Couple<String, ListIterator> loadDialogue(Dialogues dl) {
         return dialogue.getDialogue(dl.ordinal());
     }
 
@@ -172,5 +178,13 @@ public class GameController {
         if (currentRoom.getAdjacentRoom((player.getFacingDirection()) + direction) != null) {
             currentRoom = currentRoom.getAdjacentRoom(player.getFacingDirection() + direction);
         }
+    }
+    
+    public boolean hasHappened(Event evt){
+        return events.get(evt);
+    }
+    
+    public void makeHappen(Event evt){
+        events.put(evt, true);
     }
 }

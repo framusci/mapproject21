@@ -9,12 +9,13 @@ import java.awt.CardLayout;
 import java.io.File;
 import java.util.ListIterator;
 import model.GameController;
+import model.GameController.Dialogues;
+import model.GameController.Event;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import model.GameController.dialogues;
-import utils.OrderedPair;
+import model.utils.Couple;
 
 /**
  *
@@ -29,7 +30,7 @@ public class GameGUI extends javax.swing.JFrame {
 
     static GameController core;
     static CardLayout cl;
-    static OrderedPair<String, ListIterator> dialogue;
+    static Couple<String, ListIterator> dialogue;
 
     /**
      * Creates new form Interface
@@ -469,12 +470,12 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Mercante
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        displayDialogue(core.loadDialogue(dialogues.MERCHANT_FIRST));
+        displayDialogue(core.loadDialogue(Dialogues.MERCHANT_FIRST));
     }//GEN-LAST:event_jButton10ActionPerformed
 
     //Guardia
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        displayDialogue(core.loadDialogue(dialogues.GUARD));
+        displayDialogue(core.loadDialogue(Dialogues.GUARD));
     }//GEN-LAST:event_jButton12ActionPerformed
     
     //Spada
@@ -521,11 +522,13 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Bimbo
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        displayDialogue(core.loadDialogue(dialogues.KID_FIRST));
-        jTextField2.setVisible(true);
-        jButton14.setVisible(true);
-        jButton13.setVisible(false);
-        core.startMiniGame();
+        if (!core.hasHappened(Event.MINIGAME)) {
+            displayDialogue(core.loadDialogue(Dialogues.KID_FIRST));
+            jTextField2.setVisible(true);
+            jButton14.setVisible(true);
+            jButton13.setVisible(false);
+            core.startMiniGame();
+        }
     }//GEN-LAST:event_jButton13ActionPerformed
 
     //Controllo lunghezza numero minigioco
@@ -553,10 +556,11 @@ public class GameGUI extends javax.swing.JFrame {
                 if (result.equals(GameController.WIN)) {
                     jTextField2.setVisible(false);
                     jButton14.setVisible(false);
-                    displayDialogue(core.loadDialogue(dialogues.KID_WIN));
+                    displayDialogue(core.loadDialogue(Dialogues.KID_WIN));
+                    core.makeHappen(Event.MINIGAME);
                     addItem("Biscotto"); //Farlo fare a GameController
                 } else if (result.equals(GameController.LOSE)) {
-                    displayDialogue(core.loadDialogue(dialogues.KID_LOSE));
+                    displayDialogue(core.loadDialogue(Dialogues.KID_LOSE));
                 }
 
             }
@@ -580,7 +584,7 @@ public class GameGUI extends javax.swing.JFrame {
         jButton5.setVisible(true);
     }
 
-    private void displayDialogue(OrderedPair<String, ListIterator> dl) {      
+    private void displayDialogue(Couple<String, ListIterator> dl) {      
         dialogue = dl;
 
         if (dialogue.getSecond().hasNext()) {

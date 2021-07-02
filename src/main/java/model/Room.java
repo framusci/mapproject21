@@ -19,10 +19,9 @@ class Room {
     private int id;
     private static final int DIRECTIONS = 4;
 
-    public Room(int id) {
+    public Room() {
         rooms = new HashMap<>();
         images = new HashMap<>();
-        this.id = id;
     }
 
     //Set room and image

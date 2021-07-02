@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package model.utils;
 
-import utils.CircularList;
+import model.utils.CircularList;
 import java.util.ArrayList;
 
 /**

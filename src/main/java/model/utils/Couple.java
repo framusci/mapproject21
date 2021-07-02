@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package model.utils;
 
 /**
  *
  * @author franc
  */
-public class OrderedPair<U, V> {
+public class Couple<U, V> {
     private U first;
     private V second;
     
-    public OrderedPair(U first, V second){
+    public Couple(U first, V second){
         this.first = first;
         this.second = second;
     }

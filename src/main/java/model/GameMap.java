@@ -24,16 +24,7 @@ class GameMap {
     public static final int EAST = 3;
     
     public GameMap() {
-        start = new Room(1);
-        streetEmporium = new Room(2);
-        emporium = new Room(3);
-        kid = new Room(4);
-        
         rooms = new HashMap<>();
-        rooms.put(start.getId(), start);
-        rooms.put(streetEmporium.getId(), streetEmporium);
-        rooms.put(emporium.getId(), emporium);
-        rooms.put(kid.getId(), kid);
         
         start.setAdjacentRoom(EAST, "1_E.png");
         start.setAdjacentRoom(SOUTH, "1_S.png", kid);
@@ -54,6 +45,11 @@ class GameMap {
         kid.setAdjacentRoom(WEST, "test_W.png");
         kid.setAdjacentRoom(SOUTH, "test_S.png");
         kid.setAdjacentRoom(EAST, "test_E.png");
+        
+        rooms.put(start.getId(), start);
+        rooms.put(streetEmporium.getId(), streetEmporium);
+        rooms.put(emporium.getId(), emporium);
+        rooms.put(kid.getId(), kid);
     }
     
     public Room getStartingRoom(){

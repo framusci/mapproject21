@@ -16,9 +16,10 @@ package model;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import utils.OrderedPair;
+import model.utils.Couple;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,7 +28,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Properties;
-import model.GameController.dialogues;
 
 /**
  *
@@ -35,83 +35,73 @@ import model.GameController.dialogues;
  */
 class Dialogue {
 
-    private Statement stm;
     private ResultSet rs;
     private Connection conn;
     private Properties dbprops;
+    private Statement stm;
+    private PreparedStatement pstm;
 
     public Dialogue(String dbURL, String user, String password) {
         dbprops = new Properties();
-
-        try {
-            conn = DriverManager.getConnection(dbURL, dbprops);
-        } catch (SQLException ex) {
-            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
-        }
-
-        dbprops.setProperty("user", user);
-        dbprops.setProperty("password", password);
-    }
-
-    public Dialogue() {
-        dbprops = new Properties();
-    }
-
-    public void init(String playerName) {
-        try {
-            stm = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            stm.executeUpdate("drop table if exists Dialoghi"); //table if exists fare con controllo file
-            stm.executeUpdate("create table if not exists Dialoghi (id int primary key, npc varchar, text varchar)");
-            stm.executeUpdate("insert into Dialoghi values (" + dialogues.MERCHANT_FIRST.ordinal() + ", 'Rudolf', 'Olio da lampada, corde, bombe, li vuoi?§Sono tuoi, amico mio, ma solo se te li puoi permettere.§Devi scusarmi, " + playerName + ", ma non ti posso far credito: torna quando sarai un po'' più... ricco!')");
-            stm.executeUpdate("insert into Dialoghi values (" + dialogues.MERCHANT_SWORD.ordinal() + ", 'Rudolf', 'Ah, vedo che hai una spada...')");
-            stm.executeUpdate("insert into Dialoghi values (" + dialogues.GUARD.ordinal() + ", '???', 'Ehi, cosa guardi?')");
-            stm.executeUpdate("insert into Dialoghi values (" + dialogues.JARL_FIRST.ordinal() + ", 'Jarl', 'Uno spettro si aggira per Riverwoord...§Sei la nostra ultima speranza, " + playerName + ".')");
-            stm.executeUpdate("insert into Dialoghi values (" + dialogues.KID_FIRST.ordinal() + ", 'Bimbo', '" + playerName + "! " + playerName + "! Ti sfido!§Io invento un numero di quattro cifre (tutte diverse fra loro) e tu lo dovrai indovinare.§Tu mi dirai un numero e io ti dirò quante cifre sono giuste e nella posizione giusta e quante cifre sono giuste ma nella posizione sbagliata.§Attento: hai solo venti tentativi, dopodiché dovrai ricominciare con un altro numero.')");
-            stm.executeUpdate("insert into Dialoghi values (" + dialogues.KID_WIN.ordinal() + ", 'Bimbo', 'Sei proprio bravo... eccoti un biscotto!')");
-            stm.executeUpdate("insert into Dialoghi values (" + dialogues.KID_LOSE.ordinal() + ", 'Bimbo', 'Eheh! Che scarso! Riproviamo...')");
-        } catch (SQLException ex) {
-            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
-        }
-    }
-
-    public Dialogue(String language, String dbURL, String user, String password) {
-        dbprops = new Properties();
-
-        try {
-            this.conn = DriverManager.getConnection(dbURL, dbprops);
-        } catch (SQLException ex) {
-            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
-        }
-
-        dbprops.setProperty("user", user);
-        dbprops.setProperty("password", password);
-    }
-
-    public OrderedPair<String, ListIterator> getDialogue(int dialogueId) {
         
         try {
-            rs = stm.executeQuery("select text, npc from Dialoghi where id = " + dialogueId);
-            rs.next();
-            
-            List<String> s = new ArrayList();
-            s.addAll(Arrays.asList(rs.getString("text").split("§")));
-            
-            return new OrderedPair(rs.getString("npc"), s.listIterator());
-        } catch (SQLException ex) {
-            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
-        }
-
-        return new OrderedPair(null, null);
-    }
-
-    public void setDatabase(String dbURL, String user, String password) {
-        try {
             conn = DriverManager.getConnection(dbURL, dbprops);
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
-
+        
         dbprops.setProperty("user", user);
         dbprops.setProperty("password", password);
+
+        try {
+            stm = conn.createStatement();
+            stm.executeUpdate("create table if not exists Dialoghi (id int primary key, npc varchar, text varchar)");
+            stm.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+    }
+
+    public Couple<String, ListIterator> getDialogue(int dialogueId) {
+
+        try {
+            pstm = conn.prepareStatement("select text, npc from Dialoghi where id = ?");
+            pstm.setInt(1, dialogueId);
+            rs = pstm.executeQuery();
+            pstm.close();
+            rs.next();
+
+            List<String> s = new ArrayList();
+            s.addAll(Arrays.asList(rs.getString("text").split("§")));
+
+            return new Couple(rs.getString("npc"), s.listIterator());
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+
+        return new Couple(null, null);
+    }
+
+    public void addDialogue(int id, String name, String dialogue) {
+        try {
+            pstm = conn.prepareStatement("INSERT INTO dialoghi VALUES (?,?,?)");
+            pstm.setInt(1, id);
+            pstm.setString(2, name);
+            pstm.setString(3, dialogue);
+            pstm.executeUpdate();
+            pstm.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+    }
+    
+    public void removeDialogue(int id){
+        try {
+            stm = conn.createStatement();
+            stm.executeUpdate("delete from Dialoghi where id = " + id);
+            stm.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
     }
 }
