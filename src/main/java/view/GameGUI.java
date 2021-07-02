@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.GameController.dialogues;
-import model.OrderedPair;
+import utils.OrderedPair;
 
 /**
  *
