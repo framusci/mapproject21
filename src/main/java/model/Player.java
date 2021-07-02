@@ -19,12 +19,24 @@ class Player {
     private int facingDirection;
     
     public Player(int direction){
-        this.facingDirection = direction;
+        facingDirection = direction;
         inventory = new ArrayList<>();
     }
     
     public Player() {
-        this.facingDirection = 0;
+        facingDirection = 0;
+        inventory = new ArrayList<>();
+    }
+    
+    public Player(String name){
+        facingDirection = 0;
+        this.name = name;
+        inventory = new ArrayList<>();
+    }
+    
+    public Player(String name, int direction){
+        facingDirection = direction;
+        this.name = name;
         inventory = new ArrayList<>();
     }
     

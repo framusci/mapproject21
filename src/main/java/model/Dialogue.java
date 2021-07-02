@@ -40,8 +40,9 @@ class Dialogue {
     private Properties dbprops;
     private Statement stm;
     private PreparedStatement pstm;
+    private String separator;
 
-    public Dialogue(String dbURL, String user, String password) {
+    public Dialogue(String dbURL, String user, String password, String separator) {
         dbprops = new Properties();
         
         try {
@@ -60,19 +61,40 @@ class Dialogue {
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
+        
+        this.separator = separator;
+    }
+    
+    public Dialogue(){
+        dbprops = new Properties();
+    }
+    
+    public void setDatabase(String dbURL, String dbUser, String dbPassword){
+        try {
+            conn = DriverManager.getConnection(dbURL, dbprops);
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+        
+        dbprops.setProperty("user", dbUser);
+        dbprops.setProperty("password", dbPassword);
+    }
+    
+    public void setSeparator(String separator){
+        this.separator = separator;
     }
 
     public Couple<String, ListIterator> getDialogue(int dialogueId) {
 
         try {
-            pstm = conn.prepareStatement("select text, npc from Dialoghi where id = ?");
+            pstm = conn.prepareStatement("SELECT text, npc FROM Dialoghi WHERE id = ?");
             pstm.setInt(1, dialogueId);
             rs = pstm.executeQuery();
             pstm.close();
             rs.next();
 
             List<String> s = new ArrayList();
-            s.addAll(Arrays.asList(rs.getString("text").split("§")));
+            s.addAll(Arrays.asList(rs.getString("text").split(separator)));
 
             return new Couple(rs.getString("npc"), s.listIterator());
         } catch (SQLException ex) {
@@ -98,7 +120,7 @@ class Dialogue {
     public void removeDialogue(int id){
         try {
             stm = conn.createStatement();
-            stm.executeUpdate("delete from Dialoghi where id = " + id);
+            stm.executeUpdate("DELETE FROM dialoghi WHERE id = " + id);
             stm.close();
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());

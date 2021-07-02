@@ -34,67 +34,56 @@ import java.util.Map;
  * @author franc
  */
 public class GameController {
-
-    private static final int LEFT = 1;
-    private static final int RIGHT = -1;
-    private static final int FORWARD = 0;
-    private static final int BACKWARDS = 2;
+    //Player movement
+    public static final int LEFT = 1;
+    public static final int RIGHT = -1;
+    public static final int FORWARD = 0;
+    public static final int BACKWARDS = 2;
     
-    public static final String WIN = MinigameJabberServer.WIN_PHRASE;
-    public static final String LOSE = MinigameJabberServer.LOSE_PHRASE;
-    
-    public static final String KID_INTERACTION = "43";
-    public static final String GUARD_INTERACTION = "11";
-    public static final String MERCHANT_INTERACTION = "32";
-
     private Room currentRoom;
     private Player player;
-    private Dialogue dialogue;
-    private GameMap gameMap;
     private SaveGame saveGame;
-    private MinigameJabberClient playerClient;
-    private MinigameJabberServer server;
-    private Map<Event, Boolean> events;
+    private Dialogue dialogue;
+    
+    private Map<Integer, Boolean> events;
+    private Map<Integer, Room> gameMap; //getStartingRoom; getRoomById;   
 
     public GameController() {
-        gameMap = new GameMap();
-        currentRoom = gameMap.getStartingRoom();
+        currentRoom = new Room();
         player = new Player();
-        dialogue = new Dialogue("jdbc:h2:./db/store", "sa", "");
-        playerClient = new MinigameJabberClient();
-        server = new MinigameJabberServer();
-        events = new HashMap<>();
-        
-        events.put(Event.MINIGAME, false);
+        dialogue = new Dialogue();
     }
     
-    public enum Event {
-        MINIGAME
+    public void addDialogue(int id, String name, String text){
+        dialogue.addDialogue(id, name, text);
     }
     
-    public enum Dialogues {
-        MERCHANT_FIRST, MERCHANT_SWORD, GUARD, KID_FIRST, KID_LOSE, KID_WIN, JARL_FIRST, JARL_END,
+    public void setDialogueDatabase(String dbURL, String dbUser, String dbPassword){
+        dialogue.setDatabase(dbURL, dbUser, dbPassword);
+    }
+    
+    public void setDialogueSeparator(String s){
+        dialogue.setSeparator(s);
+    }
+    
+    public void addEvent(int evt){
+        events.put(evt, false);
     }
 
+    public void addRoom(Room room){
+        gameMap.put(room.getId(), room);
+    }
+    
     public String getEvent() {
         return String.valueOf(currentRoom.getId()) + String.valueOf(player.getFacingDirection());
     }
 
-    public void startMiniGame() {
-        server.start();
-        playerClient.run();
-    }
-
-    public void guessGame(String s) {
-        playerClient.attempt(s);
-    }
-
-    public String getGameResult() {
-        return playerClient.getResult();
-    }
-
     public void setPlayerName(String name) {
         player.setName(name);
+    }
+    
+    public String getPlayerName(){
+        return player.getName();
     }
 
     public List getPlayerInventory() {
@@ -121,8 +110,8 @@ public class GameController {
         return player.getFacingDirection();
     }
 
-    public Couple<String, ListIterator> loadDialogue(Dialogues dl) {
-        return dialogue.getDialogue(dl.ordinal());
+    public Couple<String, ListIterator> loadDialogue(int dl) {
+        return dialogue.getDialogue(dl);
     }
 
     public void turnRight() {
@@ -140,7 +129,7 @@ public class GameController {
     public void walkBackwards() {
         walk(BACKWARDS);
     }
-
+    
     public void save() {
         saveGame = new SaveGame(player.getName(), player.getFacingDirection(), currentRoom.getId(), player.getInventory());
 
@@ -166,7 +155,7 @@ public class GameController {
 
         player.setName(saveGame.getPlayerName());
         player.setFacingDirection(saveGame.getFacingDirection());
-        currentRoom = gameMap.getRoomById(saveGame.getRoomId());
+        currentRoom = gameMap.get(saveGame.getRoomId());
         player.setInventory(saveGame.getInventory());
     }
 
@@ -180,11 +169,11 @@ public class GameController {
         }
     }
     
-    public boolean hasHappened(Event evt){
+    public boolean hasHappened(int evt){
         return events.get(evt);
     }
     
-    public void makeHappen(Event evt){
+    public void makeHappen(int evt){
         events.put(evt, true);
     }
 }

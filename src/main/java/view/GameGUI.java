@@ -9,8 +9,6 @@ import java.awt.CardLayout;
 import java.io.File;
 import java.util.ListIterator;
 import model.GameController;
-import model.GameController.Dialogues;
-import model.GameController.Event;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -470,12 +468,12 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Mercante
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        displayDialogue(core.loadDialogue(Dialogues.MERCHANT_FIRST));
+        displayDialogue(core.loadDialogue(GameController.MERCHANT_FIRST));
     }//GEN-LAST:event_jButton10ActionPerformed
 
     //Guardia
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        displayDialogue(core.loadDialogue(Dialogues.GUARD));
+        displayDialogue(core.loadDialogue(GameController.GUARD));
     }//GEN-LAST:event_jButton12ActionPerformed
     
     //Spada
@@ -522,8 +520,8 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Bimbo
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        if (!core.hasHappened(Event.MINIGAME)) {
-            displayDialogue(core.loadDialogue(Dialogues.KID_FIRST));
+        if (!core.hasHappened(GameController.MINIGAME)) {
+            displayDialogue(core.loadDialogue(GameController.KID_FIRST));
             jTextField2.setVisible(true);
             jButton14.setVisible(true);
             jButton13.setVisible(false);
@@ -556,11 +554,11 @@ public class GameGUI extends javax.swing.JFrame {
                 if (result.equals(GameController.WIN)) {
                     jTextField2.setVisible(false);
                     jButton14.setVisible(false);
-                    displayDialogue(core.loadDialogue(Dialogues.KID_WIN));
-                    core.makeHappen(Event.MINIGAME);
+                    displayDialogue(core.loadDialogue(GameController.KID_WIN));
+                    core.makeHappen(GameController.MINIGAME);
                     addItem("Biscotto"); //Farlo fare a GameController
                 } else if (result.equals(GameController.LOSE)) {
-                    displayDialogue(core.loadDialogue(Dialogues.KID_LOSE));
+                    displayDialogue(core.loadDialogue(GameController.KID_LOSE));
                 }
 
             }
@@ -647,7 +645,6 @@ public class GameGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new GameGUI().setVisible(true);
-            core = new GameController();
         });
     }
 
