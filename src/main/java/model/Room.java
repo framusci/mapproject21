@@ -5,48 +5,52 @@ package model;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author franc
  */
 class Room {
+
     private int id;
     private CircularList<RoomPanel> panels;
 
     public Room() {
         this.panels = new CircularArrayList();
     }
-    
-    public void addPanel(RoomPanel rp){
+
+    public void addPanel(RoomPanel rp) {
         panels.add(rp);
     }
-    
-    public void removePanel(int index){
+
+    public void removePanel(int index) {
         panels.remove(index);
     }
-    
-    public RoomPanel nextPanel(){
+
+    public RoomPanel nextPanel() {
         return panels.next();
     }
-    
-    public RoomPanel previousPanel(){
+
+    public RoomPanel previousPanel() {
         return panels.previous();
     }
-    
-    public RoomPanel currentPanel(){
+
+    public RoomPanel currentPanel() {
         return panels.current();
     }
-    
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    
-    public String getImage(){
+
+    public String getImage() {
         return panels.current().getImage();
     }
-    
-    public Room getForward(){
+
+    public Room getForward() {
+        for (int i = 0; i < (panels.size() / 2); i++) {
+            panels.next();
+        }
+
         return panels.current().getNextRoom();
     }
 }

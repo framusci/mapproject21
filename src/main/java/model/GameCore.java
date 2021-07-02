@@ -127,7 +127,9 @@ public class GameCore {
     }
 
     public void walkForward() {
-        if(currentRoom.getForward() != null){
+        Room tmp = currentRoom;
+        
+        if(tmp.getForward() != null){
             currentRoom = currentRoom.getForward();
         }
     }
