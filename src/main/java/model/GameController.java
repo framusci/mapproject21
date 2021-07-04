@@ -34,64 +34,101 @@ import java.util.Map;
  * @author franc
  */
 public class GameController {
+
     //Player movement
     public static final int LEFT = 1;
     public static final int RIGHT = -1;
     public static final int FORWARD = 0;
     public static final int BACKWARDS = 2;
-    
+
     private Room currentRoom;
     private Player player;
     private SaveGame saveGame;
     private Dialogue dialogue;
-    
+
     private Map<Integer, Boolean> events;
-    private Map<Integer, Room> gameMap; //getStartingRoom; getRoomById;   
+    private Map<String, Room> gameMap; //getStartingRoom; getRoomById;   
 
     public GameController() {
-        currentRoom = new Room();
         player = new Player();
         dialogue = new Dialogue();
+        events = new HashMap<>();
+        gameMap = new HashMap<>();
     }
-    
-    public void addDialogue(int id, String name, String text){
+
+    public void addDialogue(int id, String name, String text) {
         dialogue.addDialogue(id, name, text);
     }
-    
-    public void setDialogueDatabase(String dbURL, String dbUser, String dbPassword){
+
+    public void setDialogueDatabase(String dbURL, String dbUser, String dbPassword) {
         dialogue.setDatabase(dbURL, dbUser, dbPassword);
     }
-    
-    public void setDialogueSeparator(String s){
+
+    public void setDialogueSeparator(String s) {
         dialogue.setSeparator(s);
     }
-    
-    public void addEvent(int evt){
+
+    /**
+     * Adds the specified event to the event map
+     *
+     * @param evt
+     */
+    public void addEvent(int evt) {
         events.put(evt, false);
     }
 
-    public void addRoom(Room room){
-        gameMap.put(room.getId(), room);
+    /**
+     * Adds the specified room to the map. The first element in the array is the
+     * starting room.
+     *
+     * @param room
+     */
+    public void createRooms(String... room) {
+        for (String r : room) {
+            gameMap.put(r, new Room(r));
+        }
+        
+        currentRoom = gameMap.get(room[0]);
+    }
+
+    /**
+     * IMPORTANT: add file extension to image names.
+     * @param roomName
+     * @param northImg
+     * @param westImg
+     * @param southImg
+     * @param eastImg 
+     */
+    public void addImages(String roomName, String northImg, String westImg, String southImg, String eastImg) {
+        Room tmpRoom = gameMap.get(roomName);
+        
+        tmpRoom.setAdjacentImage(0, northImg);
+        tmpRoom.setAdjacentImage(1, westImg);
+        tmpRoom.setAdjacentImage(2, southImg);
+        tmpRoom.setAdjacentImage(3, eastImg);
+        
+        //gameMap.put(roomName, tmpRoom);
     }
     
-    public String getEvent() {
-        return String.valueOf(currentRoom.getId()) + String.valueOf(player.getFacingDirection());
+    public void addRooms(String roomName, String northRoom, String westRoom, String southRoom, String eastRoom){
+        Room tmpRoom = gameMap.get(roomName);
+        
+        tmpRoom.setAdjacentRoom(0, northRoom);
+        tmpRoom.setAdjacentRoom(1, westRoom);
+        tmpRoom.setAdjacentRoom(2, southRoom);
+        tmpRoom.setAdjacentRoom(3, eastRoom);
     }
 
     public void setPlayerName(String name) {
         player.setName(name);
     }
-    
-    public String getPlayerName(){
+
+    public String getPlayerName() {
         return player.getName();
     }
 
     public List getPlayerInventory() {
         return player.getInventory();
-    }
-
-    public int getRoomId() {
-        return currentRoom.getId();
     }
 
     public void addToInventory(String item) {
@@ -129,9 +166,9 @@ public class GameController {
     public void walkBackwards() {
         walk(BACKWARDS);
     }
-    
+
     public void save() {
-        saveGame = new SaveGame(player.getName(), player.getFacingDirection(), currentRoom.getId(), player.getInventory());
+        saveGame = new SaveGame(player.getName(), player.getFacingDirection(), currentRoom.getName(), player.getInventory());
 
         try {
             BufferedWriter outputStream = new BufferedWriter(new FileWriter("saveGame.json"));
@@ -155,7 +192,7 @@ public class GameController {
 
         player.setName(saveGame.getPlayerName());
         player.setFacingDirection(saveGame.getFacingDirection());
-        currentRoom = gameMap.get(saveGame.getRoomId());
+        currentRoom = gameMap.get(saveGame.getRoomName());
         player.setInventory(saveGame.getInventory());
     }
 
@@ -165,15 +202,15 @@ public class GameController {
 
     private void walk(final int direction) {
         if (currentRoom.getAdjacentRoom((player.getFacingDirection()) + direction) != null) {
-            currentRoom = currentRoom.getAdjacentRoom(player.getFacingDirection() + direction);
+            currentRoom = gameMap.get(currentRoom.getAdjacentRoom(player.getFacingDirection() + direction));
         }
     }
-    
-    public boolean hasHappened(int evt){
+
+    public boolean hasHappened(int evt) {
         return events.get(evt);
     }
-    
-    public void makeHappen(int evt){
+
+    public void makeHappen(int evt) {
         events.put(evt, true);
     }
 }

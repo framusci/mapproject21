@@ -78,6 +78,14 @@ class Dialogue {
         
         dbprops.setProperty("user", dbUser);
         dbprops.setProperty("password", dbPassword);
+        
+        try {
+            stm = conn.createStatement();
+            stm.executeUpdate("create table if not exists Dialoghi (id int primary key, npc varchar, text varchar)");
+            stm.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
     }
     
     public void setSeparator(String separator){

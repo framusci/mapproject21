@@ -14,28 +14,28 @@ import java.util.HashMap;
  * @author franc
  */
 class Room {
-    private Map<Integer, Room> rooms;
+    private Map<Integer, String> rooms;
     private Map<Integer, String> images;
-    private int id;
+    private String name;
     private static final int DIRECTIONS = 4;
 
-    public Room() {
+    public Room(String name) {
         rooms = new HashMap<>();
         images = new HashMap<>();
+        this.name = name;
     }
 
     //Set room and image
-    public void setAdjacentRoom(int direction, String roomImg, Room room) {
+    public void setAdjacentRoom(int direction, String room) {
         rooms.put(direction, room);
-        images.put(direction, roomImg);
     }
 
     //Set only image (no adjacent room in that direction)
-    public void setAdjacentRoom(int direction, String roomImg) {
+    public void setAdjacentImage(int direction, String roomImg) {
         images.put(direction, roomImg);
     }
 
-    public Room getAdjacentRoom(int direction) {
+    public String getAdjacentRoom(int direction) {
         return rooms.get(Math.floorMod(direction, DIRECTIONS));
     }
 
@@ -43,7 +43,7 @@ class Room {
         return images.get(Math.floorMod(direction, DIRECTIONS));
     }
     
-    public int getId(){
-        return id;
+    public String getName(){
+        return name;
     }
 }

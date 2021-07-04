@@ -8,7 +8,6 @@ package view;
 import java.awt.CardLayout;
 import java.io.File;
 import java.util.ListIterator;
-import model.GameController;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -26,7 +25,7 @@ public class GameGUI extends javax.swing.JFrame {
     static final int SOUTH = 2;
     static final int EAST = 3;
 
-    static GameController core;
+    static SkyrimGame core;
     static CardLayout cl;
     static Couple<String, ListIterator> dialogue;
 
@@ -58,17 +57,18 @@ public class GameGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLayeredPane1 = new javax.swing.JLayeredPane();
+        jButton7 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
@@ -80,14 +80,17 @@ public class GameGUI extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jTextField2 = new javax.swing.JTextField();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -97,6 +100,20 @@ public class GameGUI extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jLayeredPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jButton7.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
+        jButton7.setText("Salva ed esci");
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.setDefaultCapable(false);
+        jButton7.setFocusPainted(false);
+        jButton7.setFocusable(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jLayeredPane1.add(jButton7);
+        jButton7.setBounds(0, 0, 160, 30);
 
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -134,6 +151,20 @@ public class GameGUI extends javax.swing.JFrame {
         jLayeredPane1.add(jButton2);
         jButton2.setBounds(410, 670, 490, 50);
 
+        jButton9.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
+        jButton9.setText("Esamina");
+        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton9.setDefaultCapable(false);
+        jButton9.setFocusPainted(false);
+        jButton9.setFocusable(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jLayeredPane1.add(jButton9);
+        jButton9.setBounds(1160, 30, 120, 30);
+
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -145,6 +176,14 @@ public class GameGUI extends javax.swing.JFrame {
         });
         jLayeredPane1.add(jButton4);
         jButton4.setBounds(1180, 170, 100, 370);
+
+        jButton5.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
+        jButton5.setText("Usa");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.setFocusPainted(false);
+        jButton5.setFocusable(false);
+        jLayeredPane1.add(jButton5);
+        jButton5.setBounds(1160, 60, 120, 30);
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
@@ -160,49 +199,6 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel3.setOpaque(true);
         jLayeredPane1.add(jLabel3);
         jLabel3.setBounds(380, 560, 220, 40);
-
-        jButton7.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
-        jButton7.setText("Salva ed esci");
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton7.setDefaultCapable(false);
-        jButton7.setFocusPainted(false);
-        jButton7.setFocusable(false);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jLayeredPane1.add(jButton7);
-        jButton7.setBounds(1120, 0, 160, 30);
-
-        jButton5.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
-        jButton5.setText("Usa");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton5.setFocusPainted(false);
-        jButton5.setFocusable(false);
-        jLayeredPane1.add(jButton5);
-        jButton5.setBounds(100, 30, 100, 30);
-
-        jButton9.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
-        jButton9.setText("Esamina");
-        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton9.setDefaultCapable(false);
-        jButton9.setFocusPainted(false);
-        jButton9.setFocusable(false);
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jLayeredPane1.add(jButton9);
-        jButton9.setBounds(0, 30, 100, 30);
-
-        jComboBox1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 1));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jComboBox1.setFocusable(false);
-        jLayeredPane1.add(jComboBox1);
-        jComboBox1.setBounds(0, 0, 200, 30);
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
@@ -223,6 +219,13 @@ public class GameGUI extends javax.swing.JFrame {
         });
         jLayeredPane1.add(jLabel4);
         jLabel4.setBounds(380, 600, 530, 70);
+
+        jComboBox1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox1.setFocusable(false);
+        jLayeredPane1.add(jComboBox1);
+        jComboBox1.setBounds(1160, 0, 120, 30);
 
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.setEnabled(false);
@@ -247,7 +250,6 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel2.add(jButton10);
         jButton10.setBounds(540, 310, 120, 210);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sword.png"))); // NOI18N
         jButton6.setBorderPainted(false);
         jButton6.setContentAreaFilled(false);
         jButton6.setDefaultCapable(false);
@@ -317,17 +319,41 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel5.add(jLabel2);
         jLabel2.setBounds(400, 150, 420, 110);
 
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Seleziona la lingua");
+        jLabel5.setOpaque(true);
+        jPanel5.add(jLabel5);
+        jLabel5.setBounds(150, 340, 250, 50);
+
+        jRadioButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jRadioButton1.setText("Italiano");
+        jRadioButton1.setBorderPainted(true);
+        jRadioButton1.setFocusPainted(false);
+        jRadioButton1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel5.add(jRadioButton1);
+        jRadioButton1.setBounds(150, 390, 120, 40);
+
+        jRadioButton2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jRadioButton2.setText("English");
+        jRadioButton2.setBorderPainted(true);
+        jRadioButton2.setFocusPainted(false);
+        jRadioButton2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel5.add(jRadioButton2);
+        jRadioButton2.setBounds(270, 390, 130, 40);
+
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Inserisci il nome");
+        jLabel6.setText("Seleziona il nome");
         jLabel6.setOpaque(true);
         jPanel5.add(jLabel6);
-        jLabel6.setBounds(400, 430, 190, 40);
+        jLabel6.setBounds(780, 340, 230, 50);
 
         jTextField1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel5.add(jTextField1);
-        jTextField1.setBounds(590, 430, 190, 40);
+        jTextField1.setBounds(780, 390, 230, 40);
 
         jLabel7.setText("GitHub");
         jPanel5.add(jLabel7);
@@ -339,40 +365,17 @@ public class GameGUI extends javax.swing.JFrame {
 
         jPanel1.add(jPanel5, "card5");
 
-        jPanel6.setOpaque(false);
         jPanel6.setLayout(null);
-
-        jButton13.setBorderPainted(false);
-        jButton13.setContentAreaFilled(false);
-        jButton13.setDefaultCapable(false);
-        jButton13.setFocusPainted(false);
-        jButton13.setOpaque(false);
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jButton13);
-        jButton13.setBounds(740, 393, 70, 110);
-
-        jButton14.setText("Tenta");
-        jButton14.setEnabled(false);
-        jButton14.setFocusPainted(false);
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jButton14);
-        jButton14.setBounds(760, 500, 140, 30);
-
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField2KeyReleased(evt);
-            }
-        });
         jPanel6.add(jTextField2);
-        jTextField2.setBounds(700, 500, 50, 30);
+        jTextField2.setBounds(440, 350, 200, 20);
+
+        jButton13.setText("jButton13");
+        jPanel6.add(jButton13);
+        jButton13.setBounds(670, 350, 81, 23);
+
+        jButton14.setText("jButton14");
+        jPanel6.add(jButton14);
+        jButton14.setBounds(720, 250, 81, 23);
 
         jPanel1.add(jPanel6, "card6");
 
@@ -428,27 +431,27 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Cambio immagine
     private void jLabel1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel1PropertyChange
-        try {
-            switch (core.getEvent()){
-                case GameController.KID_INTERACTION:
-                    cl.show(jPanel1, "card6");
-                    break;
-                    
-                case GameController.GUARD_INTERACTION:
-                    cl.show(jPanel1, "card3");
-                    break;
-                    
-                case GameController.MERCHANT_INTERACTION:
-                    cl.show(jPanel1, "card2");
-                    break;
-                    
-                default:
-                    cl.show(jPanel1, "card4");
-            }
-        } catch (Exception e) {
-            //Capire perché dà NullPointerException
-            System.err.println(e);
-        }
+//        try {
+//            switch (core.getEvent()){
+//                case SkyrimGame.KID_INTERACTION:
+//                    cl.show(jPanel1, "card6");
+//                    break;
+//                    
+//                case SkyrimGame.GUARD_INTERACTION:
+//                    cl.show(jPanel1, "card3");
+//                    break;
+//                    
+//                case SkyrimGame.MERCHANT_INTERACTION:
+//                    cl.show(jPanel1, "card2");
+//                    break;
+//                    
+//                default:
+//                    cl.show(jPanel1, "card4");
+//            }
+//        } catch (Exception e) {
+//            //Capire perché dà NullPointerException (forse perché il jLabel1PropertyChange avviene prima della generazione delle altre cose)
+//            System.err.println(e);
+//        }
     }//GEN-LAST:event_jLabel1PropertyChange
 
     //jLabel dialogo
@@ -468,12 +471,12 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Mercante
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        displayDialogue(core.loadDialogue(GameController.MERCHANT_FIRST));
+        displayDialogue(core.loadDialogue(SkyrimGame.MERCHANT_FIRST));
     }//GEN-LAST:event_jButton10ActionPerformed
 
     //Guardia
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        displayDialogue(core.loadDialogue(GameController.GUARD));
+        displayDialogue(core.loadDialogue(SkyrimGame.GUARD));
     }//GEN-LAST:event_jButton12ActionPerformed
     
     //Spada
@@ -520,8 +523,8 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Bimbo
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        if (!core.hasHappened(GameController.MINIGAME)) {
-            displayDialogue(core.loadDialogue(GameController.KID_FIRST));
+        if (!core.hasHappened(SkyrimGame.MINIGAME)) {
+            displayDialogue(core.loadDialogue(SkyrimGame.KID_FIRST));
             jTextField2.setVisible(true);
             jButton14.setVisible(true);
             jButton13.setVisible(false);
@@ -548,17 +551,17 @@ public class GameGUI extends javax.swing.JFrame {
             String result = core.getGameResult();
             jLabel4.setText("<html>" + result.replace(". ", ".<br>") + "</html>");
 
-            if (result.equals(GameController.WIN) || result.equals(GameController.LOSE)) {
+            if (result.equals(SkyrimGame.WIN) || result.equals(SkyrimGame.LOSE)) {
                 jTextField2.setText("");
 
-                if (result.equals(GameController.WIN)) {
+                if (result.equals(SkyrimGame.WIN)) {
                     jTextField2.setVisible(false);
                     jButton14.setVisible(false);
-                    displayDialogue(core.loadDialogue(GameController.KID_WIN));
-                    core.makeHappen(GameController.MINIGAME);
-                    addItem("Biscotto"); //Farlo fare a GameController
-                } else if (result.equals(GameController.LOSE)) {
-                    displayDialogue(core.loadDialogue(GameController.KID_LOSE));
+                    displayDialogue(core.loadDialogue(SkyrimGame.KID_WIN));
+                    core.makeHappen(SkyrimGame.MINIGAME);
+                    addItem("Biscotto"); //Farlo fare a GameController (o forse no)
+                } else if (result.equals(SkyrimGame.LOSE)) {
+                    displayDialogue(core.loadDialogue(SkyrimGame.KID_LOSE));
                 }
 
             }
@@ -574,7 +577,9 @@ public class GameGUI extends javax.swing.JFrame {
 
     private void startGame() {
         cl.show(jPanel1, "card4");
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/" + core.getFacingImageFileName())));
+        System.out.println("Hmmm" + core.getFacingImageFileName());
+        setImage(core.getFacingImageFileName(), jLabel1);
+        
 
         jButton7.setVisible(true);
         jComboBox1.setVisible(true);
@@ -645,10 +650,12 @@ public class GameGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new GameGUI().setVisible(true);
+            core = new SkyrimGame();
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -658,16 +665,17 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private static javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private static javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private static javax.swing.JButton jButton9;
+    private static javax.swing.JComboBox<String> jComboBox1;
     private static javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private static javax.swing.JLabel jLabel3;
     private static javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -678,6 +686,8 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private static javax.swing.JRadioButton jRadioButton1;
+    private static javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables

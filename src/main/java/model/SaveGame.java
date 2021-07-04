@@ -14,13 +14,13 @@ import java.util.List;
 class SaveGame {
     private String name;
     private int facingDirection;
-    private int roomId;
+    private String roomName;
     private List<String> inventory;
     
-    public SaveGame(String name, int facingDirection, int roomId, List inventory) {
+    public SaveGame(String name, int facingDirection, String roomName, List inventory) {
         this.name = name;
         this.facingDirection = facingDirection;
-        this.roomId = roomId;
+        this.roomName = roomName;
         this.inventory = inventory;
     }
     
@@ -32,8 +32,8 @@ class SaveGame {
         return facingDirection;
     }
     
-    public int getRoomId(){
-        return roomId;
+    public String getRoomName(){
+        return roomName;
     }
     
     public List getInventory(){
