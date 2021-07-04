@@ -12,7 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import model.utils.Couple;
+import engine.SkyrimGame;
+import engine.Couple;
 
 /**
  *
@@ -57,7 +58,6 @@ public class GameGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jButton7 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -80,13 +80,9 @@ public class GameGUI extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jButton13 = new javax.swing.JButton();
@@ -287,7 +283,7 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel5.setOpaque(false);
         jPanel5.setLayout(null);
 
-        jButton8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jButton8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton8.setText("Nuova partita");
         jButton8.setDefaultCapable(false);
         jButton8.setFocusable(false);
@@ -298,9 +294,9 @@ public class GameGUI extends javax.swing.JFrame {
             }
         });
         jPanel5.add(jButton8);
-        jButton8.setBounds(400, 390, 190, 40);
+        jButton8.setBounds(410, 310, 190, 40);
 
-        jButton11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jButton11.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton11.setText("Carica partita");
         jButton11.setDefaultCapable(false);
         jButton11.setFocusable(false);
@@ -311,7 +307,7 @@ public class GameGUI extends javax.swing.JFrame {
             }
         });
         jPanel5.add(jButton11);
-        jButton11.setBounds(590, 390, 190, 40);
+        jButton11.setBounds(410, 350, 190, 40);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -319,49 +315,23 @@ public class GameGUI extends javax.swing.JFrame {
         jPanel5.add(jLabel2);
         jLabel2.setBounds(400, 150, 420, 110);
 
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Seleziona la lingua");
-        jLabel5.setOpaque(true);
-        jPanel5.add(jLabel5);
-        jLabel5.setBounds(150, 340, 250, 50);
-
-        jRadioButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jRadioButton1.setText("Italiano");
-        jRadioButton1.setBorderPainted(true);
-        jRadioButton1.setFocusPainted(false);
-        jRadioButton1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel5.add(jRadioButton1);
-        jRadioButton1.setBounds(150, 390, 120, 40);
-
-        jRadioButton2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jRadioButton2.setText("English");
-        jRadioButton2.setBorderPainted(true);
-        jRadioButton2.setFocusPainted(false);
-        jRadioButton2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel5.add(jRadioButton2);
-        jRadioButton2.setBounds(270, 390, 130, 40);
-
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Seleziona il nome");
+        jLabel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel6.setOpaque(true);
         jPanel5.add(jLabel6);
-        jLabel6.setBounds(780, 340, 230, 50);
+        jLabel6.setBounds(600, 310, 230, 40);
 
         jTextField1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel5.add(jTextField1);
-        jTextField1.setBounds(780, 390, 230, 40);
+        jTextField1.setBounds(600, 350, 230, 40);
 
         jLabel7.setText("GitHub");
         jPanel5.add(jLabel7);
-        jLabel7.setBounds(840, 490, 34, 14);
-
-        jLabel8.setText("Manuale");
-        jPanel5.add(jLabel8);
-        jLabel8.setBounds(880, 490, 40, 14);
+        jLabel7.setBounds(840, 490, 70, 20);
 
         jPanel1.add(jPanel5, "card5");
 
@@ -476,7 +446,7 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Guardia
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        displayDialogue(core.loadDialogue(SkyrimGame.GUARD));
+        displayDialogue(core.loadDialogue(SkyrimGame.STRANGER));
     }//GEN-LAST:event_jButton12ActionPerformed
     
     //Spada
@@ -491,7 +461,7 @@ public class GameGUI extends javax.swing.JFrame {
         if (!jTextField1.getText().isEmpty()) {
             if (new File("saveGame.json").isFile()) {
                 if (JOptionPane.showConfirmDialog(GameGUI.this, "Esiste già un altro salvataggio. Vuoi sovrascriverlo?", "Attenzione!", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    core.setPlayerName(jTextField1.getText());
+                    core = new SkyrimGame(jTextField1.getText());
                     core.save();
 
                     startGame();
@@ -510,8 +480,8 @@ public class GameGUI extends javax.swing.JFrame {
         if (new File("saveGame.json").isFile()) {
             core.load();
 
-            core.getPlayerInventory().forEach((Object item) -> {
-                jComboBox1.addItem(item.toString());
+            core.getPlayerInventory().forEach((String item) -> {
+                jComboBox1.addItem(item);
             });
 
             startGame();
@@ -577,7 +547,6 @@ public class GameGUI extends javax.swing.JFrame {
 
     private void startGame() {
         cl.show(jPanel1, "card4");
-        System.out.println("Hmmm" + core.getFacingImageFileName());
         setImage(core.getFacingImageFileName(), jLabel1);
         
 
@@ -650,12 +619,10 @@ public class GameGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new GameGUI().setVisible(true);
-            core = new SkyrimGame();
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private static javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -675,10 +642,8 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private static javax.swing.JLabel jLabel3;
     private static javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLayeredPane jLayeredPane1;
     private static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -686,8 +651,6 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private static javax.swing.JRadioButton jRadioButton1;
-    private static javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
