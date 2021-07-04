@@ -31,13 +31,19 @@ public class SkyrimGame extends GameController {
 
     //Dialogues
     public static final int MERCHANT_FIRST = 0;
-    public static final int MERCHANT_SWORD = 1;
+    public static final int MERCHANT_NO_MONEY = 1;
     public static final int STRANGER = 2;
     public static final int KID_FIRST = 3;
     public static final int KID_LOSE = 4;
     public static final int KID_WIN = 5;
     public static final int JARL_START = 6;
     public static final int JARL_END = 7;
+    
+    //Items
+    public static final String GOLDEN_RING = "Anello d'oro";
+    public static final String GOLDEN_COIN = "Moneta d'oro";
+    public static final String TALOS_AMULET = "Amuleto di Talos";
+    public static final String SCROLL = "Pergamena";
 
     //Events
     public static final int MINIGAME = 0;
@@ -205,8 +211,19 @@ public class SkyrimGame extends GameController {
         super.addEvent(MINIGAME);
 
         //Dialogues
-        super.addDialogue(MERCHANT_FIRST, "Rudolf", "Chiavi, corde, bombe, li vuoi?§Sono tuoi, " + super.getPlayerName() + ", ma solo se avrai abbastanza rupie.§Devi scusarmi, ma non ti posso far credito: torna quando sarai un po' più... ricco!");
-        super.addDialogue(MERCHANT_SWORD, "Rudolf", "Ah, vedo che hai una spada.");
+        super.addDialogue(MERCHANT_FIRST, "Edda", "Buondì! Non perderti l'offerta di oggi: un amuleto di Talos a solo una moneta d'oro!");
+        super.addDialogue(MERCHANT_NO_MONEY, "Edda", "Devi scusarmi, non ti posso far credito: torna quando sarai un po' più... ricco!");
+        super.addDialogue(STRANGER, "???", "Ehi, cosa guardi?!");
+        super.addDialogue(KID_FIRST, "Bimba", "Ciao!" + super.getPlayerName() + "! " + super.getPlayerName() + "! Ti sfido!§Io ti dico un numero, che può iniziare anche con lo zero, di quattro cifre tutte diverse e tu lo dovrai indovinare.§Tu mi dirai il numero e io ti dirò: quante cifre sono giuste e nella posizione giusta e quante cifre sono giuste ma nella posizione sbagliata.§Scommetto che non riesci a vincere il premio!");
+        super.addDialogue(KID_LOSE, "Bimba", LOSE);
+        super.addDialogue(KID_WIN, "Bimba", WIN);
+        super.addDialogue(JARL_START, "Jarl", super.getPlayerName() + "...§Uno spettro si aggira per Riften... un ladro.§Riften è dimora dei culti di ben nove dei. Purtroppo, qualcuno ha rubato una delle nove reliquie: quella di Talos.§Giuntami voce delle tue mirabolanti capacità investigative, ho deciso di chiamarti.§" + super.getPlayerName() + ", sei la nostra ultima speranza!");
+        super.addDialogue(JARL_END, "Jarl", super.getPlayerName() + "!§Che gioia vederti! Sei stato eccellente! I miei complimenti.§Come ricompensa, ti nomino capo della squadra investigativa di Riften!§Arrivederci!");
+        
+        super.addItemDescription(GOLDEN_RING, "Un bell'anello d'oro. Chissà cosa potrei ricavarne...");
+        super.addItemDescription(GOLDEN_COIN, "Il risparmio è il primo guadagno. Ma forse non è questo il caso.");
+        super.addItemDescription(TALOS_AMULET, "L'amuleto dell'egemone famiglia Talosik, usato tra di loro come lasciapassare.");
+        super.addItemDescription(SCROLL, "\"Vai nel tempio e ruba la reliquia di Talos. Firmato: sig...\" Dannazione, il foglio è sgualcito e non si riesce a leggere.");
     }
 
     public void startMiniGame() {

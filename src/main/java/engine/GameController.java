@@ -59,6 +59,10 @@ public class GameController {
     public void addDialogue(int id, String name, String text) {
         dialogue.addDialogue(id, name, text);
     }
+    
+    public void addItemDescription(String itemName, String description){
+        dialogue.addItem(itemName, description);
+    }
 
     public void setDialogueDatabase(String dbURL, String dbUser, String dbPassword) {
         dialogue.setDatabase(dbURL, dbUser, dbPassword);

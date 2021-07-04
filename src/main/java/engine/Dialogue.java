@@ -43,13 +43,13 @@ class Dialogue {
 
     public Dialogue(String dbURL, String user, String password, String separator) {
         dbprops = new Properties();
-        
+
         try {
             conn = DriverManager.getConnection(dbURL, dbprops);
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
-        
+
         dbprops.setProperty("user", user);
         dbprops.setProperty("password", password);
 
@@ -60,34 +60,36 @@ class Dialogue {
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
-        
+
         this.separator = separator;
     }
-    
-    public Dialogue(){
+
+    public Dialogue() {
         dbprops = new Properties();
     }
-    
-    public void setDatabase(String dbURL, String dbUser, String dbPassword){
+
+    public void setDatabase(String dbURL, String dbUser, String dbPassword) {
         try {
             conn = DriverManager.getConnection(dbURL, dbprops);
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
-        
+
         dbprops.setProperty("user", dbUser);
         dbprops.setProperty("password", dbPassword);
-        
+
         try {
             stm = conn.createStatement();
             stm.executeUpdate("create table if not exists Dialoghi (id int primary key, npc varchar, text varchar)");
             stm.close();
+            stm = conn.createStatement();
+            stm.executeUpdate("create table if not exists Oggetti (name varchar primary key, text varchar");
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
     }
-    
-    public void setSeparator(String separator){
+
+    public void setSeparator(String separator) {
         this.separator = separator;
     }
 
@@ -123,11 +125,33 @@ class Dialogue {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
     }
-    
-    public void removeDialogue(int id){
+
+    public void addItem(String itemName, String description) {
+        try {
+            pstm = conn.prepareStatement("INSERT INTO oggetti VALUES (?,?)");
+            pstm.setString(1, itemName);
+            pstm.setString(2, description);
+            pstm.executeUpdate();
+            pstm.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+    }
+
+    public void removeDialogue(int id) {
         try {
             stm = conn.createStatement();
             stm.executeUpdate("DELETE FROM dialoghi WHERE id = " + id);
+            stm.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+    }
+
+    public void removeItem(String itemName) {
+        try {
+            stm = conn.createStatement();
+            stm.executeUpdate("DELETE FROM oggetti WHERE name = " + itemName);
             stm.close();
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
