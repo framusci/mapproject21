@@ -1,21 +1,5 @@
 package engine;
 
-/*
- * Copyright (C) 2021 franc
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -28,14 +12,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
-/**
- *
- * @author franc
- */
 public class GameController {
 
     //Player movement
@@ -55,13 +35,29 @@ public class GameController {
         dialogue = new Dialogue();
         events = new HashMap<>();
     }
+    
+    void setStartingRoom(Room start){
+        currentRoom = start;
+    }
 
-    public void addDialogue(int id, String name, String text) {
-        dialogue.addDialogue(id, name, text);
+    public void addDialogue(int id, String text) {
+        dialogue.addDialogue(id, text);
+    }
+    
+    public void addObservation(int id, String text){
+        dialogue.addObservation(id, text);
     }
     
     public void addItemDescription(String itemName, String description){
         dialogue.addItem(itemName, description);
+    }
+    
+    public String loadItemDescription(String itemName){
+        return dialogue.getItem(itemName);
+    }
+    
+    public String loadObservation(int id){
+        return dialogue.getObservation(id);
     }
 
     public void setDialogueDatabase(String dbURL, String dbUser, String dbPassword) {
@@ -92,6 +88,10 @@ public class GameController {
     public List getPlayerInventory() {
         return player.getInventory();
     }
+    
+    public boolean isInInventory(String s){
+        return player.getInventory().contains(s);
+    }
 
     public void addToInventory(String item) {
         player.takeItem(item);
@@ -109,8 +109,8 @@ public class GameController {
         return player.getFacingDirection();
     }
 
-    public Couple<String, ListIterator> loadDialogue(int dl) {
-        return dialogue.getDialogue(dl);
+    public Iterator loadDialogue(int id) {
+        return dialogue.getDialogue(id);
     }
 
     public void turnRight() {
@@ -184,6 +184,10 @@ public class GameController {
 
     public void makeHappen(int evt) {
         events.put(evt, true);
+    }
+    
+    public String getEvent(){
+        return String.valueOf(currentRoom.getId()) + String.valueOf(player.getFacingDirection());
     }
 
     private class SavePlayer {

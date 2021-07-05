@@ -13,39 +13,39 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import engine.SkyrimGame;
-import engine.Couple;
+import java.util.Iterator;
 
 /**
  *
  * @author franc
  */
 public class GameGUI extends javax.swing.JFrame {
-
+    
     static final int NORTH = 0;
     static final int WEST = 1;
     static final int SOUTH = 2;
     static final int EAST = 3;
-
+    
+    private boolean win = false;
+    
     static SkyrimGame core;
     static CardLayout cl;
-    static Couple<String, ListIterator> dialogue;
+    static Iterator<String> dialogue;
 
     /**
      * Creates new form Interface
      */
     public GameGUI() {
         initComponents();
-
+        
         cl = (CardLayout) (jPanel1.getLayout());
-        jLabel3.setVisible(false);
         jLabel4.setVisible(false);
         jButton7.setVisible(false);
         jComboBox1.setVisible(false);
         jButton9.setVisible(false);
-        jButton5.setVisible(false);
         jButton14.setVisible(false);
         jTextField2.setVisible(false);
-
+        
         cl.show(jPanel1, "card5");
     }
 
@@ -65,14 +65,9 @@ public class GameGUI extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton12 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -82,15 +77,26 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jButton10 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jButton16 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jButton17 = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
+        jButton18 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("mapproject21");
+        setTitle("Talos Dinasty");
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(null);
@@ -145,7 +151,7 @@ public class GameGUI extends javax.swing.JFrame {
             }
         });
         jLayeredPane1.add(jButton2);
-        jButton2.setBounds(410, 670, 490, 50);
+        jButton2.setBounds(410, 660, 490, 50);
 
         jButton9.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
         jButton9.setText("Esamina");
@@ -159,7 +165,7 @@ public class GameGUI extends javax.swing.JFrame {
             }
         });
         jLayeredPane1.add(jButton9);
-        jButton9.setBounds(1160, 30, 120, 30);
+        jButton9.setBounds(1130, 30, 150, 30);
 
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
@@ -172,29 +178,6 @@ public class GameGUI extends javax.swing.JFrame {
         });
         jLayeredPane1.add(jButton4);
         jButton4.setBounds(1180, 170, 100, 370);
-
-        jButton5.setFont(new java.awt.Font("Lucida Console", 0, 11)); // NOI18N
-        jButton5.setText("Usa");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton5.setFocusPainted(false);
-        jButton5.setFocusable(false);
-        jLayeredPane1.add(jButton5);
-        jButton5.setBounds(1160, 60, 120, 30);
-
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Lucida Console", 1, 14)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Bottom text");
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel3.setAlignmentY(0.0F);
-        jLabel3.setAutoscrolls(true);
-        jLabel3.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel3.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel3.setOpaque(true);
-        jLayeredPane1.add(jLabel3);
-        jLabel3.setBounds(380, 560, 220, 40);
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Lucida Console", 0, 14)); // NOI18N
@@ -214,64 +197,34 @@ public class GameGUI extends javax.swing.JFrame {
             }
         });
         jLayeredPane1.add(jLabel4);
-        jLabel4.setBounds(380, 600, 530, 70);
+        jLabel4.setBounds(390, 590, 530, 70);
 
         jComboBox1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox1.setFocusable(false);
         jLayeredPane1.add(jComboBox1);
-        jComboBox1.setBounds(1160, 0, 120, 30);
+        jComboBox1.setBounds(1130, 0, 150, 30);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.setEnabled(false);
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.CardLayout());
-
-        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.setOpaque(false);
-        jPanel2.setLayout(null);
-
-        jButton10.setBorderPainted(false);
-        jButton10.setContentAreaFilled(false);
-        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton10.setDefaultCapable(false);
-        jButton10.setDoubleBuffered(true);
-        jButton10.setFocusPainted(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton10);
-        jButton10.setBounds(540, 310, 120, 210);
-
-        jButton6.setBorderPainted(false);
-        jButton6.setContentAreaFilled(false);
-        jButton6.setDefaultCapable(false);
-        jButton6.setFocusPainted(false);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton6);
-        jButton6.setBounds(645, 524, 370, 100);
-
-        jPanel1.add(jPanel2, "card2");
 
         jPanel3.setOpaque(false);
         jPanel3.setLayout(null);
 
         jButton12.setBorderPainted(false);
         jButton12.setContentAreaFilled(false);
+        jButton12.setFocusPainted(false);
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
             }
         });
         jPanel3.add(jButton12);
-        jButton12.setBounds(730, 333, 140, 220);
+        jButton12.setBounds(510, 220, 230, 370);
 
         jPanel1.add(jPanel3, "card3");
 
@@ -294,7 +247,7 @@ public class GameGUI extends javax.swing.JFrame {
             }
         });
         jPanel5.add(jButton8);
-        jButton8.setBounds(410, 310, 190, 40);
+        jButton8.setBounds(410, 370, 190, 40);
 
         jButton11.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton11.setText("Carica partita");
@@ -307,13 +260,13 @@ public class GameGUI extends javax.swing.JFrame {
             }
         });
         jPanel5.add(jButton11);
-        jButton11.setBounds(410, 350, 190, 40);
+        jButton11.setBounds(410, 410, 190, 40);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Footlight MT Light", 1, 88)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Titolo molto bello");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/titolo.png"))); // NOI18N
         jPanel5.add(jLabel2);
-        jLabel2.setBounds(400, 150, 420, 110);
+        jLabel2.setBounds(310, 190, 680, 140);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -321,37 +274,161 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel6.setOpaque(true);
         jPanel5.add(jLabel6);
-        jLabel6.setBounds(600, 310, 230, 40);
+        jLabel6.setBounds(600, 370, 230, 40);
 
         jTextField1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel5.add(jTextField1);
-        jTextField1.setBounds(600, 350, 230, 40);
-
-        jLabel7.setText("GitHub");
-        jPanel5.add(jLabel7);
-        jLabel7.setBounds(840, 490, 70, 20);
+        jTextField1.setBounds(600, 410, 230, 40);
 
         jPanel1.add(jPanel5, "card5");
 
+        jPanel6.setOpaque(false);
         jPanel6.setLayout(null);
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
         jPanel6.add(jTextField2);
-        jTextField2.setBounds(440, 350, 200, 20);
+        jTextField2.setBounds(560, 510, 80, 40);
 
-        jButton13.setText("jButton13");
+        jButton13.setBorderPainted(false);
+        jButton13.setContentAreaFilled(false);
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
         jPanel6.add(jButton13);
-        jButton13.setBounds(670, 350, 81, 23);
+        jButton13.setBounds(570, 180, 150, 290);
 
-        jButton14.setText("jButton14");
+        jButton14.setText("Vai");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
         jPanel6.add(jButton14);
-        jButton14.setBounds(720, 250, 81, 23);
+        jButton14.setBounds(640, 510, 90, 40);
 
         jPanel1.add(jPanel6, "card6");
+
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel2.setOpaque(false);
+        jPanel2.setLayout(null);
+
+        jButton10.setBorderPainted(false);
+        jButton10.setContentAreaFilled(false);
+        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton10.setDefaultCapable(false);
+        jButton10.setDoubleBuffered(true);
+        jButton10.setFocusPainted(false);
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton10);
+        jButton10.setBounds(500, 100, 290, 360);
+
+        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/amuletos2.png"))); // NOI18N
+        jButton15.setBorderPainted(false);
+        jButton15.setContentAreaFilled(false);
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton15);
+        jButton15.setBounds(310, 480, 120, 150);
+
+        jButton6.setBorderPainted(false);
+        jButton6.setContentAreaFilled(false);
+        jButton6.setDefaultCapable(false);
+        jButton6.setFocusPainted(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton6);
+        jButton6.setBounds(755, 484, 250, 140);
+
+        jPanel1.add(jPanel2, "card2");
+
+        jPanel7.setOpaque(false);
+        jPanel7.setLayout(null);
+
+        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/scroll2.png"))); // NOI18N
+        jButton16.setBorderPainted(false);
+        jButton16.setContentAreaFilled(false);
+        jButton16.setFocusPainted(false);
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton16);
+        jButton16.setBounds(610, 440, 140, 70);
+
+        jPanel1.add(jPanel7, "card7");
+
+        jPanel8.setOpaque(false);
+        jPanel8.setLayout(null);
+
+        jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reliquia.png"))); // NOI18N
+        jButton17.setBorderPainted(false);
+        jButton17.setContentAreaFilled(false);
+        jButton17.setFocusPainted(false);
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton17);
+        jButton17.setBounds(520, 50, 240, 380);
+
+        jPanel1.add(jPanel8, "card8");
+
+        jPanel9.setOpaque(false);
+        jPanel9.setLayout(null);
+
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jButton5.setFocusPainted(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton5);
+        jButton5.setBounds(520, 283, 210, 250);
+
+        jPanel1.add(jPanel9, "card9");
+
+        jPanel10.setOpaque(false);
+        jPanel10.setLayout(null);
+
+        jButton18.setBorderPainted(false);
+        jButton18.setContentAreaFilled(false);
+        jButton18.setFocusPainted(false);
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton18);
+        jButton18.setBounds(500, 283, 120, 220);
+
+        jPanel1.add(jPanel10, "card10");
 
         jLayeredPane1.add(jPanel1);
         jPanel1.setBounds(0, 0, 1280, 720);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/start.png"))); // NOI18N
         jLabel1.setMinimumSize(new java.awt.Dimension(10, 20));
         jLabel1.setPreferredSize(new java.awt.Dimension(20, 20));
         jLabel1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -365,7 +442,7 @@ public class GameGUI extends javax.swing.JFrame {
         getContentPane().add(jLayeredPane1);
         jLayeredPane1.setBounds(-1, -1, 1280, 720);
 
-        setSize(new java.awt.Dimension(1296, 759));
+        setSize(new java.awt.Dimension(1292, 757));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -401,42 +478,75 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Cambio immagine
     private void jLabel1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel1PropertyChange
-//        try {
-//            switch (core.getEvent()){
-//                case SkyrimGame.KID_INTERACTION:
-//                    cl.show(jPanel1, "card6");
-//                    break;
-//                    
-//                case SkyrimGame.GUARD_INTERACTION:
-//                    cl.show(jPanel1, "card3");
-//                    break;
-//                    
-//                case SkyrimGame.MERCHANT_INTERACTION:
-//                    cl.show(jPanel1, "card2");
-//                    break;
-//                    
-//                default:
-//                    cl.show(jPanel1, "card4");
-//            }
-//        } catch (Exception e) {
-//            //Capire perché dà NullPointerException (forse perché il jLabel1PropertyChange avviene prima della generazione delle altre cose)
-//            System.err.println(e);
-//        }
+        try {
+            switch (core.getEvent()) {
+                case SkyrimGame.KID_INTERACTION:
+                    cl.show(jPanel1, "card6");
+                    break;
+                
+                case SkyrimGame.GUARD_INTERACTION:
+                    cl.show(jPanel1, "card3");
+                    if (core.getPlayerInventory().contains(SkyrimGame.TALOS_AMULET)) {
+                        jButton1.setVisible(true);
+                        jButton12.setVisible(false);
+                    } else {
+                        jButton1.setVisible(false);
+                    }
+                    
+                    break;
+                
+                case SkyrimGame.MERCHANT_INTERACTION:
+                    cl.show(jPanel1, "card2");
+                    break;
+                
+                case SkyrimGame.JARL_INTERACTION:
+                    cl.show(jPanel1, "card9");
+                    break;
+                
+                case SkyrimGame.TEMPLE_INTERACTION:
+                    cl.show(jPanel1, "card7");
+                    break;
+                
+                case SkyrimGame.BLACKSMITH_INTERACTION:
+                    cl.show(jPanel1, "card10");
+                    break;
+                
+                case SkyrimGame.RELIC_INTERACTION:
+                    cl.show(jPanel1, "card8");
+                    break;
+                
+                default:
+                    cl.show(jPanel1, "card4");
+                    jButton1.setVisible(true);
+            }
+        } catch (Exception e) {
+            //Capire perché dà NullPointerException (forse perché il jLabel1PropertyChange avviene prima della generazione delle altre cose)
+            System.err.println(e);
+        }
     }//GEN-LAST:event_jLabel1PropertyChange
 
     //jLabel dialogo
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        if (dialogue.getSecond().hasNext()) {
-            jLabel4.setText("<html>" + dialogue.getSecond().next() + "</html>");
-        } else {
-            jLabel4.setVisible(false);
-            jLabel3.setVisible(false);
+        if (dialogue != null) {
+            if (dialogue.hasNext()) {
+                jLabel4.setText("<html>" + dialogue.next() + "</html>");
+            } else {
+                jLabel4.setVisible(false);
+                if (win == true) {
+                    cl.show(jPanel1, "card4");
+                    setImage("end.png", jLabel1);
+                    jButton7.setVisible(false);
+                    jButton9.setVisible(false);
+                    jComboBox1.setVisible(false);
+                    jButton5.setVisible(false);
+                }
+            }
         }
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    //TODO
+    //Esamina
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        displayDialogue(core.loadItemDescription((String) jComboBox1.getSelectedItem()));
     }//GEN-LAST:event_jButton9ActionPerformed
 
     //Mercante
@@ -446,28 +556,25 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Guardia
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        displayDialogue(core.loadDialogue(SkyrimGame.STRANGER));
+        displayDialogue(core.loadDialogue(SkyrimGame.GUARD));
     }//GEN-LAST:event_jButton12ActionPerformed
-    
+
     //Spada
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        addItem("Sword");
-        jButton6.setVisible(false);
+        displayDialogue(core.loadObservation(SkyrimGame.BOOK));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     //Nuova partita
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         //Aggiungere "Sei sicuro di voler sovrascrivere?".
         if (!jTextField1.getText().isEmpty()) {
-            if (new File("saveGame.json").isFile()) {
+            core = new SkyrimGame(jTextField1.getText());
+            if (new File("savePlayer.json").isFile()) {
                 if (JOptionPane.showConfirmDialog(GameGUI.this, "Esiste già un altro salvataggio. Vuoi sovrascriverlo?", "Attenzione!", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    core = new SkyrimGame(jTextField1.getText());
                     core.save();
-
                     startGame();
                 }
             } else {
-                core.setPlayerName(jTextField1.getText());
                 startGame();
             }
         } else {
@@ -477,13 +584,14 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Carica partita
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        if (new File("saveGame.json").isFile()) {
+        if (new File("saveMap.dat").isFile() && new File("savePlayer.json").isFile()) {
+            core = new SkyrimGame();
             core.load();
-
-            core.getPlayerInventory().forEach((String item) -> {
-                jComboBox1.addItem(item);
+            
+            core.getPlayerInventory().forEach(item -> {
+                jComboBox1.addItem((String) item);
             });
-
+            
             startGame();
         } else {
             JOptionPane.showMessageDialog(GameGUI.this, "Non esiste alcun file da caricare.", "Errore!", JOptionPane.ERROR_MESSAGE);
@@ -493,7 +601,7 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Bimbo
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        if (!core.hasHappened(SkyrimGame.MINIGAME)) {
+        if (!core.hasHappened(SkyrimGame.NUMBER_GAME)) {
             displayDialogue(core.loadDialogue(SkyrimGame.KID_FIRST));
             jTextField2.setVisible(true);
             jButton14.setVisible(true);
@@ -520,67 +628,109 @@ public class GameGUI extends javax.swing.JFrame {
             jLabel4.setVisible(true);
             String result = core.getGameResult();
             jLabel4.setText("<html>" + result.replace(". ", ".<br>") + "</html>");
-
+            
             if (result.equals(SkyrimGame.WIN) || result.equals(SkyrimGame.LOSE)) {
                 jTextField2.setText("");
-
+                
                 if (result.equals(SkyrimGame.WIN)) {
                     jTextField2.setVisible(false);
                     jButton14.setVisible(false);
                     displayDialogue(core.loadDialogue(SkyrimGame.KID_WIN));
-                    core.makeHappen(SkyrimGame.MINIGAME);
-                    addItem("Biscotto"); //Farlo fare a GameController (o forse no)
+                    core.makeHappen(SkyrimGame.NUMBER_GAME);
+                    addItem(SkyrimGame.GOLDEN_RING); //Farlo fare a GameController (o forse no)
                 } else if (result.equals(SkyrimGame.LOSE)) {
                     displayDialogue(core.loadDialogue(SkyrimGame.KID_LOSE));
                 }
-
+                
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(jPanel1, "Errore! Inserire solo numeri.");
         }
     }//GEN-LAST:event_jButton14ActionPerformed
 
+    //Mercante
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        if (core.getPlayerInventory().contains(SkyrimGame.GOLDEN_COIN)) {
+            jButton15.setVisible(false);
+            addItem(SkyrimGame.TALOS_AMULET);
+            removeItem(SkyrimGame.GOLDEN_COIN);
+        }
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    //Jarl
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        if (core.getPlayerInventory().contains(SkyrimGame.TALOS_RELIC)) {
+            displayDialogue(core.loadDialogue(SkyrimGame.JARL_END));
+            win = true;
+        } else {
+            displayDialogue(core.loadDialogue(SkyrimGame.JARL_START));
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    //Pergamena
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        displayDialogue(core.loadObservation(SkyrimGame.SCROLL));
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    //Fabbro
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        if (core.getPlayerInventory().contains(SkyrimGame.GOLDEN_RING)) {
+            removeItem(SkyrimGame.GOLDEN_RING);
+            addItem(SkyrimGame.GOLDEN_COIN);
+        } else {
+            displayDialogue(core.loadDialogue(SkyrimGame.SMITH_NO_OBJECT));
+        }
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        addItem(SkyrimGame.TALOS_RELIC);
+        jButton17.setVisible(false);
+    }//GEN-LAST:event_jButton17ActionPerformed
+
     //Custom methods
     private void setImage(String image, javax.swing.JLabel jLab) {
         jLab.setIcon(new ImageIcon(getClass().getResource("/" + image)));
     }
-
+    
     private void startGame() {
         cl.show(jPanel1, "card4");
         setImage(core.getFacingImageFileName(), jLabel1);
         
-
         jButton7.setVisible(true);
         jComboBox1.setVisible(true);
         jButton9.setVisible(true);
-        jButton5.setVisible(true);
     }
-
-    private void displayDialogue(Couple<String, ListIterator> dl) {      
+    
+    private void displayDialogue(Iterator dl) {
         dialogue = dl;
-
-        if (dialogue.getSecond().hasNext()) {
-            jLabel3.setText(dialogue.getFirst());
-            jLabel4.setText("<html>" + dialogue.getSecond().next() + "</html>");
-
-            if (dialogue.getFirst() != null) {
-                jLabel3.setVisible(true);
-            }
+        
+        if (dialogue.hasNext()) {
+            jLabel4.setText("<html>" + dialogue.next() + "</html>");
             jLabel4.setVisible(true);
         } else {
-            jLabel3.setVisible(false);
             jLabel4.setVisible(false);
         }
     }
-
+    
+    public void displayDialogue(String s) {
+        if (s != null) {
+            jLabel4.setText("<html>" + s + "</html>");
+            jLabel4.setVisible(true);
+        } else {
+            jLabel4.setVisible(false);
+        }
+    }
+    
     private void addItem(String item) {
         core.addToInventory(item);
         jComboBox1.addItem(item);
     }
-
-    /**
-     * @param args the command line arguments
-     */
+    
+    private void removeItem(String item) {
+        core.getPlayerInventory().remove(item);
+        jComboBox1.removeItem(item);
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -594,22 +744,14 @@ public class GameGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GameGUI.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GameGUI.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GameGUI.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GameGUI.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            System.err.println(ex);
         }
         //</editor-fold>
         //</editor-fold>
 
+        //</editor-fold>
+        //</editor-fold>
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {
@@ -629,10 +771,14 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private static javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private static javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -640,17 +786,19 @@ public class GameGUI extends javax.swing.JFrame {
     private static javax.swing.JComboBox<String> jComboBox1;
     private static javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private static javax.swing.JLabel jLabel3;
     private static javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLayeredPane jLayeredPane1;
     private static javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables

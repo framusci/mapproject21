@@ -1,31 +1,14 @@
 package engine;
 
-/*
- * Copyright (C) 2021 franc
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Properties;
 
 /**
@@ -80,10 +63,19 @@ class Dialogue {
 
         try {
             stm = conn.createStatement();
-            stm.executeUpdate("create table if not exists Dialoghi (id int primary key, npc varchar, text varchar)");
+            stm.executeUpdate("drop table if exists Dialoghi");
+            stm.executeUpdate("create table if not exists Dialoghi (id int primary key, text varchar)");
             stm.close();
+            
             stm = conn.createStatement();
-            stm.executeUpdate("create table if not exists Oggetti (name varchar primary key, text varchar");
+            stm.executeUpdate("drop table if exists Oggetti");
+            stm.executeUpdate("create table if not exists Oggetti (name varchar primary key, text varchar)");
+            stm.close();
+            
+            stm = conn.createStatement();
+            stm.executeUpdate("drop table if exists osservazioni");
+            stm.executeUpdate("create table if not exists osservazioni (id int primary key, text varchar)");
+            stm.close();
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
@@ -93,32 +85,30 @@ class Dialogue {
         this.separator = separator;
     }
 
-    public Couple<String, ListIterator> getDialogue(int dialogueId) {
+    public Iterator getDialogue(int dialogueId) {
 
         try {
-            pstm = conn.prepareStatement("SELECT text, npc FROM Dialoghi WHERE id = ?");
+            pstm = conn.prepareStatement("SELECT text FROM Dialoghi WHERE id = ?");
             pstm.setInt(1, dialogueId);
             rs = pstm.executeQuery();
-            pstm.close();
+            
             rs.next();
-
-            List<String> s = new ArrayList();
-            s.addAll(Arrays.asList(rs.getString("text").split(separator)));
-
-            return new Couple(rs.getString("npc"), s.listIterator());
+            List<String> tmp = Arrays.asList(rs.getString("text").split(separator));
+            pstm.close();
+            
+            return tmp.iterator();
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
 
-        return new Couple(null, null);
+        return null;
     }
 
-    public void addDialogue(int id, String name, String dialogue) {
+    public void addDialogue(int id, String dialogue) {
         try {
-            pstm = conn.prepareStatement("INSERT INTO dialoghi VALUES (?,?,?)");
+            pstm = conn.prepareStatement("INSERT INTO dialoghi VALUES (?,?)");
             pstm.setInt(1, id);
-            pstm.setString(2, name);
-            pstm.setString(3, dialogue);
+            pstm.setString(2, dialogue);
             pstm.executeUpdate();
             pstm.close();
         } catch (SQLException ex) {
@@ -131,6 +121,56 @@ class Dialogue {
             pstm = conn.prepareStatement("INSERT INTO oggetti VALUES (?,?)");
             pstm.setString(1, itemName);
             pstm.setString(2, description);
+            pstm.executeUpdate();
+            pstm.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+    }
+    
+    public String getItem(String itemName){
+        String s;
+        
+        try {
+            pstm = conn.prepareStatement("SELECT text FROM oggetti WHERE name = ?");
+            pstm.setString(1, itemName);
+            rs = pstm.executeQuery();
+            rs.next();
+            s = rs.getString("text");
+            pstm.close();
+            
+            return s;
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+        
+        return null;
+    }
+    
+    public String getObservation(int id){
+        String s;
+        
+        try {
+            pstm = conn.prepareStatement("SELECT text FROM osservazioni WHERE id = ?");
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+            rs.next();
+            s = rs.getString("text");
+            pstm.close();
+            
+            return s;
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+        
+        return null;
+    }
+    
+    public void addObservation(int id, String text){
+        try {
+            pstm = conn.prepareStatement("INSERT INTO osservazioni VALUES (?,?)");
+            pstm.setInt(1, id);
+            pstm.setString(2, text);
             pstm.executeUpdate();
             pstm.close();
         } catch (SQLException ex) {

@@ -1,27 +1,19 @@
 package engine;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.io.Serializable;
 import java.util.Map;
 import java.util.HashMap;
 
-/**
- *
- * @author franc
- */
 class Room implements Serializable {
     private Map<Integer, Room> rooms;
-    private transient Map<Integer, String> images;
+    private Map<Integer, String> images;
+    private int id;
     private static final int DIRECTIONS = 4;
 
-    public Room() {
+    public Room(int id) {
         rooms = new HashMap<>();
         images = new HashMap<>();
+        this.id = id;
     }
 
     //Set only image (no adjacent room in that direction)
@@ -41,5 +33,9 @@ class Room implements Serializable {
 
     public String getImage(int direction) {
         return images.get(Math.floorMod(direction, DIRECTIONS));
+    }
+    
+    public int getId(){
+        return id;
     }
 }

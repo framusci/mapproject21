@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package engine;
 
 import java.util.List;
@@ -17,10 +12,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- *
- * @author franc
- */
 class MinigameJabberServer extends Thread {
 
     private static BufferedReader in;
