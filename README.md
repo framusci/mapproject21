@@ -25,3 +25,5 @@ Il progetto implementa il pattern architetturale *Model-View-Presenter*. La logi
 
 Il sistema è progettato per essere esteso e semplice da utilizzare per un eventuale utente che lo estenderà per progettare il suo gioco. Nello specifico, la classe `GameController` contiene la logica di base del gioco: consente la creazione della mappa e del movimento al suo interno, l'inserimento dei dialoghi, la creazione del personaggio, il caricamento e il salvataggio. Questa classe implementa il design pattern *Façade*: è un'aggregazione di classi volta a fornire un'interfaccia unificata e semplice a fronte di un sistema complesso. Nel progetto, il gioco estende la classe `GameController` per usufruirne e per aggiungere ulteriori funzionalità.
 
+## Diagramma UML delle classi
+![](src/main/resources/UML.png)
