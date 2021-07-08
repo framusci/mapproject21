@@ -7,7 +7,7 @@ Il seguente materiale costituisce la documentazione per il progetto per l'esame 
 "Talos Dinasty" è un'avventura grafica ispirata a [Myst](https://it.wikipedia.org/wiki/Myst) e ambientata nel mondo di [The Elder Scrolls V: Skyrim](https://it.wikipedia.org/wiki/The_Elder_Scrolls_V:_Skyrim).
 La scelta di questi due videogiochi non è casuale. Anzitutto, perché il gameplay del primo e l'ambientazione del secondo si prestano bene ad essere riutilizzati per creare un gioco con Java SWING; poi perché l'autore apprezza molto questi due titoli.
 
-Il gioco inizia con lo Jarl (il "sindaco" nell'universo di Skyrim) che ti parla di un grave furto avvenuto in città. Il tuo compito è quello di risolvere il mistero e restituire il maltolto.
+Il gioco inizia con lo Jarl (un "sindaco" nell'universo di Skyrim) che ti parla di un grave furto avvenuto in città. Il tuo compito è quello di risolvere il mistero e restituire il maltolto.
 
 ## Tutorial
 All'avvio dell'applicazione comparirà la schermata iniziale, in cui si potrà scegliere se iniziare una nuova partita o caricarne una in corso.
@@ -23,7 +23,38 @@ In alto a sinistra, il pulsante **Salva ed esci** salva il gioco e chiude il pro
 # Architettura del sistema
 Il progetto implementa il pattern architetturale *Model-View-Presenter*. La logica di gioco (*Model*) e l'interfaccia che la implementa (*View*) non possono interagire tra loro in maniera diretta: il *Presenter* è un mediatore che si occupa di prendere in input i comandi e i dati della *View* e inviarli al *Model*, e viceversa. Questa architettura garantisce il rispetto di uno degli obiettivi dell'object-oriented design: la presentazione separata.
 
-Il sistema è progettato per essere esteso e semplice da utilizzare per un eventuale utente che lo estenderà per progettare il suo gioco. Nello specifico, la classe `GameController` contiene la logica di base del gioco: consente la creazione della mappa e del movimento al suo interno, l'inserimento dei dialoghi, la creazione del personaggio, il caricamento e il salvataggio. Questa classe implementa il design pattern *Façade*: è un'aggregazione di classi volta a fornire un'interfaccia unificata e semplice a fronte di un sistema complesso. Nel progetto, il gioco estende la classe `GameController` per usufruirne e per aggiungere ulteriori funzionalità.
+Il sistema è progettato per essere esteso e semplice da utilizzare per un eventuale utente che lo estenderà per progettare il suo gioco. Nel progetto, la classe `TalosDinasty` estende la classe `GameController` per usufruirne e per aggiungere ulteriori funzionalità.
+
+## Architettura dei package e delle classi
+
+### Package `view`
+
+* `GameGUI`: l'interfaccia di gioco.
+
+### Package `model`
+
+Contiene le classi centrali al funzionamento del sistema.
+
+* `AdventureGame`: interfaccia che descrive il comportamento che dovranno avere le classi che realizzano un gioco di questo tipo.
+* `Dialogue`: contiene i metodi per popolare, leggere e connettersi a un database SQL mediante la libreria H2.
+* `GameMap`: contiene la mappa del gioco e i metodi per crearla e navigarci.
+* `GameController`: implementa l'interfaccia `AdventureGame` contiene la logica principale del gioco. Aggrega le altre classi del package `model` e le coordina, implementando così il *Façade* design pattern, ovvero fornendo un'interfaccia semplice e unificata a fronte di un sistema complesso.
+
+### Package `game`
+
+Contiene classi aggiuntive che implementano funzionalità proprie del gioco.
+
+* `Enemy`: combattimento finale.
+* `MinigameJabberClient`: client per il minigioco numerico.
+* `MinigameJabberServer`: server per il minigioco numerico.
+* `TalosDinasty`: classe principale che si occupa di interfacciarsi con le altre classi e di istanziarle. Anche qui viene implementato il *Façade* design pattern.
+
+### Package `util`
+
+Contiene la descrizione della struttura dati "iteratore circolare", che consente di iterare ciclicamente su una lista di elementi (ovvero: l'elemento che segue l'ultimo elemento è il primo elemento; l'elemento che precede il primo elemento è l'ultimo elemento).
+
+* `CircularIterator`: interfaccia per la struttura dati "iteratore circolare".
+* `CircularArrayList`: implementazione di `CircularIterator` che si avvale della struttura dati preesistente `ArrayList`, estendendola.
 
 ## Diagramma UML delle classi
 ![](src/main/resources/UML.png)
