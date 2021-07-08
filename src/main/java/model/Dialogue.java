@@ -1,4 +1,4 @@
-package engine;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,14 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-/**
- *
- * @author franc
- */
 class Dialogue {
 
     private ResultSet rs;
@@ -36,14 +31,6 @@ class Dialogue {
         dbprops.setProperty("user", user);
         dbprops.setProperty("password", password);
 
-        try {
-            stm = conn.createStatement();
-            stm.executeUpdate("create table if not exists Dialoghi (id int primary key, npc varchar, text varchar)");
-            stm.close();
-        } catch (SQLException ex) {
-            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
-        }
-
         this.separator = separator;
     }
 
@@ -60,21 +47,33 @@ class Dialogue {
 
         dbprops.setProperty("user", dbUser);
         dbprops.setProperty("password", dbPassword);
-
+    }
+    
+    public void init(){
         try {
+            
             stm = conn.createStatement();
-            stm.executeUpdate("drop table if exists Dialoghi");
-            stm.executeUpdate("create table if not exists Dialoghi (id int primary key, text varchar)");
+            stm.executeUpdate("CREATE TABLE IF NOT EXISTS dialoghi (id INT PRIMARY KEY, text VARCHAR)");
             stm.close();
             
             stm = conn.createStatement();
-            stm.executeUpdate("drop table if exists Oggetti");
-            stm.executeUpdate("create table if not exists Oggetti (name varchar primary key, text varchar)");
+            stm.executeUpdate("CREATE TABLE IF NOT EXISTS oggetti (name VARCHAR PRIMARY KEY, text VARCHAR)");
             stm.close();
             
             stm = conn.createStatement();
-            stm.executeUpdate("drop table if exists osservazioni");
-            stm.executeUpdate("create table if not exists osservazioni (id int primary key, text varchar)");
+            stm.executeUpdate("CREATE TABLE IF NOT EXISTS osservazioni (id INT PRIMARY KEY, text VARCHAR)");
+            stm.close();
+            
+            stm = conn.createStatement();
+            stm.executeUpdate("DELETE FROM dialoghi");
+            stm.close();
+            
+            stm = conn.createStatement();
+            stm.executeUpdate("DELETE FROM oggetti");
+            stm.close();
+            
+            stm = conn.createStatement();
+            stm.executeUpdate("DELETE FROM osservazioni");
             stm.close();
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
@@ -85,18 +84,18 @@ class Dialogue {
         this.separator = separator;
     }
 
-    public Iterator getDialogue(int dialogueId) {
+    public List getDialogue(int dialogueId) {
 
         try {
-            pstm = conn.prepareStatement("SELECT text FROM Dialoghi WHERE id = ?");
+            pstm = conn.prepareStatement("SELECT text FROM dialoghi WHERE id = ?");
             pstm.setInt(1, dialogueId);
             rs = pstm.executeQuery();
             
             rs.next();
-            List<String> tmp = Arrays.asList(rs.getString("text").split(separator));
+            List<String> dialogue = Arrays.asList(rs.getString("text").split(separator));
             pstm.close();
             
-            return tmp.iterator();
+            return dialogue;
         } catch (SQLException ex) {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }

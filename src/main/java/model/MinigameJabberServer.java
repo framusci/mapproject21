@@ -1,4 +1,4 @@
-package engine;
+package model;
 
 import java.util.List;
 import java.io.BufferedReader;
@@ -10,42 +10,39 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 class MinigameJabberServer extends Thread {
 
-    private static BufferedReader in;
-    private static PrintWriter out;
-    private static Socket socket;
-    private static String strGuess;
-    private static ServerSocket s;
+    private BufferedReader in;
+    private PrintWriter out;
+    private Socket socket;
+    private String strGuess;
+    private ServerSocket s;
 
-    public static String WIN_PHRASE = "Hai vinto!";
-    public static String LOSE_PHRASE = "Hai perso!";
+    public static final String WIN_PHRASE = "Hai vinto!";
+    public static final String LOSE_PHRASE = "Hai perso!";
 
-    private static int attempts;
+    private int attempts;
     private static final int MAX_ATTEMPTS = 20;
-    private static boolean win;
-    private static String strToGuess = "";
-    private static String result;
+    private boolean win;
+    private String strToGuess;
+    private String result;
 
-    private static int i, j;
-    private static int equalPosChars;
-    private static int diffPosChars;
-    private static List<Character> numbers = new ArrayList();
+    private int i, j;
+    private int equalPosChars;
+    private int diffPosChars;
+    private List<Character> numbers;
+    
+    public MinigameJabberServer(){
+        strToGuess = "";
+        numbers = new ArrayList();
+    }
 
     @Override
     public void run() {
-        numbers.add('0');
-        numbers.add('1');
-        numbers.add('2');
-        numbers.add('3');
-        numbers.add('4');
-        numbers.add('5');
-        numbers.add('6');
-        numbers.add('7');
-        numbers.add('8');
-        numbers.add('9');
+        numbers.addAll(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'));
 
         try {
             s = new ServerSocket(6666);
@@ -66,7 +63,7 @@ class MinigameJabberServer extends Thread {
                 });
 
                 strToGuess = strToGuess.subSequence(0, 4).toString();
-                //System.out.println(strToGuess);
+
                 win = false;
                 attempts = 0;
 

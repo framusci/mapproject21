@@ -1,4 +1,4 @@
-package engine;
+package model;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,16 +15,16 @@ import java.net.Socket;
  */
 class MinigameJabberClient {
 
-    private static Socket socket;
-    private static BufferedReader in;
-    private static PrintWriter out;
-    private static InetAddress addr;
+    private Socket socket;
+    private BufferedReader in;
+    private PrintWriter out;
+    private InetAddress addr;
 
     public void attempt(String s) {
         out.println(s);
     }
     
-    public void run(){
+    public void connect(){
         try {
             addr = InetAddress.getByName("localhost");
             socket = new Socket(addr, 6666);
