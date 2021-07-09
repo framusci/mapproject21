@@ -1,6 +1,8 @@
-package model;
+package game;
 
-public class SkyrimGame extends GameController {
+import model.GameController;
+
+public class TalosDinasty extends GameController {
     //Dialogues
     public static final int MERCHANT_FIRST = 0;
     public static final int MERCHANT_NO_MONEY = 1;
@@ -42,7 +44,7 @@ public class SkyrimGame extends GameController {
     private MinigameJabberServer server;
     private Enemy enemy;
 
-    public SkyrimGame() {
+    public TalosDinasty() {
         playerClient = new MinigameJabberClient();
         server = new MinigameJabberServer();
         enemy = new Enemy();
@@ -118,7 +120,7 @@ public class SkyrimGame extends GameController {
         super.addEdge("casa_ingresso_w.png", "casa_entrata_w.png");
     }
 
-    public SkyrimGame(String playerName) {
+    public TalosDinasty(String playerName) {
         this();
         super.setPlayerName(playerName);
         super.initDialogues();

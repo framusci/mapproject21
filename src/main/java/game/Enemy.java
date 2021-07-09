@@ -1,6 +1,6 @@
-package model;
+package game;
 
-public class Enemy {
+class Enemy {
     private int health;
     private boolean run;
     private Thread t;

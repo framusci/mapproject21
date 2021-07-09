@@ -176,24 +176,4 @@ class Dialogue {
             System.err.println(ex.getSQLState() + ": " + ex.getMessage());
         }
     }
-
-    public void removeDialogue(int id) {
-        try {
-            stm = conn.createStatement();
-            stm.executeUpdate("DELETE FROM dialoghi WHERE id = " + id);
-            stm.close();
-        } catch (SQLException ex) {
-            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
-        }
-    }
-
-    public void removeItem(String itemName) {
-        try {
-            stm = conn.createStatement();
-            stm.executeUpdate("DELETE FROM oggetti WHERE name = " + itemName);
-            stm.close();
-        } catch (SQLException ex) {
-            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
-        }
-    }
 }

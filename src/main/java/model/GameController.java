@@ -9,14 +9,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 //import java.util.function.Predicate;
 
-public class GameController {
+public class GameController implements AdventureGame {
 
     private Dialogue dialogue;
     private Player player;
@@ -32,10 +31,12 @@ public class GameController {
         map = new GameMap();
     }
 
+    @Override
     public void setPlayerName(String name) {
         player.setName(name);
     }
 
+    @Override
     public String getPlayerName() {
         return player.getName();
     }
@@ -44,10 +45,12 @@ public class GameController {
         dialogue.init();
     }
 
+    @Override
     public List getPlayerInventory() {
         return player.getInventory();
     }
 
+    @Override
     public void addRoom(String... panels) {
         CircularIterator<String> room = new CircularArrayList();
         room.addAll(Arrays.asList(panels));
@@ -62,19 +65,23 @@ public class GameController {
         currentRoom = room;
     }
 
+    @Override
     public void addEdge(String first, String second) {
         map.addEdge(first, second);
     }
 
+    @Override
     public String walk() {
         currentRoom = map.searchRoom(currentRoom);
         return currentRoom.current();
     }
 
+    @Override
     public String turnRight() {
         return currentRoom.next();
     }
 
+    @Override
     public String turnLeft() {
         return currentRoom.previous();
     }
@@ -115,6 +122,7 @@ public class GameController {
         return dialogue.getDialogue(id);
     }
 
+    @Override
     public void save() {
         saveGame = new HashMap();
 
@@ -132,6 +140,7 @@ public class GameController {
         }
     }
 
+    @Override
     public void load() {
         saveGame = new HashMap();
 

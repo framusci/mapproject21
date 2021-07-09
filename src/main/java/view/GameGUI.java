@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.CardLayout;
@@ -11,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import model.SkyrimGame;
+import game.TalosDinasty;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,7 +25,7 @@ public class GameGUI extends javax.swing.JFrame {
      */
     private volatile boolean battleEnd;
 
-    private SkyrimGame core;
+    private TalosDinasty core;
     private CardLayout cl;
     private Iterator<String> dialogue;
     private Thread healthBarUpdate;
@@ -524,14 +519,14 @@ public class GameGUI extends javax.swing.JFrame {
     private void jLabel1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel1PropertyChange
         try {
             switch (core.currentImage()) {
-                case SkyrimGame.KID_EVENT:
+                case TalosDinasty.KID_EVENT:
                     cl.show(jPanel1, "card6");
                     break;
 
-                case SkyrimGame.GUARD_EVENT:
+                case TalosDinasty.GUARD_EVENT:
                     cl.show(jPanel1, "card3");
 
-                    if (core.getPlayerInventory().contains(SkyrimGame.TALOS_AMULET)) {
+                    if (core.getPlayerInventory().contains(TalosDinasty.TALOS_AMULET)) {
                         jButton1.setVisible(true);
                         jButton12.setVisible(false);
                     } else {
@@ -540,32 +535,32 @@ public class GameGUI extends javax.swing.JFrame {
 
                     break;
 
-                case SkyrimGame.MERCHANT_EVENT:
+                case TalosDinasty.MERCHANT_EVENT:
                     cl.show(jPanel1, "card2");
 
-                    if (core.getPlayerInventory().contains(SkyrimGame.TALOS_AMULET)) {
+                    if (core.getPlayerInventory().contains(TalosDinasty.TALOS_AMULET)) {
                         jButton15.setVisible(false);
                     }
 
                     break;
 
-                case SkyrimGame.JARL_EVENT:
+                case TalosDinasty.JARL_EVENT:
                     cl.show(jPanel1, "card9");
                     break;
 
-                case SkyrimGame.TEMPLE_EVENT:
+                case TalosDinasty.TEMPLE_EVENT:
                     cl.show(jPanel1, "card7");
                     break;
 
-                case SkyrimGame.BLACKSMITH_EVENT:
+                case TalosDinasty.BLACKSMITH_EVENT:
                     cl.show(jPanel1, "card10");
                     break;
 
-                case SkyrimGame.RELIC_EVENT:
+                case TalosDinasty.RELIC_EVENT:
                     cl.show(jPanel1, "card8");
                     break;
 
-                case SkyrimGame.ENEMY_EVENT:
+                case TalosDinasty.ENEMY_EVENT:
                     cl.show(jPanel1, "card11");
 
                     if (jButton2.isVisible()) {
@@ -617,24 +612,24 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Mercante
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        displayDialogue(core.loadDialogue(SkyrimGame.MERCHANT_FIRST));
+        displayDialogue(core.loadDialogue(TalosDinasty.MERCHANT_FIRST));
     }//GEN-LAST:event_jButton10ActionPerformed
 
     //Guardia
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        displayDialogue(core.loadDialogue(SkyrimGame.GUARD));
+        displayDialogue(core.loadDialogue(TalosDinasty.GUARD));
     }//GEN-LAST:event_jButton12ActionPerformed
 
     //Spada
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        displayDialogue(core.loadObservation(SkyrimGame.BOOK));
+        displayDialogue(core.loadObservation(TalosDinasty.BOOK));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     //Nuova partita
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 
         if (!jTextField1.getText().isEmpty()) {
-            core = new SkyrimGame(jTextField1.getText());
+            core = new TalosDinasty(jTextField1.getText());
             if (new File("saveGame.json").isFile()) {
                 if (JOptionPane.showConfirmDialog(GameGUI.this, "Esiste già un altro salvataggio. Vuoi sovrascriverlo?", "Attenzione!", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     core.save();
@@ -651,7 +646,7 @@ public class GameGUI extends javax.swing.JFrame {
     //Carica partita
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         if (new File("saveGame.json").isFile()) {
-            core = new SkyrimGame();
+            core = new TalosDinasty();
             core.load();
 
             core.getPlayerInventory().forEach(item -> {
@@ -666,9 +661,9 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Bimbo
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        if (!core.getPlayerInventory().contains(SkyrimGame.GOLDEN_RING)) {
-            displayDialogue(core.loadDialogue(SkyrimGame.KID_FIRST));
-            addItem(SkyrimGame.GOLDEN_RING);
+        if (!core.getPlayerInventory().contains(TalosDinasty.GOLDEN_RING)) {
+            displayDialogue(core.loadDialogue(TalosDinasty.KID_FIRST));
+            addItem(TalosDinasty.GOLDEN_RING);
             jTextField2.setVisible(true);
             jButton14.setVisible(true);
             jButton13.setVisible(false);
@@ -695,16 +690,16 @@ public class GameGUI extends javax.swing.JFrame {
             String result = core.getGameResult();
             jLabel4.setText("<html>" + result.replace(". ", ".<br>") + "</html>");
 
-            if (result.equals(SkyrimGame.WIN) || result.equals(SkyrimGame.LOSE)) {
+            if (result.equals(TalosDinasty.WIN) || result.equals(TalosDinasty.LOSE)) {
                 jTextField2.setText("");
 
-                if (result.equals(SkyrimGame.WIN)) {
+                if (result.equals(TalosDinasty.WIN)) {
                     jTextField2.setVisible(false);
                     jButton14.setVisible(false);
-                    displayDialogue(core.loadDialogue(SkyrimGame.KID_WIN));
-                    addItem(SkyrimGame.GOLDEN_RING); //Farlo fare a GameController (o forse no)
-                } else if (result.equals(SkyrimGame.LOSE)) {
-                    displayDialogue(core.loadDialogue(SkyrimGame.KID_LOSE));
+                    displayDialogue(core.loadDialogue(TalosDinasty.KID_WIN));
+                    addItem(TalosDinasty.GOLDEN_RING); //Farlo fare a GameController (o forse no)
+                } else if (result.equals(TalosDinasty.LOSE)) {
+                    displayDialogue(core.loadDialogue(TalosDinasty.KID_LOSE));
                 }
 
             }
@@ -715,45 +710,45 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Mercante
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        if (core.getPlayerInventory().contains(SkyrimGame.GOLDEN_COIN)) {
+        if (core.getPlayerInventory().contains(TalosDinasty.GOLDEN_COIN)) {
             jButton15.setVisible(false);
-            addItem(SkyrimGame.TALOS_AMULET);
-            removeItem(SkyrimGame.GOLDEN_COIN);
+            addItem(TalosDinasty.TALOS_AMULET);
+            removeItem(TalosDinasty.GOLDEN_COIN);
             jButton10.setVisible(false);
-            displayDialogue(core.loadDialogue(SkyrimGame.PURCHASE));
+            displayDialogue(core.loadDialogue(TalosDinasty.PURCHASE));
         }
     }//GEN-LAST:event_jButton15ActionPerformed
 
     //Jarl
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if (core.getPlayerInventory().contains(SkyrimGame.TALOS_RELIC)) {
-            displayDialogue(core.loadDialogue(SkyrimGame.JARL_END));
+        if (core.getPlayerInventory().contains(TalosDinasty.TALOS_RELIC)) {
+            displayDialogue(core.loadDialogue(TalosDinasty.JARL_END));
             win = true;
         } else {
-            displayDialogue(core.loadDialogue(SkyrimGame.JARL_START));
+            displayDialogue(core.loadDialogue(TalosDinasty.JARL_START));
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     //Pergamena
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        displayDialogue(core.loadObservation(SkyrimGame.SCROLL));
+        displayDialogue(core.loadObservation(TalosDinasty.SCROLL));
     }//GEN-LAST:event_jButton16ActionPerformed
 
     //Fabbro
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        if (core.getPlayerInventory().contains(SkyrimGame.GOLDEN_RING)) {
-            removeItem(SkyrimGame.GOLDEN_RING);
-            addItem(SkyrimGame.GOLDEN_COIN);
-            displayDialogue(core.loadDialogue(SkyrimGame.SMITH_OBJECT));
+        if (core.getPlayerInventory().contains(TalosDinasty.GOLDEN_RING)) {
+            removeItem(TalosDinasty.GOLDEN_RING);
+            addItem(TalosDinasty.GOLDEN_COIN);
+            displayDialogue(core.loadDialogue(TalosDinasty.SMITH_OBJECT));
         } else {
-            displayDialogue(core.loadDialogue(SkyrimGame.SMITH_NO_OBJECT));
+            displayDialogue(core.loadDialogue(TalosDinasty.SMITH_NO_OBJECT));
         }
     }//GEN-LAST:event_jButton18ActionPerformed
 
     //Reliquia
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        addItem(SkyrimGame.TALOS_RELIC);
-        jComboBox1.setSelectedItem(SkyrimGame.TALOS_RELIC);
+        addItem(TalosDinasty.TALOS_RELIC);
+        jComboBox1.setSelectedItem(TalosDinasty.TALOS_RELIC);
         jButton17.setVisible(false);
     }//GEN-LAST:event_jButton17ActionPerformed
 
@@ -774,7 +769,7 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Nemico
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        displayDialogue(core.loadDialogue(SkyrimGame.TALOS));
+        displayDialogue(core.loadDialogue(TalosDinasty.TALOS));
         if (battleEnd) {
             jProgressBar1.setVisible(true);
             jButton19.setVisible(true);
