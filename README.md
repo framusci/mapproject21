@@ -10,7 +10,7 @@ La scelta di questi due videogiochi non è casuale. In primo luogo perché il ga
 Il gioco inizia con lo Jarl (un "sindaco" nell'universo di Skyrim) che ti parla di un grave furto avvenuto in città. Il tuo compito è quello di risolvere il mistero e restituire il maltolto.
 
 ## Tutorial
-Avviata l'applicazione, nella schermata iniziale si potrà scegliere se iniziare una nuova partita o caricarne una in corso.
+All'avvio dell'applicazione comparirà la schermata iniziale, in cui si potrà scegliere se iniziare una nuova partita o caricarne una in corso.
 
 **Nuova partita**: inizierà una nuova partita, previo inserimento del nome del personaggio. Nel caso in cui non sia inserito un nome, verrà visualizzata una schermata di errore. Nel caso in cui sia già presente un nuovo salvataggio, viene mostrata una schermata che chiede all'utente se vuole sovrascrivere il precedente salvataggio o meno.
 
@@ -26,6 +26,10 @@ Il progetto implementa il pattern architetturale *Model-View-Presenter*. La logi
 Il sistema è progettato per essere esteso e semplice da utilizzare per un eventuale utente che lo estenderà per progettare il suo gioco. Nel progetto, la classe `TalosDynasty` estende la classe `GameController` per usufruirne e per aggiungere ulteriori funzionalità.
 
 Particolare è la creazione dell'intefaccia **iteratore circolare**. Si tratta di un iteratore in cui l'elemento che segue l'ultimo elemento è il primo elemento e l'elemento che precede il primo elemento è l'ultimo elemento. Nel progetto è presente l'interfaccia `CircularIterator` e anche una sua possibile implementazione: `CircularArrayList`.
+
+## Funzionamento generale del gioco
+
+Il gioco è costituito da una mappa composta da stanze. Ciascuna stanza è a sua volta composta da delle immagini. Queste immagini sono raccolte in un iteratore circolare, in modo che si possa simulare il movimento a 360° della visuale in prima persona. 
 
 ## Architettura dei package e delle classi
 
