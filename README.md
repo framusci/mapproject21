@@ -5,7 +5,7 @@ Autore: Francesco Musci
 Il seguente materiale costituisce la documentazione per il progetto per l'esame di Metodi Avanzati di Programmazione (2021). Il progetto, volto ad utilizzare i concetti e i metodi appresi durante il corso, consiste in un videogioco di tipo avventura grafica o testuale. In questo caso, si tratta di un'avventura grafica.
 
 "Talos Dinasty" è un'avventura grafica ispirata a [Myst](https://it.wikipedia.org/wiki/Myst) e ambientata nel mondo di [The Elder Scrolls V: Skyrim](https://it.wikipedia.org/wiki/The_Elder_Scrolls_V:_Skyrim).
-La scelta di questi due videogiochi non è casuale. Anzitutto, perché il gameplay del primo e l'ambientazione del secondo si prestano bene ad essere riutilizzati per creare un gioco con Java SWING; poi perché l'autore apprezza molto questi due titoli.
+La scelta di questi due videogiochi non è casuale. In primo luogo perché il gameplay del primo e l'ambientazione del secondo si prestano bene ad essere riutilizzati per creare un gioco con Java SWING; in secondo luogo perché l'autore apprezza molto questi due titoli.
 
 Il gioco inizia con lo Jarl (un "sindaco" nell'universo di Skyrim) che ti parla di un grave furto avvenuto in città. Il tuo compito è quello di risolvere il mistero e restituire il maltolto.
 
@@ -25,8 +25,7 @@ Il progetto implementa il pattern architetturale *Model-View-Presenter*. La logi
 
 Il sistema è progettato per essere esteso e semplice da utilizzare per un eventuale utente che lo estenderà per progettare il suo gioco. Nel progetto, la classe `TalosDinasty` estende la classe `GameController` per usufruirne e per aggiungere ulteriori funzionalità.
 
-## Funzionamento
-
+Particolare è la creazione dell'intefaccia **iteratore circolare**. Si tratta di un iteratore in cui l'elemento che segue l'ultimo elemento è il primo elemento e l'elemento che precede il primo elemento è l'ultimo elemento. Nel progetto è presente l'interfaccia `CircularIterator` e anche una sua possibile implementazione: `CircularArrayList`.
 
 ## Architettura dei package e delle classi
 
@@ -61,3 +60,5 @@ Contiene la descrizione della struttura dati "iteratore circolare", che consente
 
 ## Diagramma UML delle classi
 ![](src/main/resources/UML.png)
+
+# Dettagli implementativi
