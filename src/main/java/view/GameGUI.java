@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import game.TalosDinasty;
+import game.TalosDynasty;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class GameGUI extends javax.swing.JFrame {
      */
     private volatile boolean battleEnd;
 
-    private TalosDinasty core;
+    private TalosDynasty core;
     private CardLayout cl;
     private Iterator<String> dialogue;
     private Thread healthBarUpdate;
@@ -519,14 +519,14 @@ public class GameGUI extends javax.swing.JFrame {
     private void jLabel1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel1PropertyChange
         try {
             switch (core.currentImage()) {
-                case TalosDinasty.KID_EVENT:
+                case TalosDynasty.KID_EVENT:
                     cl.show(jPanel1, "card6");
                     break;
 
-                case TalosDinasty.GUARD_EVENT:
+                case TalosDynasty.GUARD_EVENT:
                     cl.show(jPanel1, "card3");
 
-                    if (core.getPlayerInventory().contains(TalosDinasty.TALOS_AMULET)) {
+                    if (core.getPlayerInventory().contains(TalosDynasty.TALOS_AMULET)) {
                         jButton1.setVisible(true);
                         jButton12.setVisible(false);
                     } else {
@@ -535,32 +535,32 @@ public class GameGUI extends javax.swing.JFrame {
 
                     break;
 
-                case TalosDinasty.MERCHANT_EVENT:
+                case TalosDynasty.MERCHANT_EVENT:
                     cl.show(jPanel1, "card2");
 
-                    if (core.getPlayerInventory().contains(TalosDinasty.TALOS_AMULET)) {
+                    if (core.getPlayerInventory().contains(TalosDynasty.TALOS_AMULET)) {
                         jButton15.setVisible(false);
                     }
 
                     break;
 
-                case TalosDinasty.JARL_EVENT:
+                case TalosDynasty.JARL_EVENT:
                     cl.show(jPanel1, "card9");
                     break;
 
-                case TalosDinasty.TEMPLE_EVENT:
+                case TalosDynasty.TEMPLE_EVENT:
                     cl.show(jPanel1, "card7");
                     break;
 
-                case TalosDinasty.BLACKSMITH_EVENT:
+                case TalosDynasty.BLACKSMITH_EVENT:
                     cl.show(jPanel1, "card10");
                     break;
 
-                case TalosDinasty.RELIC_EVENT:
+                case TalosDynasty.RELIC_EVENT:
                     cl.show(jPanel1, "card8");
                     break;
 
-                case TalosDinasty.ENEMY_EVENT:
+                case TalosDynasty.ENEMY_EVENT:
                     cl.show(jPanel1, "card11");
 
                     if (jButton2.isVisible()) {
@@ -612,24 +612,24 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Mercante
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        displayDialogue(core.loadDialogue(TalosDinasty.MERCHANT_FIRST));
+        displayDialogue(core.loadDialogue(TalosDynasty.MERCHANT_FIRST));
     }//GEN-LAST:event_jButton10ActionPerformed
 
     //Guardia
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        displayDialogue(core.loadDialogue(TalosDinasty.GUARD));
+        displayDialogue(core.loadDialogue(TalosDynasty.GUARD));
     }//GEN-LAST:event_jButton12ActionPerformed
 
     //Spada
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        displayDialogue(core.loadObservation(TalosDinasty.BOOK));
+        displayDialogue(core.loadObservation(TalosDynasty.BOOK));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     //Nuova partita
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 
         if (!jTextField1.getText().isEmpty()) {
-            core = new TalosDinasty(jTextField1.getText());
+            core = new TalosDynasty(jTextField1.getText());
             if (new File("saveGame.json").isFile()) {
                 if (JOptionPane.showConfirmDialog(GameGUI.this, "Esiste già un altro salvataggio. Vuoi sovrascriverlo?", "Attenzione!", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     core.save();
@@ -646,7 +646,7 @@ public class GameGUI extends javax.swing.JFrame {
     //Carica partita
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         if (new File("saveGame.json").isFile()) {
-            core = new TalosDinasty();
+            core = new TalosDynasty();
             core.load();
 
             core.getPlayerInventory().forEach(item -> {
@@ -661,9 +661,9 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Bimbo
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        if (!core.getPlayerInventory().contains(TalosDinasty.GOLDEN_RING)) {
-            displayDialogue(core.loadDialogue(TalosDinasty.KID_FIRST));
-            addItem(TalosDinasty.GOLDEN_RING);
+        if (!core.getPlayerInventory().contains(TalosDynasty.GOLDEN_RING)) {
+            displayDialogue(core.loadDialogue(TalosDynasty.KID_FIRST));
+            addItem(TalosDynasty.GOLDEN_RING);
             jTextField2.setVisible(true);
             jButton14.setVisible(true);
             jButton13.setVisible(false);
@@ -690,16 +690,16 @@ public class GameGUI extends javax.swing.JFrame {
             String result = core.getGameResult();
             jLabel4.setText("<html>" + result.replace(". ", ".<br>") + "</html>");
 
-            if (result.equals(TalosDinasty.WIN) || result.equals(TalosDinasty.LOSE)) {
+            if (result.equals(TalosDynasty.WIN) || result.equals(TalosDynasty.LOSE)) {
                 jTextField2.setText("");
 
-                if (result.equals(TalosDinasty.WIN)) {
+                if (result.equals(TalosDynasty.WIN)) {
                     jTextField2.setVisible(false);
                     jButton14.setVisible(false);
-                    displayDialogue(core.loadDialogue(TalosDinasty.KID_WIN));
-                    addItem(TalosDinasty.GOLDEN_RING); //Farlo fare a GameController (o forse no)
-                } else if (result.equals(TalosDinasty.LOSE)) {
-                    displayDialogue(core.loadDialogue(TalosDinasty.KID_LOSE));
+                    displayDialogue(core.loadDialogue(TalosDynasty.KID_WIN));
+                    addItem(TalosDynasty.GOLDEN_RING); //Farlo fare a GameController (o forse no)
+                } else if (result.equals(TalosDynasty.LOSE)) {
+                    displayDialogue(core.loadDialogue(TalosDynasty.KID_LOSE));
                 }
 
             }
@@ -710,45 +710,45 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Mercante
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        if (core.getPlayerInventory().contains(TalosDinasty.GOLDEN_COIN)) {
+        if (core.getPlayerInventory().contains(TalosDynasty.GOLDEN_COIN)) {
             jButton15.setVisible(false);
-            addItem(TalosDinasty.TALOS_AMULET);
-            removeItem(TalosDinasty.GOLDEN_COIN);
+            addItem(TalosDynasty.TALOS_AMULET);
+            removeItem(TalosDynasty.GOLDEN_COIN);
             jButton10.setVisible(false);
-            displayDialogue(core.loadDialogue(TalosDinasty.PURCHASE));
+            displayDialogue(core.loadDialogue(TalosDynasty.PURCHASE));
         }
     }//GEN-LAST:event_jButton15ActionPerformed
 
     //Jarl
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if (core.getPlayerInventory().contains(TalosDinasty.TALOS_RELIC)) {
-            displayDialogue(core.loadDialogue(TalosDinasty.JARL_END));
+        if (core.getPlayerInventory().contains(TalosDynasty.TALOS_RELIC)) {
+            displayDialogue(core.loadDialogue(TalosDynasty.JARL_END));
             win = true;
         } else {
-            displayDialogue(core.loadDialogue(TalosDinasty.JARL_START));
+            displayDialogue(core.loadDialogue(TalosDynasty.JARL_START));
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     //Pergamena
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        displayDialogue(core.loadObservation(TalosDinasty.SCROLL));
+        displayDialogue(core.loadObservation(TalosDynasty.SCROLL));
     }//GEN-LAST:event_jButton16ActionPerformed
 
     //Fabbro
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        if (core.getPlayerInventory().contains(TalosDinasty.GOLDEN_RING)) {
-            removeItem(TalosDinasty.GOLDEN_RING);
-            addItem(TalosDinasty.GOLDEN_COIN);
-            displayDialogue(core.loadDialogue(TalosDinasty.SMITH_OBJECT));
+        if (core.getPlayerInventory().contains(TalosDynasty.GOLDEN_RING)) {
+            removeItem(TalosDynasty.GOLDEN_RING);
+            addItem(TalosDynasty.GOLDEN_COIN);
+            displayDialogue(core.loadDialogue(TalosDynasty.SMITH_OBJECT));
         } else {
-            displayDialogue(core.loadDialogue(TalosDinasty.SMITH_NO_OBJECT));
+            displayDialogue(core.loadDialogue(TalosDynasty.SMITH_NO_OBJECT));
         }
     }//GEN-LAST:event_jButton18ActionPerformed
 
     //Reliquia
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        addItem(TalosDinasty.TALOS_RELIC);
-        jComboBox1.setSelectedItem(TalosDinasty.TALOS_RELIC);
+        addItem(TalosDynasty.TALOS_RELIC);
+        jComboBox1.setSelectedItem(TalosDynasty.TALOS_RELIC);
         jButton17.setVisible(false);
     }//GEN-LAST:event_jButton17ActionPerformed
 
@@ -769,7 +769,7 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Nemico
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        displayDialogue(core.loadDialogue(TalosDinasty.TALOS));
+        displayDialogue(core.loadDialogue(TalosDynasty.TALOS));
         if (battleEnd) {
             jProgressBar1.setVisible(true);
             jButton19.setVisible(true);

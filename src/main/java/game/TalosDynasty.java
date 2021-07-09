@@ -2,7 +2,7 @@ package game;
 
 import model.GameController;
 
-public class TalosDinasty extends GameController {
+public class TalosDynasty extends GameController {
     //Dialogues
     public static final int MERCHANT_FIRST = 0;
     public static final int MERCHANT_NO_MONEY = 1;
@@ -44,7 +44,7 @@ public class TalosDinasty extends GameController {
     private MinigameJabberServer server;
     private Enemy enemy;
 
-    public TalosDinasty() {
+    public TalosDynasty() {
         playerClient = new MinigameJabberClient();
         server = new MinigameJabberServer();
         enemy = new Enemy();
@@ -120,7 +120,7 @@ public class TalosDinasty extends GameController {
         super.addEdge("casa_ingresso_w.png", "casa_entrata_w.png");
     }
 
-    public TalosDinasty(String playerName) {
+    public TalosDynasty(String playerName) {
         this();
         super.setPlayerName(playerName);
         super.initDialogues();
