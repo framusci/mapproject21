@@ -49,7 +49,7 @@ Contiene classi aggiuntive che implementano funzionalità proprie del gioco.
 * `Enemy`: combattimento finale.
 * `MinigameJabberClient`: client per il minigioco numerico.
 * `MinigameJabberServer`: server per il minigioco numerico.
-* `TalosDinasty`: classe principale che si occupa di interfacciarsi con le altre classi e di istanziarle. Anche qui viene implementato il *Façade* design pattern.
+* `TalosDynasty`: classe principale che si occupa di interfacciarsi con le altre classi e di istanziarle. Anche qui viene implementato il *Façade* design pattern.
 
 ### Package `util`
 
