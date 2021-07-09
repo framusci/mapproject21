@@ -25,6 +25,9 @@ Il progetto implementa il pattern architetturale *Model-View-Presenter*. La logi
 
 Il sistema è progettato per essere esteso e semplice da utilizzare per un eventuale utente che lo estenderà per progettare il suo gioco. Nel progetto, la classe `TalosDinasty` estende la classe `GameController` per usufruirne e per aggiungere ulteriori funzionalità.
 
+## Funzionamento
+
+
 ## Architettura dei package e delle classi
 
 ### Package `view`
