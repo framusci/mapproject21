@@ -10,7 +10,7 @@ La scelta di questi due videogiochi non è casuale. In primo luogo perché il ga
 Il gioco inizia con lo Jarl (un "sindaco" nell'universo di Skyrim) che ti parla di un grave furto avvenuto in città. Il tuo compito è quello di risolvere il mistero e restituire il maltolto.
 
 ## Tutorial
-All'avvio dell'applicazione comparirà la schermata iniziale, in cui si potrà scegliere se iniziare una nuova partita o caricarne una in corso.
+Avviata l'applicazione, nella schermata iniziale si potrà scegliere se iniziare una nuova partita o caricarne una in corso.
 
 **Nuova partita**: inizierà una nuova partita, previo inserimento del nome del personaggio. Nel caso in cui non sia inserito un nome, verrà visualizzata una schermata di errore. Nel caso in cui sia già presente un nuovo salvataggio, viene mostrata una schermata che chiede all'utente se vuole sovrascrivere il precedente salvataggio o meno.
 
