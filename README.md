@@ -25,7 +25,7 @@ Il progetto implementa il pattern architetturale *Model-View-Presenter*. La logi
 
 Il sistema è progettato per essere esteso e semplice da utilizzare per un eventuale utente che lo estenderà per progettare il suo gioco. Nel progetto, la classe `TalosDynasty` estende la classe `GameController` per usufruirne e per aggiungere ulteriori funzionalità.
 
-Particolare è la creazione dell'intefaccia **iteratore circolare**. Si tratta di un iteratore in cui l'elemento che segue l'ultimo elemento è il primo elemento e l'elemento che precede il primo elemento è l'ultimo elemento. Nel progetto è presente l'interfaccia `CircularIterator` e anche una sua possibile implementazione: `CircularArrayList`.
+Particolare è la creazione dell'interfaccia **iteratore circolare**. Si tratta di un iteratore in cui l'elemento che segue l'ultimo elemento è il primo elemento e l'elemento che precede il primo elemento è l'ultimo elemento. Nel progetto è presente l'interfaccia `CircularIterator` e anche una sua possibile implementazione: `CircularArrayList`.
 
 ## Funzionamento generale
 Il gioco è costituito da una mappa composta da stanze. Ciascuna stanza è a sua volta composta da delle immagini. Queste immagini sono raccolte in un iteratore circolare, in modo da simulare il movimento continuo della visuale in prima persona. Ciascuna immagine è associata a uno o più eventi; ogni volta che il giocatore si muove e l'immagine viene aggiornata, viene effettuato un controllo per capire quali sono gli eventi associati a quell'immagine ed eseguirli.
