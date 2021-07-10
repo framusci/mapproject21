@@ -20,21 +20,14 @@ Iniziato il gioco, per interagire con l'ambiente circostante è sufficiente clic
 
 In alto a sinistra, il pulsante **Salva ed esci** salva il gioco e chiude il processo. In alto a destra, un menù a tendina contiene l'inventario del personaggio; il pulsante **Esamina** consente di esaminare l'oggetto selezionato nel menù a tendina.
 
+Il testo dei dialoghi è mostrato in un riquadro in basso al centro della schermata. Per andare avanti con le frasi del dialogo, è necessario cliccare il riquadro. Quando scompare, vuol dire che non ci sono più frasi in quella interazione.
+
 # Architettura del sistema
 Il progetto implementa il pattern architetturale *Model-View-Presenter*. La logica di gioco (*Model*) e l'interfaccia che la implementa (*View*) non possono interagire tra loro in maniera diretta: il *Presenter* è un mediatore che si occupa di prendere in input i comandi e i dati della *View* e inviarli al *Model*, e viceversa. Questa architettura garantisce il rispetto di uno degli obiettivi dell'object-oriented design: la presentazione separata.
 
 Il sistema è progettato per essere esteso e semplice da utilizzare per un eventuale utente che lo estenderà per progettare il suo gioco. Nel progetto, la classe `TalosDynasty` estende la classe `GameController` per usufruirne e per aggiungere ulteriori funzionalità.
 
-Particolare è la creazione dell'interfaccia **iteratore circolare**. Si tratta di un iteratore in cui l'elemento che segue l'ultimo elemento è il primo elemento e l'elemento che precede il primo elemento è l'ultimo elemento. Nel progetto è presente l'interfaccia `CircularIterator` e anche una sua possibile implementazione: `CircularArrayList`.
-
-## Funzionamento generale
-Il gioco è costituito da una mappa composta da stanze. Ciascuna stanza è a sua volta composta da delle immagini. Queste immagini sono raccolte in un iteratore circolare, in modo da simulare il movimento continuo della visuale in prima persona. Ciascuna immagine è associata a uno o più eventi; ogni volta che il giocatore si muove e l'immagine viene aggiornata, viene effettuato un controllo per capire quali sono gli eventi associati a quell'immagine ed eseguirli.
-
-Per determinare il movimento da una stanza all'altra, bisogna definire i collegamenti tra le immagini: l'immagine di partenza, quella che il giocatore sta guardando, e l'immagine di destinazione, quella che il giocatore guarderà una volta terminato il movimento. Ottenuta l'immagine di destinazione, viene cercata nella mappa la stanza che contiene l'immagine di destinazione e viene impostata come stanza corrente.
-
-Questa architettura permette di eliminare il vincolo di dover definire a priori il numero di direzioni in cui il giocatore può andare e che può osservare (ad es. nord, sud, est, ovest).
-
-## Architettura dei package e delle classi
+## Struttura dei package e delle classi
 
 ### Package `view`
 
@@ -66,6 +59,40 @@ Contiene la descrizione della struttura dati "iteratore circolare", che consente
 * `CircularArrayList`: implementazione di `CircularIterator` che si avvale della struttura dati preesistente `ArrayList`, estendendola.
 
 ## Diagramma UML delle classi
+Di seguito è riportato il diagramma UML delle classi (comprende solo una porzione delle classi, la più significativa).
 ![](src/main/resources/UML.png)
 
 # Dettagli implementativi
+
+La mappa di gioco è composta da stanze. Ciascuna stanza è a sua volta composta da delle immagini. Queste immagini sono raccolte in un iteratore circolare, in modo da simulare il movimento continuo della visuale in prima persona. Ciascuna immagine è associata a uno o più eventi; ogni volta che il giocatore si muove e l'immagine viene aggiornata, viene effettuato un controllo per capire quali sono gli eventi associati all'immagine visualizzata ed eseguirli.
+
+Per determinare il movimento da una stanza all'altra, bisogna definire i collegamenti tra le immagini: l'immagine di partenza, quella che il giocatore sta guardando, e l'immagine di destinazione, quella che il giocatore guarderà una volta terminato il movimento. Ottenuta l'immagine di destinazione, viene cercata nella mappa la stanza che contiene l'immagine di destinazione e viene impostata come stanza corrente.
+
+Questa architettura permette di eliminare il vincolo di dover definire a priori il numero di direzioni in cui il giocatore può andare e che può osservare (ad es. nord, sud, est, ovest).
+
+Particolare è la creazione dell'interfaccia **iteratore circolare**. Si tratta di un iteratore in cui l'elemento che segue l'ultimo elemento è il primo elemento e l'elemento che precede il primo elemento è l'ultimo elemento. Nel progetto è presente l'interfaccia `CircularIterator` e anche una sua possibile implementazione: `CircularArrayList`.
+
+## Tecnologie utilizzate
+
+### File
+L'input/output con i file è utilizzato per salvare i dati della partita. Per ricostruire una partita a partire da un salvataggio sono necessari tre oggetti:
+* immagine corrente 
+* nome del personaggio
+* inventario.
+
+A tal proposito è stata scelta la rappresentazione in JSON dei dati utilizzando la libreria Gson. Per raccogliere i dati all'interno di un'unico oggetto, i dati sono memorizzati all'interno di una HashMap: le chiavi, di tipo String, sono i nomi degli attributi; i valori, di tipo Object, sono gli attributi memorizzati. Si noti che quando è il momento di caricare i dati da file, è necessario effettuare un typecasting dal tipo Object.
+
+Qui di seguito, un esempio di un possibile salvataggio:
+```javascript
+{
+	"currentImage":"mercante_e.png",
+	"name":"Tizio",
+	"inventory":["Moneta d'oro"]
+}
+```
+
+Utilizzando la serializzazione standard di Java si sarebbero salvati tanti altri dati non utili; per ovviare a questo problema l'utilizzo del modificatore `transient` non sarebbe stato ottimale, poiché, dovendo usarlo spesso in vari punti del codice, ne avrebbe intaccato la leggibilità e l'estendibilità. Data la semplicità e la quantità minima di dati da memorizzare in questo caso, la rappresentazione JSON è più adatta.
+
+L'unico problema è che un giocatore disonesto potrebbe proseguire nel gioco semplicemente modificando i file, senza giocare l'avventura.
+
+### Database
