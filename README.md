@@ -27,10 +27,12 @@ Il sistema è progettato per essere esteso e semplice da utilizzare per un event
 
 Particolare è la creazione dell'intefaccia **iteratore circolare**. Si tratta di un iteratore in cui l'elemento che segue l'ultimo elemento è il primo elemento e l'elemento che precede il primo elemento è l'ultimo elemento. Nel progetto è presente l'interfaccia `CircularIterator` e anche una sua possibile implementazione: `CircularArrayList`.
 
-## Funzionamento generale del gioco
+## Funzionamento generale
 Il gioco è costituito da una mappa composta da stanze. Ciascuna stanza è a sua volta composta da delle immagini. Queste immagini sono raccolte in un iteratore circolare, in modo da simulare il movimento continuo della visuale in prima persona. Ciascuna immagine è associata a uno o più eventi; ogni volta che l'immagine viene aggiornata, viene effettuato un controllo per capire quali sono gli eventi associati a quell'immagine ed eseguirli.
 
+Per determinare il movimento da una stanza all'altra, bisogna definire i collegamenti tra le immagini: l'immagine di partenza, quella che il giocatore sta guardando, e l'immagine di destinazione, quella che il giocatore guarderà una volta terminato il movimento. 
 
+Questa architettura permette di eliminare il vincolo di dover definire a priori il numero di direzioni che il giocatore può osservare (ad es. nord, ovest, sud, est).
 
 ## Architettura dei package e delle classi
 
