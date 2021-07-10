@@ -75,6 +75,7 @@ Particolare è la creazione dell'interfaccia **iteratore circolare**. Si tratta 
 ## Tecnologie utilizzate
 
 ### File
+
 L'input/output con i file è utilizzato per salvare i dati della partita. Per ricostruire una partita a partire da un salvataggio sono necessari tre oggetti:
 * immagine corrente 
 * nome del personaggio
@@ -96,3 +97,38 @@ Utilizzando la serializzazione standard di Java si sarebbero salvati tanti altri
 L'unico problema è che un giocatore disonesto potrebbe proseguire nel gioco semplicemente modificando i file, senza giocare l'avventura.
 
 ### Database
+
+I database sono utilizzati per memorizzare i dialoghi all'interno del gioco mediante il DBMS H2. Data l'ottica di riusabilità del codice, è possibile decidere a quale database connettersi, potendo definire URL, username e password. I dialoghi hanno un id e un testo, sono creati in questo modo:
+```sql
+CREATE TABLE IF NOT EXISTS dialoghi (id INT NOT NULL PRIMARY KEY, text VARCHAR)
+```
+
+Questa implementazione dei database presenta una particolarità: l'implementazione di un sistema di partizionamento dei dialoghi. Quando un dialogo è troppo lungo per essere mostrato per intero nel riquadro, l'utente può inserire nella stringa un separatore (di sua scelta) che separa i diversi pezzi del dialogo, che vengono restituiti in una lista. Nel progetto, viene preso l'iteratore della lista per effettuare l'avanzamento del dialogo.
+
+Un esempio dell'utilizzo del separatore:
+> Ottimi gusti.§Grazie per l'acquisto!
+
+In questo caso, il separatore scelto è `§`.
+
+### Socket/Net
+La programmazione in rete è utilizzata per implementare il minigioco [Bulls and Cows](https://en.wikipedia.org/wiki/Bulls_and_Cows). Si gioca in due: un giocatore pensa ad un numero e l'altro deve indovinarlo, sulla base di una serie di regole. Questo minigioco si presta ad essere implementato mediante l'architettura client/server: il client è il giocatore che effettua il tentativo; il server è il giocatore che "pensa" al numero e verifica l'esito dei tentativi dell'altro giocatore.
+
+In questo caso, avviene tutto in locale: client e server sono eseguiti sulla stessa macchina, utilizzando la porta `6666`. Un tipico scenario di funzionamento è il seguente:
+1. Il server viene avviato.
+2. Il server si mette in attesa di una connessione da un client.
+3. Il client si connette.
+4. Il server genera il numero da indovinare.
+5. Il server si mette in attesa del tentativo del client.
+6. Il client effettua il tentativo.
+7. Il server determina l'esito del tentativo.
+8. Il server manda l'esito in output al client.
+9. Il client riceve in input l'esito.
+10. Esito:
+	1. Se il giocatore ha vinto, il server termina la sua esecuzione;
+	2. Se il giocatore ha perso e ha ancora dei tentativi rimasti, ritorna al punto 5;
+	3. Se il giocatore ha perso e non ha più tentativi rimasti, ritorna al punto 4.
+
+### Thread
+I thread sono utilizzati in due occasioni.
+
+La prima è per 
