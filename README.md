@@ -129,6 +129,5 @@ In questo caso, avviene tutto in locale: client e server sono eseguiti sulla ste
 	3. Se il giocatore ha perso e non ha più tentativi rimasti, ritorna al punto 4.
 
 ### Thread
-I thread sono utilizzati in due occasioni.
 
-La prima è per 
+La prima è per eseguire il server visto al punto precedente.
