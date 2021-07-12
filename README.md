@@ -161,3 +161,5 @@ Un utilizzo "dinamico" dell'interfaccia viene fatto durante il combattimento fin
 ![](src/main/resources/gui3.png)
 
 La `jProgressBar` è stata privata del bordo e colorata di rosso per rendere meglio l'effetto di una tipica barra della vita che si trova nei videogiochi.
+
+Tutti i contenitori (`jPanel`, `jLayeredPane`) utilizzano il `null` layout, che permette un posizionamento libero dei componenti.
