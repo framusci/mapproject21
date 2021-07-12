@@ -15,15 +15,37 @@ import java.net.Socket;
  */
 class MinigameJabberClient {
 
+    /**
+     *
+     */
     private Socket socket;
+
+    /**
+     *
+     */
     private BufferedReader in;
+
+    /**
+     *
+     */
     private PrintWriter out;
+
+    /**
+     *
+     */
     private InetAddress addr;
 
+    /**
+     *
+     * @param s
+     */
     public void attempt(String s) {
         out.println(s);
     }
     
+    /**
+     *
+     */
     public void connect(){
         try {
             addr = InetAddress.getByName("localhost");
@@ -35,6 +57,10 @@ class MinigameJabberClient {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public String getResult() {
         try {
             return in.readLine();

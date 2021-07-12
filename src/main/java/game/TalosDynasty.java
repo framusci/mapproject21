@@ -1,55 +1,203 @@
 package game;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import model.GameController;
 
+/**
+ *
+ * @author franc
+ */
 public class TalosDynasty extends GameController {
+    
     //Dialogues
+
+    /**
+     *
+     */
     public static final int MERCHANT_FIRST = 0;
+
+    /**
+     *
+     */
     public static final int MERCHANT_NO_MONEY = 1;
+
+    /**
+     *
+     */
     public static final int GUARD = 2;
+
+    /**
+     *
+     */
     public static final int KID_FIRST = 3;
+
+    /**
+     *
+     */
     public static final int KID_LOSE = 4;
+
+    /**
+     *
+     */
     public static final int KID_WIN = 5;
+
+    /**
+     *
+     */
     public static final int JARL_START = 6;
+
+    /**
+     *
+     */
     public static final int JARL_END = 7;
+
+    /**
+     *
+     */
     public static final int SMITH_NO_OBJECT = 8;
+
+    /**
+     *
+     */
     public static final int TALOS = 9;
+
+    /**
+     *
+     */
     public static final int PURCHASE = 10;
+
+    /**
+     *
+     */
     public static final int SMITH_OBJECT = 11;
 
+    /**
+     *
+     */
+    public static final int SCROLL = 12;
+
+    /**
+     *
+     */
+    public static final int BOOK = 13;
+
     //Items
+
+    /**
+     *
+     */
     public static final String GOLDEN_RING = "Anello d'oro";
+
+    /**
+     *
+     */
     public static final String GOLDEN_COIN = "Moneta d'oro";
+
+    /**
+     *
+     */
     public static final String TALOS_AMULET = "Amuleto di Talos";
+
+    /**
+     *
+     */
     public static final String TALOS_RELIC = "Reliquia di Talos";
 
-    //Observations
-    public static final int SCROLL = 0;
-    public static final int BOOK = 1;
-
     //Events
+
+    /**
+     *
+     */
     public static final String KID_EVENT = "tempio_entrata_n.png";
+
+    /**
+     *
+     */
     public static final String GUARD_EVENT = "casa_entrata_e.png";
+
+    /**
+     *
+     */
     public static final String MERCHANT_EVENT = "mercante_w.png";
+
+    /**
+     *
+     */
     public static final String TEMPLE_EVENT = "tempio_altari_s.png";
+
+    /**
+     *
+     */
     public static final String RELIC_EVENT = "casa_reliquia_e.png";
+
+    /**
+     *
+     */
     public static final String BLACKSMITH_EVENT = "fabbro_w.png";
+
+    /**
+     *
+     */
     public static final String JARL_EVENT = "jarl_n.png";
+
+    /**
+     *
+     */
     public static final String ENEMY_EVENT = "casa_porta_n.png";
 
+    /**
+     *
+     */
     public static final String WIN = MinigameJabberServer.WIN_PHRASE;
+
+    /**
+     *
+     */
     public static final String LOSE = MinigameJabberServer.LOSE_PHRASE;
 
+    /**
+     *
+     */
     private MinigameJabberClient playerClient;
+
+    /**
+     *
+     */
     private MinigameJabberServer server;
+
+    /**
+     *
+     */
+    private Thread enemyThread;
+
+    /**
+     *
+     */
     private Enemy enemy;
 
+    /**
+     *
+     */
+    private Map<String, Integer> itemId;
+
+    /**
+     *
+     */
     public TalosDynasty() {
         playerClient = new MinigameJabberClient();
         server = new MinigameJabberServer();
         enemy = new Enemy();
+        enemyThread = new Thread(enemy);
+        itemId = new HashMap();
         super.setDialogueDatabase("jdbc:h2:./resources/db/store", "sa", "");
         super.setDialogueSeparator("§");
+        
+        itemId.put(GOLDEN_RING, GOLDEN_RING.hashCode());
+        itemId.put(GOLDEN_COIN, GOLDEN_COIN.hashCode());
+        itemId.put(TALOS_AMULET, TALOS_AMULET.hashCode());
+        itemId.put(TALOS_RELIC, TALOS_RELIC.hashCode());
 
         //Rooms
         super.addFirstRoom("jarl_n.png", "jarl_e.png", "jarl_s.png", "jarl_w.png");
@@ -120,6 +268,10 @@ public class TalosDynasty extends GameController {
         super.addEdge("casa_ingresso_w.png", "casa_entrata_w.png");
     }
 
+    /**
+     *
+     * @param string
+     */
     public TalosDynasty(String playerName) {
         this();
         super.setPlayerName(playerName);
@@ -139,37 +291,69 @@ public class TalosDynasty extends GameController {
         super.addDialogue(PURCHASE, "Ottimi gusti.§Grazie per l'acquisto!");
         super.addDialogue(SMITH_OBJECT, "Un anello d'oro...§Ne posso ricavare due monete.§Una a te... e una a me!");
 
-        super.addItemDescription(GOLDEN_RING, "Un bell'anello d'oro. Chissà cosa potrei ricavarne...");
-        super.addItemDescription(GOLDEN_COIN, "\"Il risparmio è il primo guadagno\". Ma forse non è questo il caso.");
-        super.addItemDescription(TALOS_AMULET, "L'amuleto dell'egemone famiglia Talos, usato tra di loro come lasciapassare.");
-        super.addItemDescription(TALOS_RELIC, "Finalmente! Devo avvisare immediatamente lo Jarl.");
+        //Items
+        super.addDialogue(itemId.get(GOLDEN_RING), "Un bell'anello d'oro. Chissà cosa potrei ricavarne...");
+        super.addDialogue(itemId.get(GOLDEN_COIN), "\"Il risparmio è il primo guadagno\". Ma forse non è questo il caso.");
+        super.addDialogue(itemId.get(TALOS_AMULET), "L'amuleto dell'egemone famiglia Talos, usato tra di loro come lasciapassare.");
+        super.addDialogue(itemId.get(TALOS_RELIC), "Finalmente! Devo avvisare immediatamente lo Jarl.");
 
-        super.addObservation(SCROLL, "\"Ruba la reliquia di Talos e portala da me. Firmato: sig. Tal...\" Accidenti, non si riesce a leggere.");
-        super.addObservation(BOOK, "\"The C Programming Language\". Un libro pericolosissimo.");
+        //Observations
+        super.addDialogue(SCROLL, "\"Ruba la reliquia di Talos e portala da me. Firmato: sig. Tal...\" Accidenti, non si riesce a leggere.");
+        super.addDialogue(BOOK, "\"The C Programming Language\". Un libro pericolosissimo.");
     }
 
+    /**
+     *
+     */
     public void startMiniGame() {
         server.start();
         playerClient.connect();
     }
 
+    /**
+     *
+     * @param s
+     */
     public void guessGame(String s) {
         playerClient.attempt(s);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getGameResult() {
         return playerClient.getResult();
     }
     
+    /**
+     *
+     */
     public void startBattle(){
-        enemy.start();
+        enemyThread.start();
     }
     
+    /**
+     *
+     */
     public void hitEnemy(){
         enemy.changeHealth(-12);
     }
     
+    /**
+     *
+     * @return
+     */
     public int getEnemyHealth(){
         return enemy.getHealth();
+    }
+    
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public List loadDialogue(String name){
+        return super.loadDialogue(itemId.get(name));
     }
 }

@@ -16,6 +16,9 @@ import java.util.List;
  */
 public class GameGUI extends javax.swing.JFrame {
 
+    /**
+     *
+     */
     private boolean win;
 
     /*
@@ -23,11 +26,31 @@ public class GameGUI extends javax.swing.JFrame {
     ottimizza il while(!battleEnd) e la jProgressBar1
     non viene mai aggiornata.
      */
-    private volatile boolean battleEnd;
 
+    /**
+     *
+     */
+
+    private boolean battleEnd;
+
+    /**
+     *
+     */
     private TalosDynasty core;
+
+    /**
+     *
+     */
     private CardLayout cl;
+
+    /**
+     *
+     */
     private Iterator<String> dialogue;
+
+    /**
+     *
+     */
     private Thread healthBarUpdate;
 
     /**
@@ -505,7 +528,6 @@ public class GameGUI extends javax.swing.JFrame {
 
     //turnRight
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
         setImage(core.turnRight(), jLabel1);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -607,7 +629,7 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Esamina
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        displayDialogue(core.loadItemDescription((String) jComboBox1.getSelectedItem()));
+        displayDialogue(core.loadDialogue((String) jComboBox1.getSelectedItem()));
     }//GEN-LAST:event_jButton9ActionPerformed
 
     //Mercante
@@ -622,7 +644,7 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Spada
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        displayDialogue(core.loadObservation(TalosDynasty.BOOK));
+        displayDialogue(core.loadDialogue(TalosDynasty.BOOK));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     //Nuova partita
@@ -663,7 +685,7 @@ public class GameGUI extends javax.swing.JFrame {
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         if (!core.getPlayerInventory().contains(TalosDynasty.GOLDEN_RING)) {
             displayDialogue(core.loadDialogue(TalosDynasty.KID_FIRST));
-            addItem(TalosDynasty.GOLDEN_RING);
+            addItem(TalosDynasty.GOLDEN_RING); //Rimuovere il commento per vincere senza giocare
             jTextField2.setVisible(true);
             jButton14.setVisible(true);
             jButton13.setVisible(false);
@@ -731,7 +753,7 @@ public class GameGUI extends javax.swing.JFrame {
 
     //Pergamena
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        displayDialogue(core.loadObservation(TalosDynasty.SCROLL));
+        displayDialogue(core.loadDialogue(TalosDynasty.SCROLL));
     }//GEN-LAST:event_jButton16ActionPerformed
 
     //Fabbro
@@ -781,10 +803,19 @@ public class GameGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     //Custom methods
+
+    /**
+     *
+     * @param image
+     * @param jLab
+     */
     private void setImage(String image, javax.swing.JLabel jLab) {
         jLab.setIcon(new ImageIcon(getClass().getResource("/" + image)));
     }
 
+    /**
+     *
+     */
     private void startGame() {
         cl.show(jPanel1, "card4");
         setImage(core.currentImage(), jLabel1);
@@ -794,6 +825,10 @@ public class GameGUI extends javax.swing.JFrame {
         jButton9.setVisible(true);
     }
 
+    /**
+     *
+     * @param dl
+     */
     private void displayDialogue(List dl) {
         dialogue = dl.iterator();
 
@@ -805,26 +840,30 @@ public class GameGUI extends javax.swing.JFrame {
         }
     }
 
-    private void displayDialogue(String s) {
-        if (s != null) {
-            jLabel4.setText("<html>" + s + "</html>");
-            jLabel4.setVisible(true);
-        } else {
-            jLabel4.setVisible(false);
-        }
-    }
-
+    /**
+     *
+     * @param item
+     */
     private void addItem(String item) {
         core.getPlayerInventory().add(item);
         jComboBox1.addItem(item);
     }
 
+    /**
+     *
+     * @param item
+     */
     private void removeItem(String item) {
         core.getPlayerInventory().remove(item);
         jComboBox1.removeItem(item);
     }
 
     //Main
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -15,15 +15,40 @@ import java.util.List;
 import java.util.Map;
 //import java.util.function.Predicate;
 
+/**
+ *
+ * @author franc
+ */
 public class GameController implements AdventureGame {
 
+    /**
+     *
+     */
     private Dialogue dialogue;
+
+    /**
+     *
+     */
     private Player player;
+
+    /**
+     *
+     */
     private GameMap map;
     
+    /**
+     *
+     */
     private Map<String, Object> saveGame;
+
+    /**
+     *
+     */
     private CircularIterator<String> currentRoom;
 
+    /**
+     *
+     */
     public GameController() {
         currentRoom = new CircularArrayList();
         dialogue = new Dialogue();
@@ -31,25 +56,44 @@ public class GameController implements AdventureGame {
         map = new GameMap();
     }
 
+    /**
+     *
+     * @param name
+     */
     @Override
     public void setPlayerName(String name) {
         player.setName(name);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getPlayerName() {
         return player.getName();
     }
 
+    /**
+     *
+     */
     public void initDialogues() {
         dialogue.init();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List getPlayerInventory() {
         return player.getInventory();
     }
 
+    /**
+     *
+     * @param panels
+     */
     @Override
     public void addRoom(String... panels) {
         CircularIterator<String> room = new CircularArrayList();
@@ -57,6 +101,10 @@ public class GameController implements AdventureGame {
         map.addRoom(room);
     }
 
+    /**
+     *
+     * @param panels
+     */
     public void addFirstRoom(String... panels) {
         CircularIterator<String> room = new CircularArrayList();
         room.addAll(Arrays.asList(panels));
@@ -65,70 +113,97 @@ public class GameController implements AdventureGame {
         currentRoom = room;
     }
 
+    /**
+     *
+     * @param first
+     * @param second
+     */
     @Override
     public void addEdge(String first, String second) {
         map.addEdge(first, second);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String walk() {
-        currentRoom = map.searchRoom(currentRoom);
+        currentRoom = map.nextRoom(currentRoom.current());
         return currentRoom.current();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String turnRight() {
         return currentRoom.next();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String turnLeft() {
         return currentRoom.previous();
     }
 
+    /**
+     *
+     * @return
+     */
     public String currentImage() {
         return currentRoom.current();
     }
 
+    /**
+     *
+     * @param id
+     * @param text
+     */
     public void addDialogue(int id, String text) {
         dialogue.addDialogue(id, text);
     }
-
-    public void addObservation(int id, String text) {
-        dialogue.addObservation(id, text);
-    }
-
-    public void addItemDescription(String itemName, String description) {
-        dialogue.addItem(itemName, description);
-    }
-
-    public String loadItemDescription(String itemName) {
-        return dialogue.getItem(itemName);
-    }
-
-    public String loadObservation(int id) {
-        return dialogue.getObservation(id);
-    }
-
+    
+    /**
+     *
+     * @param dbURL
+     * @param dbUser
+     * @param dbPassword
+     */
     public void setDialogueDatabase(String dbURL, String dbUser, String dbPassword) {
         dialogue.setDatabase(dbURL, dbUser, dbPassword);
     }
 
+    /**
+     *
+     * @param s
+     */
     public void setDialogueSeparator(String s) {
         dialogue.setSeparator(s);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List loadDialogue(int id) {
         return dialogue.getDialogue(id);
     }
 
+    /**
+     *
+     */
     @Override
     public void save() {
         saveGame = new HashMap();
 
         saveGame.put("name", player.getName());
         saveGame.put("currentImage", currentRoom.current());
-        saveGame.put("currentRoom", currentRoom);
         saveGame.put("inventory", player.getInventory());
 
         try {
@@ -140,6 +215,9 @@ public class GameController implements AdventureGame {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void load() {
         saveGame = new HashMap();
@@ -155,12 +233,7 @@ public class GameController implements AdventureGame {
         }
 
         player.setName(saveGame.get("name").toString());
-        currentRoom.clear();
-        currentRoom.addAll((List) saveGame.get("currentRoom"));
-
-        while (!currentRoom.current().equals(saveGame.get("currentImage"))) {
-            currentRoom.next();
-        }
+        currentRoom = map.getRoom((String) saveGame.get("currentImage"));
 
         player.setInventory((List) saveGame.get("inventory"));
     }
