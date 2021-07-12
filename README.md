@@ -111,7 +111,7 @@ Un esempio dell'utilizzo del separatore:
 In questo caso, il separatore scelto è `§`.
 
 ### Socket/Net
-La programmazione in rete è utilizzata per implementare il minigioco [Bulls and Cows](https://en.wikipedia.org/wiki/Bulls_and_Cows). Si gioca in due: un giocatore pensa ad un numero e l'altro deve indovinarlo, sulla base di una serie di regole. Questo minigioco si presta ad essere implementato mediante l'architettura client/server: il client è il giocatore che effettua il tentativo; il server è il giocatore che "pensa" al numero e verifica l'esito dei tentativi dell'altro giocatore.
+La programmazione in rete è utilizzata per implementare il minigioco [Bulls and Cows](https://en.wikipedia.org/wiki/Bulls_and_Cows). Si gioca in due: un giocatore pensa ad un numero e l'altro deve indovinarlo, sulla base di un insieme di regole. Questo minigioco si presta ad essere implementato mediante l'architettura client/server: il client è il giocatore che effettua il tentativo; il server è il giocatore che "pensa" al numero e verifica l'esito dei tentativi dell'altro giocatore.
 
 In questo caso, avviene tutto in locale: client e server sono eseguiti sulla stessa macchina, utilizzando la porta `6666`. Un tipico scenario di funzionamento è il seguente:
 1. Il server viene avviato.
@@ -129,12 +129,16 @@ In questo caso, avviene tutto in locale: client e server sono eseguiti sulla ste
 	3. Se il giocatore ha perso e non ha più tentativi rimasti, ritorna al punto 4.
 
 ### Thread
-I thread sono utilizzati in tre occasioni.
+I thread sono utilizzati in due occasioni.
 
 La prima è per eseguire il server visto al punto precedente.
 
-Per la gestione della battaglia finale col nemico. In questa battaglia il nemico rigenera costantemente i suoi punti vita. Per cui, il giocatore dovrà colpirlo velocemente abbastanza da portare i suoi punti vita a zero.
+La seconda è per la gestione della battaglia finale col nemico. In questa battaglia il nemico rigenera costantemente i suoi punti vita. Per cui, il giocatore dovrà colpirlo velocemente abbastanza da portare i suoi punti vita a zero.
 
-La rigenerazione avviene attraverso un thread che incrementa i punti vita di 1 ogni 10 millisecondi. L'attacco del giocatore avviene su pressione del pulsante, che toglie al nemico 12 punti vita. Poiché la modifica dei punti vita non è un'operazione atomica, potrebbero sorgere problemi dovuti all'interleaving, e delle modifiche potrebbero andare perse. La soluzione a questo problema è l'utilizzo del modificatore `synchronized` applicato alla funzione che si occupa di modificare i punti vita.
+La rigenerazione avviene attraverso un thread che incrementa i punti vita di 1 ogni 10 millisecondi. L'attacco del giocatore avviene su pressione del pulsante, che toglie al nemico 12 punti vita. Poiché la modifica dei punti vita non è un'operazione atomica, potrebbero sorgere problemi dovuti all'interleaving, e delle modifiche potrebbero andare perse. Il problema è stato risolto con l'utilizzo del modificatore `synchronized` applicato alla funzione che si occupa di modificare i punti vita.
 
-Tuttavia, sorge un ulteriore problema. Come spiegato [qui](https://docs.oracle.com/javase/specs/jls/se16/html/jls-8.html#jls-8.3.1.4) 
+Tuttavia, sorge un ulteriore problema. Un thread incrementa i punti vita del nemico e un altro thread li legge per visualizzarli nell'interfaccia: per via di alcune ottimizzazioni, il thread che legge la variabile che contiene i punti vita potrebbe non leggere un valore corretto. Per risolvere questo problema è stato applicato il modificatore `volatile` alla variabile che contiene i punti vita, che garantisce la consistenza della memoria in ambito thread.
+
+### Swing/GUI
+Per l'interfaccia è stato utilizzato il framework SWING.
+
