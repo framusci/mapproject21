@@ -125,9 +125,16 @@ In questo caso, avviene tutto in locale: client e server sono eseguiti sulla ste
 9. Il client riceve in input l'esito.
 10. Esito:
 	1. Se il giocatore ha vinto, il server termina la sua esecuzione;
-	2. Se il giocatore ha perso e ha ancora dei tentativi rimasti, ritorna al punto 5;
+	2. Se il giocatore ha ancora dei tentativi rimasti, ritorna al punto 5;
 	3. Se il giocatore ha perso e non ha più tentativi rimasti, ritorna al punto 4.
 
 ### Thread
+I thread sono utilizzati in tre occasioni.
 
 La prima è per eseguire il server visto al punto precedente.
+
+Per la gestione della battaglia finale col nemico. In questa battaglia il nemico rigenera costantemente i suoi punti vita. Per cui, il giocatore dovrà colpirlo velocemente abbastanza da portare i suoi punti vita a zero.
+
+La rigenerazione avviene attraverso un thread che incrementa i punti vita di 1 ogni 10 millisecondi. L'attacco del giocatore avviene su pressione del pulsante, che toglie al nemico 12 punti vita. Poiché la modifica dei punti vita non è un'operazione atomica, potrebbero sorgere problemi dovuti all'interleaving, e delle modifiche potrebbero andare perse. La soluzione a questo problema è l'utilizzo del modificatore `synchronized` applicato alla funzione che si occupa di modificare i punti vita.
+
+Tuttavia, sorge un ulteriore problema. Come spiegato [qui](https://docs.oracle.com/javase/specs/jls/se16/html/jls-8.html#jls-8.3.1.4) 
