@@ -142,3 +142,22 @@ Tuttavia, sorge un ulteriore problema. Un thread incrementa i punti vita del nem
 ### Swing/GUI
 Per l'interfaccia è stato utilizzato il framework SWING.
 
+Il `JFrame` è il punto d'ingresso del sistema. Ha dimensioni 1280x720 e non è ridimensionabile.
+
+L'interfaccia di gioco è strutturata in modo tale che i pulsanti e gli altri elementi necessari all'interazione col gioco siano collocati in primo piano rispetto all'immagine di gioco, collocata sullo sfondo. Per implementare questa struttura è stato utilizzato un `jLayeredPane`, che stabilisce una relazione d'ordine sulla stratificazione delle componenti.
+
+![](src/main/resources/gui1.png)
+> Dettaglio della schermata iniziale, che mostra i pulsanti in primo piano e l'immagine sullo sfondo.
+
+I `jLabel` sono strumenti molto flessibili: sono utilizzati sia per mostrare il testo che per mostrare immagini. Per l'inventario è utilizzato un menù a tendina, una `jComboBox`.
+
+![](src/main/resources/gui2.png)
+> Esempio di inventario.
+
+Diversi eventi nel gioco necessitano di diversi pulsanti, dunque è necessario un modo per selezionare all'occorrenza un determinato gruppo di pulsanti. Per ottenere questo risultato è stato usato un `jPanel` con layout `CardLayout`. In questo layout, ciascuna "card" è un gruppo di pulsanti e altre componenti. Ad ogni cambio di immagine viene verificato qual è il layout corrispondente.
+
+Un utilizzo "dinamico" dell'interfaccia viene fatto durante il combattimento finale, in cui una `jProgressBar` indica i punti vita del nemico.
+
+![](src/main/resources/gui3.png)
+
+La `jProgressBar` è stata privata del bordo e colorata di rosso per rendere meglio l'effetto di una tipica barra della vita che si trova nei videogiochi.
