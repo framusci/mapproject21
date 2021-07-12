@@ -68,6 +68,9 @@ public class GameGUI extends javax.swing.JFrame {
         jButton9.setVisible(false);
         jButton14.setVisible(false);
         jTextField2.setVisible(false);
+        jButton3.setVisible(false);
+        jButton4.setVisible(false);
+        jButton1.setVisible(false);
 
         cl.show(jPanel1, "card5");
 
@@ -94,10 +97,10 @@ public class GameGUI extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanelGuard = new javax.swing.JPanel();
         jButton12 = new javax.swing.JButton();
@@ -131,8 +134,9 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Talos Dinasty");
+        setTitle("Talos Dynasty");
         setFont(new java.awt.Font("Footlight MT Light", 0, 10)); // NOI18N
+        setIconImages(null);
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(null);
@@ -177,6 +181,18 @@ public class GameGUI extends javax.swing.JFrame {
         jLayeredPane1.add(jButton3);
         jButton3.setBounds(0, 170, 110, 370);
 
+        jButton4.setBorderPainted(false);
+        jButton4.setContentAreaFilled(false);
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.setFocusPainted(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jLayeredPane1.add(jButton4);
+        jButton4.setBounds(1170, 170, 110, 370);
+
         jButton9.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
         jButton9.setText("Esamina");
         jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -189,19 +205,14 @@ public class GameGUI extends javax.swing.JFrame {
             }
         });
         jLayeredPane1.add(jButton9);
-        jButton9.setBounds(1110, 30, 170, 30);
+        jButton9.setBounds(1110, 0, 170, 30);
 
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.setFocusPainted(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jLayeredPane1.add(jButton4);
-        jButton4.setBounds(1170, 170, 110, 370);
+        jComboBox1.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
+        jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox1.setFocusable(false);
+        jLayeredPane1.add(jComboBox1);
+        jComboBox1.setBounds(1110, 30, 170, 30);
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
@@ -222,13 +233,6 @@ public class GameGUI extends javax.swing.JFrame {
         });
         jLayeredPane1.add(jLabel4);
         jLabel4.setBounds(390, 590, 530, 70);
-
-        jComboBox1.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
-        jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jComboBox1.setFocusable(false);
-        jLayeredPane1.add(jComboBox1);
-        jComboBox1.setBounds(1110, 0, 170, 30);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -823,6 +827,9 @@ public class GameGUI extends javax.swing.JFrame {
         jButton7.setVisible(true);
         jComboBox1.setVisible(true);
         jButton9.setVisible(true);
+        jButton3.setVisible(true);
+        jButton4.setVisible(true);
+        jButton1.setVisible(true);
     }
 
     /**
