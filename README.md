@@ -163,3 +163,14 @@ Un utilizzo "dinamico" dell'interfaccia viene fatto durante il combattimento fin
 La `jProgressBar` è stata privata del bordo e colorata di rosso per rendere meglio l'effetto di una tipica barra della vita che si trova nei videogiochi.
 
 Tutti i contenitori (`jPanel`, `jLayeredPane`) utilizzano il `null` layout, che permette un posizionamento libero dei componenti.
+
+### Espressioni lambda
+Le espressioni lambda sono utilizzate in modo sparso per il codice con il `.forEach()`, che permette una scrittura più compatta del classico costrutto `for each`.
+
+In particolare, è utilizzata un'espressione lambda per cercare una stanza. L'espressione è la seguente:
+```java
+rooms.stream().filter(ci -> (ci.contains(image))).forEach(ci -> {
+    tmpRoom = ci;
+});
+```
+Si tratta di una pipeline. Dato lo stream, viene filtrata la stanza che contiene l'immagine data in input. Una volta trovata, viene assegnata alla variabile di ritorno.
