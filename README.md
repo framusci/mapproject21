@@ -187,3 +187,23 @@ Si tratta di una pipeline. Dato lo stream, viene filtrata la stanza che contiene
 
 # Specifica algebrica: dizionario
 
+## Specifica sintattica
+
+**Sort:** dizionario, boolean, valore
+
+**Operazioni:**
+
+* creadizionario() -> dizionario
+
+* dizionariovuoto(dizionario) -> boolean
+
+* appartiene(chiave, dizionario) -> boolean
+
+* inserisci(<chiave, valore>, dizionario) -> dizionario
+
+* cancella(chiave, dizionario) -> dizionario
+
+* recupera(chiave, dizionario) -> valore
+
+**Specifica semantica**
+
