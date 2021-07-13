@@ -60,6 +60,7 @@ Contiene la descrizione della struttura dati "iteratore circolare", che consente
 
 ## Diagramma UML delle classi
 Di seguito è riportato il diagramma UML delle classi (comprende solo una porzione delle classi, la più significativa).
+
 ![](src/main/resources/UML.png)
 
 # Dettagli implementativi
@@ -113,7 +114,7 @@ In questo caso, il separatore scelto è `§`.
 ### Socket/Net
 La programmazione in rete è utilizzata per implementare il minigioco [Bulls and Cows](https://en.wikipedia.org/wiki/Bulls_and_Cows). Si gioca in due: un giocatore pensa ad un numero e l'altro deve indovinarlo, sulla base di un insieme di regole. Questo minigioco si presta ad essere implementato mediante l'architettura client/server: il client è il giocatore che effettua il tentativo; il server è il giocatore che "pensa" al numero e verifica l'esito dei tentativi dell'altro giocatore.
 
-In questo caso, avviene tutto in locale: client e server sono eseguiti sulla stessa macchina, utilizzando la porta `6666`. Un tipico scenario di funzionamento è il seguente:
+Un tipico scenario di funzionamento è il seguente:
 1. Il server viene avviato.
 2. Il server si mette in attesa di una connessione da un client.
 3. Il client si connette.
@@ -127,6 +128,8 @@ In questo caso, avviene tutto in locale: client e server sono eseguiti sulla ste
 	1. Se il giocatore ha vinto, il server termina la sua esecuzione;
 	2. Se il giocatore ha ancora dei tentativi rimasti, ritorna al punto 5;
 	3. Se il giocatore ha perso e non ha più tentativi rimasti, ritorna al punto 4.
+
+In questo caso, avviene tutto in locale: client e server sono eseguiti sulla stessa macchina, utilizzando la porta `6666`.
 
 ### Thread
 I thread sono utilizzati in due occasioni.
