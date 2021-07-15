@@ -196,13 +196,13 @@ Si tratta di una pipeline. Dato lo stream, viene filtrata la stanza che contiene
 ```
 creadizionario		() 				-> dizionario
 
-dizionariovuoto		(dizionario) 			-> boolean
-
-appartiene		(dizionario, chiave) 		-> boolean
-
 inserisci		(dizionario, <chiave, valore>) 	-> dizionario
 
 cancella		(dizionario, chiave) 		-> dizionario
+
+dizionariovuoto		(dizionario) 			-> boolean
+
+appartiene		(dizionario, chiave) 		-> boolean
 
 recupera		(dizionario, chiave) 		-> valore
 ```
