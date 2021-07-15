@@ -213,4 +213,4 @@ recupera		(dizionario, chiave) 		-> valore
 ![](src/main/resources/specifica.png)
 
 `equals(l, m)`
-![](src/main/resources/specifica2.png)
+![](src/main/resources/specifica_equals.png)
