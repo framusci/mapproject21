@@ -6,82 +6,64 @@ import java.util.List;
 import java.util.Map;
 import util.CircularIterator;
 
-/**
- *
- * @author franc
- */
 class GameMap {
 
-    /**
-     *
-     */
     private List<CircularIterator> rooms;
 
-    /**
-     *
-     */
     private Map<String, String> edges;
+    
+    private CircularIterator<String> currentRoom;
 
-    /**
-     *
-     */
-    private CircularIterator<String> tmpRoom;
-
-    /**
-     *
-     */
     public GameMap() {
         rooms = new ArrayList();
         edges = new HashMap();
     }
+    
+    public void setCurrentRoom(CircularIterator panels){
+        currentRoom = panels;
+    }
 
-    /**
-     *
-     * @param panels
-     */
     public void addRoom(CircularIterator panels) {
         rooms.add(panels);
     }
-
-    /**
-     *
-     * @param first
-     * @param last
-     */
+    
     public void addEdge(String first, String last) {
         edges.put(first, last);
     }
+    
+    public String next(){
+        return currentRoom.next();
+    }
+    
+    public String previous(){
+        return currentRoom.previous();
+    }
+    
+    public String current(){
+        return currentRoom.current();
+    }
 
-    /**
-     *
-     * @param currentImage
-     * @return
-     */
-    public CircularIterator nextRoom(String currentImage) {
+    public String walk() {
+        String currentImage = currentRoom.current();
         String next;
 
         if (edges.containsKey(currentImage)) {
             next = edges.get(currentImage);
-            tmpRoom = getRoom(next);
+            currentRoom = getRoom(next);
 
-            while (!tmpRoom.current().equals(next)) {
-                tmpRoom.next();
+            while (!currentRoom.current().equals(next)) {
+                currentRoom.next();
             }
         }
 
-        return tmpRoom;
+        return this.current();
     }
 
-    /**
-     *
-     * @param image
-     * @return
-     */
     public CircularIterator getRoom(String image) {
         rooms.stream().filter(ci -> (ci.contains(image))).forEach(ci -> {
-            tmpRoom = ci;
+            currentRoom = ci;
         });
 
-        return tmpRoom;
+        return currentRoom;
     }
 }
