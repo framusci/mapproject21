@@ -30,7 +30,7 @@ Autore: Francesco Musci
 
 	4.1. [Specifica sintattica](#specifica-sintattica)
 
-	6.2. [Specifica semantica](#specifica-semantica)
+	4.2. [Specifica semantica](#specifica-semantica)
 
 5. [Soluzione (spoiler)](#soluzione-spoiler)
 
