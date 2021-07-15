@@ -222,17 +222,17 @@ Si tratta di una pipeline. Dato lo stream, viene filtrata la stanza che contiene
 **Operazioni:**
 
 ```
-creadizionario		() 				-> dizionario
+creadizionario		() 				-> dizionario	Crea un nuovo dizionario.
 
-inserisci		(dizionario, <chiave, valore>) 	-> dizionario
+inserisci		(dizionario, <chiave, valore>) 	-> dizionario	Inserisce nel dizionario un valore associato ad una chiave.
 
-cancella		(dizionario, chiave) 		-> dizionario
+cancella		(dizionario, chiave) 		-> dizionario	Cancella dal dizionario un valore associato ad una chiave.
 
-dizionariovuoto		(dizionario) 			-> boolean
+dizionariovuoto		(dizionario) 			-> boolean	Determina se il dizionario è vuoto.
 
-appartiene		(dizionario, chiave) 		-> boolean
+appartiene		(dizionario, chiave) 		-> boolean	Determina se una chiave appartiene al dizionario.
 
-recupera		(dizionario, chiave) 		-> valore
+recupera		(dizionario, chiave) 		-> valore	Restituisce il valore associato ad una chiave.
 ```
 
 ## Specifica semantica
