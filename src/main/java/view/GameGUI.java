@@ -16,41 +16,11 @@ import java.util.List;
  */
 public class GameGUI extends javax.swing.JFrame {
 
-    /**
-     *
-     */
     private boolean win;
-
-    /*
-    Volatile perché altrimenti il compilatore
-    ottimizza il while(!battleEnd) e la jProgressBar1
-    non viene mai aggiornata.
-     */
-
-    /**
-     *
-     */
-
     private boolean battleEnd;
-
-    /**
-     *
-     */
     private TalosDynasty core;
-
-    /**
-     *
-     */
     private CardLayout cl;
-
-    /**
-     *
-     */
     private Iterator<String> dialogue;
-
-    /**
-     *
-     */
     private Thread healthBarUpdate;
 
     /**
@@ -807,19 +777,10 @@ public class GameGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     //Custom methods
-
-    /**
-     *
-     * @param image
-     * @param jLab
-     */
     private void setImage(String image, javax.swing.JLabel jLab) {
         jLab.setIcon(new ImageIcon(getClass().getResource("/" + image)));
     }
 
-    /**
-     *
-     */
     private void startGame() {
         cl.show(jPanel1, "card4");
         setImage(core.currentImage(), jLabel1);
@@ -832,10 +793,6 @@ public class GameGUI extends javax.swing.JFrame {
         jButton1.setVisible(true);
     }
 
-    /**
-     *
-     * @param dl
-     */
     private void displayDialogue(List dl) {
         dialogue = dl.iterator();
 
@@ -847,30 +804,17 @@ public class GameGUI extends javax.swing.JFrame {
         }
     }
 
-    /**
-     *
-     * @param item
-     */
     private void addItem(String item) {
         core.getPlayerInventory().add(item);
         jComboBox1.addItem(item);
     }
 
-    /**
-     *
-     * @param item
-     */
     private void removeItem(String item) {
         core.getPlayerInventory().remove(item);
         jComboBox1.removeItem(item);
     }
 
     //Main
-
-    /**
-     *
-     * @param args
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

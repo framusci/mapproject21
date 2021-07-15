@@ -13,96 +13,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-/**
- *
- * @author franc
- */
 class MinigameJabberServer extends Thread {
 
-    /**
-     *
-     */
     private BufferedReader in;
-
-    /**
-     *
-     */
     private PrintWriter out;
-
-    /**
-     *
-     */
     private Socket socket;
     private String strGuess;
-
-    /**
-     *
-     */
     private ServerSocket s;
-
-    /**
-     *
-     */
     public static final String WIN_PHRASE = "Hai vinto!";
-
-    /**
-     *
-     */
     public static final String LOSE_PHRASE = "Hai perso!";
-
-    /**
-     *
-     */
     private int attempts;
-
-    /**
-     *
-     */
     private static final int MAX_ATTEMPTS = 20;
-
-    /**
-     *
-     */
     private boolean win;
-
-    /**
-     *
-     */
     private String strToGuess;
-
-    /**
-     *
-     */
     private String result;
 
-    /**
-     *
-     */
-    private int i,
-
-    /**
-     *
-     */
-    j;
-
-    /**
-     *
-     */
+    private int i, j;
+    
     private int equalPosChars;
-
-    /**
-     *
-     */
     private int diffPosChars;
-
-    /**
-     *
-     */
     private List<Character> numbers;
     
-    /**
-     *
-     */
     public MinigameJabberServer(){
         strToGuess = "";
         numbers = new ArrayList();

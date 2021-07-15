@@ -12,179 +12,45 @@ import model.GameController;
 public class TalosDynasty extends GameController {
     
     //Dialogues
-
-    /**
-     *
-     */
     public static final int MERCHANT_FIRST = 0;
-
-    /**
-     *
-     */
     public static final int MERCHANT_NO_MONEY = 1;
-
-    /**
-     *
-     */
     public static final int GUARD = 2;
-
-    /**
-     *
-     */
     public static final int KID_FIRST = 3;
-
-    /**
-     *
-     */
     public static final int KID_LOSE = 4;
-
-    /**
-     *
-     */
     public static final int KID_WIN = 5;
-
-    /**
-     *
-     */
     public static final int JARL_START = 6;
-
-    /**
-     *
-     */
     public static final int JARL_END = 7;
-
-    /**
-     *
-     */
     public static final int SMITH_NO_OBJECT = 8;
-
-    /**
-     *
-     */
     public static final int TALOS = 9;
-
-    /**
-     *
-     */
     public static final int PURCHASE = 10;
-
-    /**
-     *
-     */
     public static final int SMITH_OBJECT = 11;
-
-    /**
-     *
-     */
     public static final int SCROLL = 12;
-
-    /**
-     *
-     */
     public static final int BOOK = 13;
 
     //Items
-
-    /**
-     *
-     */
     public static final String GOLDEN_RING = "Anello d'oro";
-
-    /**
-     *
-     */
     public static final String GOLDEN_COIN = "Moneta d'oro";
-
-    /**
-     *
-     */
     public static final String TALOS_AMULET = "Amuleto di Talos";
-
-    /**
-     *
-     */
     public static final String TALOS_RELIC = "Reliquia di Talos";
 
     //Events
-
-    /**
-     *
-     */
     public static final String KID_EVENT = "tempio_entrata_n.png";
-
-    /**
-     *
-     */
     public static final String GUARD_EVENT = "casa_entrata_e.png";
-
-    /**
-     *
-     */
     public static final String MERCHANT_EVENT = "mercante_w.png";
-
-    /**
-     *
-     */
     public static final String TEMPLE_EVENT = "tempio_altari_s.png";
-
-    /**
-     *
-     */
     public static final String RELIC_EVENT = "casa_reliquia_e.png";
-
-    /**
-     *
-     */
     public static final String BLACKSMITH_EVENT = "fabbro_w.png";
-
-    /**
-     *
-     */
     public static final String JARL_EVENT = "jarl_n.png";
-
-    /**
-     *
-     */
     public static final String ENEMY_EVENT = "casa_porta_n.png";
-
-    /**
-     *
-     */
     public static final String WIN = MinigameJabberServer.WIN_PHRASE;
-
-    /**
-     *
-     */
     public static final String LOSE = MinigameJabberServer.LOSE_PHRASE;
-
-    /**
-     *
-     */
+    
     private MinigameJabberClient playerClient;
-
-    /**
-     *
-     */
     private MinigameJabberServer server;
-
-    /**
-     *
-     */
     private Thread enemyThread;
-
-    /**
-     *
-     */
     private Enemy enemy;
-
-    /**
-     *
-     */
     private Map<String, Integer> itemId;
 
-    /**
-     *
-     */
     public TalosDynasty() {
         playerClient = new MinigameJabberClient();
         server = new MinigameJabberServer();
@@ -268,10 +134,6 @@ public class TalosDynasty extends GameController {
         super.addEdge("casa_ingresso_w.png", "casa_entrata_w.png");
     }
 
-    /**
-     *
-     * @param string
-     */
     public TalosDynasty(String playerName) {
         this();
         super.setPlayerName(playerName);
@@ -302,57 +164,31 @@ public class TalosDynasty extends GameController {
         super.addDialogue(BOOK, "\"The C Programming Language\". Un libro pericolosissimo.");
     }
 
-    /**
-     *
-     */
     public void startMiniGame() {
         server.start();
         playerClient.connect();
     }
 
-    /**
-     *
-     * @param s
-     */
     public void guessGame(String s) {
         playerClient.attempt(s);
     }
 
-    /**
-     *
-     * @return
-     */
     public String getGameResult() {
         return playerClient.getResult();
     }
     
-    /**
-     *
-     */
     public void startBattle(){
         enemyThread.start();
     }
-    
-    /**
-     *
-     */
+ 
     public void hitEnemy(){
         enemy.changeHealth(-12);
     }
-    
-    /**
-     *
-     * @return
-     */
+
     public int getEnemyHealth(){
         return enemy.getHealth();
     }
-    
-    /**
-     *
-     * @param name
-     * @return
-     */
+
     public List loadDialogue(String name){
         return super.loadDialogue(itemId.get(name));
     }

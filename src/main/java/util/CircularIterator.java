@@ -9,21 +9,9 @@ import java.util.Collection;
  */
 public interface CircularIterator<E> extends Collection<E> {
 
-    /**
-     *
-     * @return
-     */
     public E next();
 
-    /**
-     *
-     * @return
-     */
     public E previous();
 
-    /**
-     *
-     * @return
-     */
     public E current();
 }

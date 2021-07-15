@@ -2,18 +2,10 @@ package util;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author franc
- * @param <E>
- */
 public class CircularArrayList<E> extends ArrayList<E> implements CircularIterator<E> {
     
     private int index;
 
-    /**
-     *
-     */
     public CircularArrayList() {
         index = 0;
     }
@@ -23,10 +15,6 @@ public class CircularArrayList<E> extends ArrayList<E> implements CircularIterat
         return super.get(Math.floorMod(i, super.size()));
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public E previous() {
         try {
@@ -37,11 +25,7 @@ public class CircularArrayList<E> extends ArrayList<E> implements CircularIterat
         
         return this.get(index);
     }
-
-    /**
-     *
-     * @return
-     */
+    
     @Override
     public E next() {
         try {
@@ -53,10 +37,6 @@ public class CircularArrayList<E> extends ArrayList<E> implements CircularIterat
         return this.get(index);
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public E current() {
         return this.get(index);

@@ -17,10 +17,6 @@ class Dialogue {
     private Properties dbprops;
     private Statement stm;
     private PreparedStatement pstm;
-
-    /**
-     *
-     */
     private String separator;
 
     public Dialogue(String dbURL, String user, String password, String separator) {
@@ -52,10 +48,7 @@ class Dialogue {
         dbprops.setProperty("user", dbUser);
         dbprops.setProperty("password", dbPassword);
     }
-    
-    /**
-     *
-     */
+
     public void init(){
         try {
             stm = conn.createStatement();
