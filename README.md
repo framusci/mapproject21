@@ -23,7 +23,7 @@ Autore: Francesco Musci
 		&nbsp;&nbsp;&nbsp;&nbsp;3.1.2. [Database](#database)<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;3.1.3 [Socket/Net](#socketnet)<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;3.1.4. [Thread](#thread)<br>
-		&nbsp;&nbsp;&nbsp;&nbsp;3.1.5. [SWING/GUI](#swinggui)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;3.1.5. [Swing/GUI](#swinggui)<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;3.1.6. [Espressioni lambda](#espressioni-lambda)<br>
 
 4. [Specifica algebrica: dizionario](#specifica-algebrica-dizionario)
@@ -38,7 +38,7 @@ Autore: Francesco Musci
 Il seguente materiale costituisce la documentazione per il progetto per l'esame di Metodi Avanzati di Programmazione (2021). Il progetto, volto ad utilizzare i concetti e i metodi appresi durante il corso, consiste in un videogioco di tipo avventura grafica o testuale. In questo caso, si tratta di un'avventura grafica.
 
 "Talos Dynasty" è un'avventura grafica ispirata a [Myst](https://it.wikipedia.org/wiki/Myst) e ambientata nel mondo di [The Elder Scrolls V: Skyrim](https://it.wikipedia.org/wiki/The_Elder_Scrolls_V:_Skyrim).
-La scelta di questi due videogiochi non è casuale. In primo luogo perché il gameplay del primo e l'ambientazione del secondo si prestano bene ad essere riutilizzati per creare un gioco con Java SWING; in secondo luogo perché l'autore apprezza molto questi due titoli.
+La scelta di questi due videogiochi non è casuale. In primo luogo perché il gameplay del primo e l'ambientazione del secondo si prestano bene ad essere riutilizzati per creare un gioco con Java Swing; in secondo luogo perché l'autore apprezza molto questi due titoli.
 
 Il gioco inizia con lo Jarl (un "sindaco" nell'universo di Skyrim) che ti parla di un grave furto avvenuto in città. Il tuo compito è quello di risolvere il mistero e restituire il maltolto.
 
@@ -178,7 +178,7 @@ La rigenerazione avviene attraverso un thread che incrementa i punti vita di 1 o
 Tuttavia, sorge un ulteriore problema. Un thread incrementa i punti vita del nemico e un altro thread li legge per visualizzarli nell'interfaccia: per via di alcune ottimizzazioni, il thread che legge la variabile che contiene i punti vita potrebbe non leggere un valore corretto. Per risolvere questo problema è stato applicato il modificatore `volatile` alla variabile che contiene i punti vita, che garantisce la consistenza della memoria in ambito thread.
 
 ### Swing/GUI
-Per l'interfaccia è stato utilizzato il framework SWING.
+Per l'interfaccia è stato utilizzato il framework Swing.
 
 Il `JFrame` è il punto d'ingresso del sistema. Ha dimensioni 1280x720 e non è ridimensionabile.
 
