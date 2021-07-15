@@ -8,10 +8,7 @@ import java.util.ArrayList;
  * @param <E>
  */
 public class CircularArrayList<E> extends ArrayList<E> implements CircularIterator<E> {
-
-    /**
-     *
-     */
+    
     private int index;
 
     /**
@@ -20,6 +17,11 @@ public class CircularArrayList<E> extends ArrayList<E> implements CircularIterat
     public CircularArrayList() {
         index = 0;
     }
+    
+    @Override
+    public E get(int i){
+        return super.get(Math.floorMod(i, super.size()));
+    }
 
     /**
      *
@@ -27,11 +29,13 @@ public class CircularArrayList<E> extends ArrayList<E> implements CircularIterat
      */
     @Override
     public E previous() {
-        if (--index < 0) {
-            index = super.size() - 1;
+        try {
+            index = Math.decrementExact(index);
+        } catch (ArithmeticException aex){
+            index = Math.floorMod(Integer.MIN_VALUE, super.size());
         }
-
-        return super.get(index);
+        
+        return this.get(index);
     }
 
     /**
@@ -40,11 +44,13 @@ public class CircularArrayList<E> extends ArrayList<E> implements CircularIterat
      */
     @Override
     public E next() {
-        if (++index == super.size()) {
-            index = 0;
+        try {
+            index = Math.incrementExact(index);
+        } catch (ArithmeticException aex){
+            index = Math.floorMod(Integer.MAX_VALUE, super.size());
         }
-
-        return super.get(index);
+        
+        return this.get(index);
     }
 
     /**
@@ -53,6 +59,6 @@ public class CircularArrayList<E> extends ArrayList<E> implements CircularIterat
      */
     @Override
     public E current() {
-        return super.get(index);
+        return this.get(index);
     }
 }

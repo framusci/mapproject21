@@ -74,11 +74,11 @@ class GameMap {
 
     /**
      *
-     * @param currentImage
+     * @param image
      * @return
      */
-    public CircularIterator getRoom(String currentImage) {
-        rooms.stream().filter(ci -> (ci.contains(currentImage))).forEach(ci -> {
+    public CircularIterator getRoom(String image) {
+        rooms.stream().filter(ci -> (ci.contains(image))).forEach(ci -> {
             tmpRoom = ci;
         });
 
