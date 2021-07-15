@@ -212,7 +212,5 @@ recupera		(dizionario, chiave) 		-> valore
 
 ![](src/main/resources/specifica.png)
 
-## Specifica di restrizione
-```
-
-```
+`equals(l, m)`
+![](src/main/resources/specifica2.png)
