@@ -208,7 +208,7 @@ Le espressioni lambda sono utilizzate in modo sparso per il codice con il `.forE
 In particolare, è utilizzata un'espressione lambda per cercare una stanza. L'espressione è la seguente:
 ```java
 rooms.stream().filter(ci -> (ci.contains(image))).forEach(ci -> {
-    tmpRoom = ci;
+    currentRoom = ci;
 });
 ```
 Si tratta di una pipeline. Dato lo stream, viene filtrata la stanza che contiene l'immagine data in input. Una volta trovata, viene assegnata alla variabile di ritorno.
