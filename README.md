@@ -4,6 +4,28 @@ Autore: Francesco Musci
 # Indice
 ## [Introduzione](#introduzione)
 ### [Tutorial](#tutorial)
+### [Soluzione (spoiler)](#soluzione-spoiler)
+
+## [Architettura del sistema](#architettura-del-sistema)
+### [Struttura dei package e delle classi](#struttura-dei-package-e-delle-classi)
+#### [Package `view`](#package-view)
+#### [Package `model`](#package-model)
+#### [Package `game`](#package-game)
+#### [Package `util`](#package-util)
+### [Diagramma UML delle classi](#diagramma-uml-delle-classi)
+
+## [Dettagli implementativi](#dettagli-implementativi)
+### [Tecnologie utilizzate](#tecnologie-utilizzate)
+#### [File](#file)
+#### [Database](#database)
+#### [Socket/Net](#socketnet)
+#### [Thread](#thread)
+#### [SWING/GUI](#swinggui)
+#### [Espressioni lambda](#espressioni-lambda)
+
+## [Specifica algebrica: dizionario](#specifica-algebrica-dizionario)
+### [Specifica sintattica](#specifica-sintattica)
+### [Specifica semantica](#specifica-semantica)
 
 # Introduzione
 Il seguente materiale costituisce la documentazione per il progetto per l'esame di Metodi Avanzati di Programmazione (2021). Il progetto, volto ad utilizzare i concetti e i metodi appresi durante il corso, consiste in un videogioco di tipo avventura grafica o testuale. In questo caso, si tratta di un'avventura grafica.
