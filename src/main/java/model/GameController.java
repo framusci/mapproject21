@@ -20,11 +20,13 @@ public class GameController implements AdventureGame {
     private Player player;
     private GameMap map;
     private Map<String, Object> saveGame;
+    private Map<String, Boolean> events;
 
     public GameController() {
         dialogue = new Dialogue();
         player = new Player();
         map = new GameMap();
+        events = new HashMap();
     }
 
     @Override
@@ -69,6 +71,21 @@ public class GameController implements AdventureGame {
         return map.previous();
     }
     
+    @Override
+    public void addEvent(String event){
+        events.put(event, false);
+    }
+    
+    @Override
+    public boolean hasHappened(String event){
+        return events.get(event);
+    }
+    
+    @Override
+    public void makeHappen(String event){
+        events.put(event, true);
+    }
+    
     public void initDialogues() {
         dialogue.init();
     }
@@ -107,6 +124,7 @@ public class GameController implements AdventureGame {
         saveGame.put("name", player.getName());
         saveGame.put("currentImage", map.current());
         saveGame.put("inventory", player.getInventory());
+        saveGame.put("events", events);
 
         try {
             BufferedWriter outputStream = new BufferedWriter(new FileWriter("saveGame.json"));
@@ -134,5 +152,6 @@ public class GameController implements AdventureGame {
         player.setName(saveGame.get("name").toString());
         map.setCurrentRoom((String) saveGame.get("currentImage"));
         player.setInventory((List) saveGame.get("inventory"));
+        events = (Map) saveGame.get("events");
     }
 }

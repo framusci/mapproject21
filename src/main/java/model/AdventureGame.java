@@ -16,6 +16,9 @@ public interface AdventureGame {
     public String walk();
     public String turnLeft();
     public String turnRight();
+    public void addEvent(String event);
+    public boolean hasHappened(String event);
+    public void makeHappen(String event);
     public void save();
     public void load();
     
