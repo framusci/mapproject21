@@ -1,10 +1,5 @@
 package game;
 
-/**
- * Enemy class
- *
- * @author franc
- */
 class Enemy implements Runnable {
     
     private volatile int health;

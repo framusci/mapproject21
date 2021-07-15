@@ -17,11 +17,8 @@ import java.util.Map;
 public class GameController implements AdventureGame {
 
     private Dialogue dialogue;
-
     private Player player;
-
     private GameMap map;
-    
     private Map<String, Object> saveGame;
 
     public GameController() {
@@ -80,7 +77,7 @@ public class GameController implements AdventureGame {
         CircularIterator<String> room = new CircularArrayList();
         room.addAll(Arrays.asList(panels));
         map.addRoom(room);
-        map.setCurrentRoom(room);
+        map.setCurrentRoom(room.current());
     }
 
     public String currentImage() {
@@ -135,8 +132,7 @@ public class GameController implements AdventureGame {
         }
 
         player.setName(saveGame.get("name").toString());
-        map.setCurrentRoom(map.getRoom((String) saveGame.get("currentImage")));
-
+        map.setCurrentRoom((String) saveGame.get("currentImage"));
         player.setInventory((List) saveGame.get("inventory"));
     }
 }

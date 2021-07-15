@@ -9,9 +9,7 @@ import util.CircularIterator;
 class GameMap {
 
     private List<CircularIterator> rooms;
-
     private Map<String, String> edges;
-    
     private CircularIterator<String> currentRoom;
 
     public GameMap() {
@@ -19,8 +17,9 @@ class GameMap {
         edges = new HashMap();
     }
     
-    public void setCurrentRoom(CircularIterator panels){
-        currentRoom = panels;
+    public void setCurrentRoom(String image){
+        currentRoom = getRoom(image);
+        while(!currentRoom.next().equals(image));
     }
 
     public void addRoom(CircularIterator panels) {
@@ -51,9 +50,7 @@ class GameMap {
             next = edges.get(currentImage);
             currentRoom = getRoom(next);
 
-            while (!currentRoom.current().equals(next)) {
-                currentRoom.next();
-            }
+            while (!currentRoom.next().equals(next));
         }
 
         return this.current();
