@@ -1,6 +1,9 @@
 # ![](src/main/resources/titolo.png)
 Autore: Francesco Musci
 
+# Indice
+[Introduzione](#introduzione)
+
 # Introduzione
 Il seguente materiale costituisce la documentazione per il progetto per l'esame di Metodi Avanzati di Programmazione (2021). Il progetto, volto ad utilizzare i concetti e i metodi appresi durante il corso, consiste in un videogioco di tipo avventura grafica o testuale. In questo caso, si tratta di un'avventura grafica.
 
