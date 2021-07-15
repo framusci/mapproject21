@@ -21,7 +21,7 @@ Autore: Francesco Musci
 	3.1. [Tecnologie utilizzate](#tecnologie-utilizzate)<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;3.1.1. [File](#file)<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;3.1.2. [Database](#database)<br>
-		&nbsp;&nbsp;&nbsp;&nbsp;3.1.3 [Socket/Net](#socketnet)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;3.1.3. [Socket/Net](#socketnet)<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;3.1.4. [Thread](#thread)<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;3.1.5. [Swing/GUI](#swinggui)<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;3.1.6. [Espressioni lambda](#espressioni-lambda)<br>
