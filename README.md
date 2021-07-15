@@ -210,3 +210,8 @@ recupera		(dizionario, chiave) 		-> valore
 **Specifica semantica**
 
 ![](src/main/resources/specifica.png)
+
+**Specifica di restrizione**
+```
+
+```
