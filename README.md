@@ -2,30 +2,37 @@
 Autore: Francesco Musci
 
 # Indice
-## [Introduzione](#introduzione)
-### [Tutorial](#tutorial)
-### [Soluzione (spoiler)](#soluzione-spoiler)
+1. [Introduzione](#introduzione)
 
-## [Architettura del sistema](#architettura-del-sistema)
-### [Struttura dei package e delle classi](#struttura-dei-package-e-delle-classi)
-#### [Package `view`](#package-view)
-#### [Package `model`](#package-model)
-#### [Package `game`](#package-game)
-#### [Package `util`](#package-util)
-### [Diagramma UML delle classi](#diagramma-uml-delle-classi)
+	1.1. [Tutorial](#tutorial)
 
-## [Dettagli implementativi](#dettagli-implementativi)
-### [Tecnologie utilizzate](#tecnologie-utilizzate)
-#### [File](#file)
-#### [Database](#database)
-#### [Socket/Net](#socketnet)
-#### [Thread](#thread)
-#### [SWING/GUI](#swinggui)
-#### [Espressioni lambda](#espressioni-lambda)
+2. [Architettura del sistema](#architettura-del-sistema)
 
-## [Specifica algebrica: dizionario](#specifica-algebrica-dizionario)
-### [Specifica sintattica](#specifica-sintattica)
-### [Specifica semantica](#specifica-semantica)
+	2.1. [Struttura dei package e delle classi](#struttura-dei-package-e-delle-classi)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;2.1.1. [Package `view`](#package-view)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;2.1.2. [Package `model`](#package-model)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;2.1.3. [Package `game`](#package-game)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;2.1.4. [Package `util`](#package-util)<br>
+
+	2.2. [Diagramma UML delle classi](#diagramma-uml-delle-classi)
+
+3. [Dettagli implementativi](#dettagli-implementativi)
+
+	3.1. [Tecnologie utilizzate](#tecnologie-utilizzate)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;3.1.1. [File](#file)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;3.1.2. [Database](#database)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;3.1.3 [Socket/Net](#socketnet)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;3.1.4. [Thread](#thread)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;3.1.5. [SWING/GUI](#swinggui)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;3.1.6. [Espressioni lambda](#espressioni-lambda)<br>
+
+4. [Specifica algebrica: dizionario](#specifica-algebrica-dizionario)
+
+	4.1. [Specifica sintattica](#specifica-sintattica)
+
+	6.2. [Specifica semantica](#specifica-semantica)
+
+5. [Soluzione (spoiler)](#soluzione-spoiler)
 
 # Introduzione
 Il seguente materiale costituisce la documentazione per il progetto per l'esame di Metodi Avanzati di Programmazione (2021). Il progetto, volto ad utilizzare i concetti e i metodi appresi durante il corso, consiste in un videogioco di tipo avventura grafica o testuale. In questo caso, si tratta di un'avventura grafica.
@@ -48,12 +55,7 @@ In alto a sinistra, il pulsante **Salva ed esci** salva il gioco e chiude il pro
 
 Il testo dei dialoghi è mostrato in un riquadro in basso al centro della schermata. Per andare avanti con le frasi del dialogo, è necessario cliccare il riquadro. Quando scompare, vuol dire che non ci sono più frasi in quella interazione.
 
-## Soluzione (spoiler)
-Per finire direttamente il gioco, aprire il file `saveGame.json` e aggiungere all'inventario "Reliquia di Talos", dopodiché parlare con lo Jarl. Per completare il gioco passo per passo, leggere la seguente guida.
-	
-Girarsi dalla parte opposta dello Jarl e andare sempre avanti finché non si incontra una porta. Girare a sinistra e andare sempre avanti finché non si incontra un'altra porta. A questo punto, bisogna girarsi dalla parte opposta: ci sarà una bambina che proporrà un gioco. Per risolvere direttamente questo gioco si può aprire `saveGame.json` e aggiungere all'inventario "Anello d'oro"; oppure, si può modificare il codice scrivendo da qualche parte in `GameGUI.java` l'istruzione `addItem(TalosDynasty.GOLDEN_RING);`.
-	
-Ottenuto l'anello d'oro, andare avanti finché non si incontra una guardia, girare a sinistra e andare avanti dal fabbro. Cliccando sul fabbro, aggiungerà all'inventario una moneta d'oro. Voltarsi a destra, andare due volte avanti, girare a sinistra, andare avanti. Cliccare sul negoziante che aggiungerà all'inventario l'amuleto di Talos. A questo punto, voltarsi, andare avanti, voltarsi a destra, andare avanti due volte, voltarsi a sinistra e andare avanti finché si può. Girare a sinistra e andare avanti: inizierà la battaglia col nemico. Cliccare sul nemico, esaurire il dialogo e premere velocemente il pulsante col simbolo del pugno per uccidere il nemico. Ucciso il nemico, voltarsi a destra, andare avanti e prendere la reliquia di Talos. A questo punto, tornare dallo Jarl e parlarci.
+
 
 # Architettura del sistema
 Il progetto implementa il pattern architetturale *Model-View-Presenter*. La logica di gioco (*Model*) e l'interfaccia che la implementa (*View*) non possono interagire tra loro in maniera diretta: il *Presenter* è un mediatore che si occupa di prendere in input i comandi e i dati della *View* e inviarli al *Model*, e viceversa. Questa architettura garantisce il rispetto di uno degli obiettivi dell'object-oriented design: la presentazione separata.
@@ -240,3 +242,10 @@ recupera		(dizionario, chiave) 		-> valore
 
 `equals(l, m)`
 ![](src/main/resources/specifica_equals.png)
+
+# Soluzione (spoiler)
+Per finire direttamente il gioco, aprire il file `saveGame.json` e aggiungere all'inventario "Reliquia di Talos", dopodiché parlare con lo Jarl. Per completare il gioco passo per passo, leggere la seguente guida.
+	
+Girarsi dalla parte opposta dello Jarl e andare sempre avanti finché non si incontra una porta. Girare a sinistra e andare sempre avanti finché non si incontra un'altra porta. A questo punto, bisogna girarsi dalla parte opposta: ci sarà una bambina che proporrà un gioco. Per risolvere direttamente questo gioco si può aprire `saveGame.json` e aggiungere all'inventario "Anello d'oro"; oppure, si può modificare il codice scrivendo da qualche parte in `GameGUI.java` l'istruzione `addItem(TalosDynasty.GOLDEN_RING);`.
+	
+Ottenuto l'anello d'oro, andare avanti finché non si incontra una guardia, girare a sinistra e andare avanti dal fabbro. Cliccando sul fabbro, aggiungerà all'inventario una moneta d'oro. Voltarsi a destra, andare due volte avanti, girare a sinistra, andare avanti. Cliccare sul negoziante che aggiungerà all'inventario l'amuleto di Talos. A questo punto, voltarsi, andare avanti, voltarsi a destra, andare avanti due volte, voltarsi a sinistra e andare avanti finché si può. Girare a sinistra e andare avanti: inizierà la battaglia col nemico. Cliccare sul nemico, esaurire il dialogo e premere velocemente il pulsante col simbolo del pugno per uccidere il nemico. Ucciso il nemico, voltarsi a destra, andare avanti e prendere la reliquia di Talos. A questo punto, tornare dallo Jarl e parlarci.
