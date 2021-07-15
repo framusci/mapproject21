@@ -187,9 +187,9 @@ Si tratta di una pipeline. Dato lo stream, viene filtrata la stanza che contiene
 
 # Specifica algebrica: dizionario
 
-**Specifica sintattica**
+## Specifica sintattica
 
-**Sort:** dizionario, boolean, valore
+**Sorts:** dizionario; boolean; valore
 
 **Operazioni:**
 
@@ -207,11 +207,12 @@ appartiene		(dizionario, chiave) 		-> boolean
 recupera		(dizionario, chiave) 		-> valore
 ```
 
-**Specifica semantica**
+## Specifica semantica
+**Declare:** d: dizionario; k: chiave; v: valore
 
 ![](src/main/resources/specifica.png)
 
-**Specifica di restrizione**
+## Specifica di restrizione
 ```
 
 ```
