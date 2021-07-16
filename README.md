@@ -96,7 +96,7 @@ Contiene la descrizione della struttura dati "iteratore circolare", che consente
 ## Diagramma UML delle classi
 Di seguito è riportato il diagramma UML delle classi (comprende solo una porzione significativa delle classi).
 
-![](src/main/resources/UML_final.png)
+![](documentazione/resources/UML_final.png)
 
 # Dettagli implementativi
 
@@ -190,14 +190,14 @@ L'interfaccia di gioco è strutturata in modo tale che i pulsanti e gli altri el
 
 I `jLabel` sono strumenti molto flessibili: sono utilizzati sia per mostrare il testo che per mostrare immagini. Per l'inventario è utilizzato un menù a tendina, una `jComboBox`.
 
-![](src/main/resources/gui2.png)
+![](documentazione/resources/gui2.png)
 > Esempio di inventario.
 
 Diversi eventi nel gioco necessitano di diversi pulsanti, dunque è necessario un modo per selezionare all'occorrenza un determinato gruppo di pulsanti. Per ottenere questo risultato è stato usato un `jPanel` con layout `CardLayout`. In questo layout, ciascuna "card" è un gruppo di pulsanti e altre componenti. Ad ogni cambio di immagine viene verificato qual è il layout corrispondente.
 
 Un utilizzo "dinamico" dell'interfaccia viene fatto durante il combattimento finale, in cui una `jProgressBar` indica i punti vita del nemico.
 
-![](src/main/resources/gui3.png)
+![](documentazione/resources/gui3.png)
 
 La `jProgressBar` è stata privata del bordo e colorata di rosso per rendere meglio l'effetto di una tipica barra della vita che si trova nei videogiochi.
 
@@ -239,17 +239,17 @@ recupera		(dizionario, chiave) 		-> valore	Restituisce il valore associato ad un
 ## Specifica semantica
 **Declare:** d: dizionario; k: chiave; v: valore
 
-![](src/main/resources/specifica.png)
+![](documentazioneresources/specifica.png)
 
 `equals(l, m)`
-![](src/main/resources/specifica_equals.png)
+![](documentazione/resources/specifica_equals.png)
 
 # Soluzione (spoiler)
 Per finire direttamente il gioco, aprire il file `saveGame.json` e aggiungere all'inventario "Reliquia di Talos", dopodiché parlare con lo Jarl.
 
 Per completare il gioco passo per passo, leggere la seguente guida. Di seguito, una mappa per agevolare la soluzione.
 
-![](src/main/resources/Mappa_final.png)
+![](documentazione/resources/Mappa_final.png)
 	
 Partendo da _Inizio_, girarsi dalla parte opposta dello Jarl e andare in _Tempio Altari_. Si troverà una pergamena, cliccarci sopra.
 
