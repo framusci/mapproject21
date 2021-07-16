@@ -94,7 +94,7 @@ Contiene la descrizione della struttura dati "iteratore circolare", che consente
 ## Diagramma UML delle classi
 Di seguito è riportato il diagramma UML delle classi (comprende solo una porzione significativa delle classi).
 
-![](documentazione/resources/UML_final.png)
+![](documentazione/resources/UML.png)
 
 # Dettagli implementativi
 
