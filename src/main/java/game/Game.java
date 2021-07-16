@@ -6,7 +6,7 @@ import java.util.Map;
 import model.GameController;
 
 /**
- * Classe che estende GameController. Istanzia GameController e aggiunge
+ * Classe che estende <tt>GameController</tt>. Istanzia <tt>GameController</tt> e aggiunge
  * costanti e altre funzionalità.
  */
 public class Game extends GameController {
@@ -57,8 +57,8 @@ public class Game extends GameController {
     private Map<String, Integer> itemId;
 
     /**
-     * Costruisce gli ogetti, si connette al database dei dialoghi, imposta un
-     * separatore dei dialoghi, inizializza la mappa e gli eventi. Usato per
+     * Costruisce gli oggetti, si connette al database dei dialoghi, imposta un
+     * separatore dei dialoghi, inizializza la mappa e gli eventi ed è usato per
      * caricare una partita.
      */
     public Game() {
@@ -149,8 +149,8 @@ public class Game extends GameController {
     }
 
     /**
-     * Fa tutte le cose che fa <tt>Game()</tt>. In più, imposta il nome del
-     * giocatore e inizializza i dialoghi (utilizzando il nome del giocatore).
+     * Fa tutte le cose che fa <tt>Game()</tt> ed è usato per iniziare una nuova partita.
+     * Inoltre, imposta il nome del giocatore e inizializza i dialoghi (utilizzando il nome del giocatore).
      *
      * @param playerName Il nome del giocatore.
      */

@@ -22,7 +22,7 @@ public interface AdventureGame {
     public String getPlayerName();
     
     /**
-     * Restituisce una lista contenente l'inventario del giocatore
+     * Restituisce una lista contenente l'inventario del giocatore.
      * 
      * @return La lista contenente l'inventario del giocatore.
      */

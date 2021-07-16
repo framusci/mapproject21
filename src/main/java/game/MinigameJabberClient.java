@@ -18,7 +18,7 @@ class MinigameJabberClient {
     private BufferedReader in;
     private PrintWriter out;
     private InetAddress addr;
-
+    
     /**
      * Effettua un tentativo del minigioco.
      * 
