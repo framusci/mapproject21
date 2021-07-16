@@ -251,7 +251,7 @@ Per completare il gioco passo per passo, leggere la seguente guida. Di seguito, 
 
 ![](src/main/resources/Mappa_final.png)
 	
-Girarsi dalla parte opposta dello Jarl e andare in _Tempio Altari_. Si troverà una pergamena, cliccarci sopra.
+Partendo da _Inizio_, girarsi dalla parte opposta dello Jarl e andare in _Tempio Altari_. Si troverà una pergamena, cliccarci sopra.
 
 Girarsi e andare in _Tempio Entrata_: ci sarà una bambina che proporrà un gioco. Per risolvere direttamente questo gioco si può aprire `saveGame.json` e aggiungere all'inventario "Anello d'oro"; oppure, si può modificare il codice scrivendo da qualche parte l'istruzione `addItem(Game.GOLDEN_RING);`.
 
