@@ -516,10 +516,10 @@ public class GameGUI extends javax.swing.JFrame {
         try {
             switch (core.currentImage()) {
                 case Game.KID_PANEL:
-                    if(!core.hasHappened(Game.KID_EVENT)){
+                    if (!core.hasHappened(Game.KID_EVENT)) {
                         cl.show(jPanel1, "card6");
                     }
-                    
+
                     break;
 
                 case Game.GUARD_PANEL:
@@ -556,16 +556,16 @@ public class GameGUI extends javax.swing.JFrame {
                     break;
 
                 case Game.RELIC_PANEL:
-                    if(!core.getPlayerInventory().contains(Game.TALOS_RELIC)){
+                    if (!core.getPlayerInventory().contains(Game.TALOS_RELIC)) {
                         cl.show(jPanel1, "card8");
                     }
-                    
+
                     break;
 
                 case Game.ENEMY_PANEL:
                     if (!core.hasHappened(Game.ENEMY_EVENT)) {
                         cl.show(jPanel1, "card11");
-                        
+
                         if (jButton2.isVisible()) {
                             jButton3.setVisible(false);
                             jButton4.setVisible(false);
@@ -582,14 +582,17 @@ public class GameGUI extends javax.swing.JFrame {
                     jButton1.setVisible(true);
             }
         } catch (Exception e) {
-            //Capire perché dà NullPointerException (forse perché il jLabel1PropertyChange avviene prima della generazione delle altre cose)
-            System.err.println(e);
+            /*
+            Quando il programma viene avviato, si genera l'evento jLabel1PropertyChange
+            prima che venga istanziata la classe Game. Per cui, genera una NullPointerException.
+            L'eccezione non è gestita poiché è normale che avvenga e perché avviene una volta sola,
+            all'inizio dell'esecuzione.
+            */
         }
     }//GEN-LAST:event_jLabel1PropertyChange
 
     //jLabel dialogo
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-
         if (dialogue.hasNext()) {
             jLabel4.setText("<html>" + dialogue.next() + "</html>"); //I tag html servono per il wrapping del testo.
         } else {
@@ -788,7 +791,6 @@ public class GameGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     //Custom methods
-    
     //Imposta l'immagine image nel label jLab. Serve a rendere più semplice l'utilizzo della funzione standard setIcon.
     private void setImage(String image, javax.swing.JLabel jLab) {
         jLab.setIcon(new ImageIcon(getClass().getResource("/" + image)));
