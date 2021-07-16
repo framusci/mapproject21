@@ -250,3 +250,7 @@ Per finire direttamente il gioco, aprire il file `saveGame.json` e aggiungere al
 Girarsi dalla parte opposta dello Jarl e andare sempre avanti finché non si incontra una porta. Girare a sinistra e andare sempre avanti finché non si incontra un'altra porta. A questo punto, bisogna girarsi dalla parte opposta: ci sarà una bambina che proporrà un gioco. Per risolvere direttamente questo gioco si può aprire `saveGame.json` e aggiungere all'inventario "Anello d'oro"; oppure, si può modificare il codice scrivendo da qualche parte in `GameGUI.java` l'istruzione `addItem(TalosDynasty.GOLDEN_RING);`.
 	
 Ottenuto l'anello d'oro, andare avanti finché non si incontra una guardia, girare a sinistra e andare avanti dal fabbro. Cliccando sul fabbro, aggiungerà all'inventario una moneta d'oro. Voltarsi a destra, andare due volte avanti, girare a sinistra, andare avanti. Cliccare sul negoziante che aggiungerà all'inventario l'amuleto di Talos. A questo punto, voltarsi, andare avanti, voltarsi a destra, andare avanti due volte, voltarsi a sinistra e andare avanti finché si può. Girare a sinistra e andare avanti: inizierà la battaglia col nemico. Cliccare sul nemico, esaurire il dialogo e premere velocemente il pulsante col simbolo del pugno per uccidere il nemico. Ucciso il nemico, voltarsi a destra, andare avanti e prendere la reliquia di Talos. A questo punto, tornare dallo Jarl e parlarci.
+
+Di seguito, una mappa per agevolare la soluzione.
+
+![](src/main/resources/Mappa.png)
