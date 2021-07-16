@@ -106,7 +106,7 @@ Per determinare il movimento da una stanza all'altra, bisogna definire i collega
 
 Questa architettura permette di eliminare il vincolo di dover definire a priori il numero di direzioni in cui il giocatore può andare e che può osservare (ad es. nord, sud, est, ovest).
 
-Particolare è la creazione dell'interfaccia **iteratore circolare**. Si tratta di un iteratore in cui l'elemento che segue l'ultimo elemento è il primo elemento e l'elemento che precede il primo elemento è l'ultimo elemento. Nel progetto è presente l'interfaccia `CircularIterator` e anche una sua possibile implementazione: `CircularArrayList`.
+Particolare è la creazione dell'interfaccia **iteratore circolare**. Si tratta di un iteratore in cui l'elemento che segue l'ultimo elemento è il primo elemento e l'elemento che precede il primo elemento è l'ultimo elemento. Nel progetto è presente l'interfaccia `CircularIterator`, che fa utilizzo delle generics, e anche una sua possibile implementazione: `CircularArrayList`.
 
 ## Tecnologie utilizzate
 
