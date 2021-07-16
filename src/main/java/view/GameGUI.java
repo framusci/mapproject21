@@ -69,6 +69,7 @@ public class GameGUI extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jPanelGuard = new javax.swing.JPanel();
@@ -80,7 +81,6 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jPanelKid = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jButton13 = new javax.swing.JButton();
@@ -177,6 +177,26 @@ public class GameGUI extends javax.swing.JFrame {
         jLayeredPane1.add(jButton9);
         jButton9.setBounds(1110, 0, 170, 30);
 
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Bottom text");
+        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel4.setAlignmentY(0.0F);
+        jLabel4.setAutoscrolls(true);
+        jLabel4.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(6, 10, 10, 10)));
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel4.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel4.setOpaque(true);
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        jLayeredPane1.add(jLabel4);
+        jLabel4.setBounds(375, 590, 530, 70);
+
         jComboBox1.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
         jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -261,26 +281,6 @@ public class GameGUI extends javax.swing.JFrame {
         jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanelStart.add(jTextField1);
         jTextField1.setBounds(640, 510, 220, 40);
-
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Bottom text");
-        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel4.setAlignmentY(0.0F);
-        jLabel4.setAutoscrolls(true);
-        jLabel4.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(6, 10, 10, 10)));
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel4.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel4.setOpaque(true);
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-        });
-        jPanelStart.add(jLabel4);
-        jLabel4.setBounds(375, 590, 530, 70);
 
         jPanel1.add(jPanelStart, "card5");
 

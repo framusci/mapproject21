@@ -32,8 +32,17 @@ class Dialogue {
      * @param separator Il separatore dei dialoghi.
      */
     public Dialogue(String dbURL, String dbUser, String dbPassword, String separator) {
-        this();
-        this.setDatabase(dbURL, dbUser, dbPassword);
+        dbprops = new Properties();
+        
+        try {
+            conn = DriverManager.getConnection(dbURL, dbprops);
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState() + ": " + ex.getMessage());
+        }
+
+        dbprops.setProperty("user", dbUser);
+        dbprops.setProperty("password", dbPassword);
+        
         this.separator = separator;
     }
 
