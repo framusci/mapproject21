@@ -254,7 +254,7 @@ Girarsi e andare in _Tempio Entrata_: ci sarà una bambina che proporrà un gioc
 
 Ottenuto l'anello d'oro, andare dal _Fabbro_. Cliccando sul fabbro, aggiungerà all'inventario una moneta d'oro.
 
-Andare dal _Mercante_, cliccare sull'amuleto a sinistra che aggiungerà all'inventario l'amuleto di Talos (cliccare sul libro a destra per un piccolo _easter egg_).
+Andare dal _Mercante_, cliccare sull'amuleto a sinistra che aggiungerà all'inventario l'amuleto di Talos.
 
 A questo punto, andare in _Casa Porta_. Inizierà la battaglia col nemico. Cliccare sul nemico, esaurire il dialogo e premere velocemente il pulsante col simbolo del pugno per uccidere il nemico. Ucciso il nemico, voltarsi a destra e prendere la reliquia di Talos.
 
