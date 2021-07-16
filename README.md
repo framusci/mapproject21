@@ -250,7 +250,7 @@ Per completare il gioco passo per passo, leggere la seguente guida. Di seguito, 
 	
 Partendo da _Inizio_, girarsi dalla parte opposta dello Jarl e andare in _Tempio Altari_. Si troverà una pergamena, cliccarci sopra.
 
-Girarsi e andare in _Tempio Entrata_: ci sarà una bambina che proporrà un gioco. Per risolvere direttamente questo gioco si può aprire `saveGame.json` e aggiungere all'inventario "Anello d'oro"; oppure, si può modificare il codice scrivendo da qualche parte l'istruzione `addItem(Game.GOLDEN_RING);` (in particolare, basta rimuovere il commento dalla riga 670 di `GameGUI.java`).
+Girarsi e andare in _Tempio Entrata_: ci sarà una bambina che proporrà un gioco. Per risolvere direttamente questo gioco si può aprire `saveGame.json` e aggiungere all'inventario "Anello d'oro"; oppure, si può modificare il codice scrivendo da qualche parte l'istruzione `addItem(Game.GOLDEN_RING);` (in particolare, basta rimuovere il commento dalla riga 673 di `GameGUI.java`).
 
 Ottenuto l'anello d'oro, andare dal _Fabbro_. Cliccando sul fabbro, aggiungerà all'inventario una moneta d'oro.
 
