@@ -55,12 +55,10 @@ In alto a sinistra, il pulsante **Salva ed esci** salva il gioco e chiude il pro
 
 Il testo dei dialoghi è mostrato in un riquadro in basso al centro della schermata. Per andare avanti con le frasi del dialogo, è necessario cliccare il riquadro. Quando scompare, vuol dire che non ci sono più frasi in quella interazione.
 
-
-
 # Architettura del sistema
 Il progetto implementa il pattern architetturale *Model-View-Presenter*. La logica di gioco (*Model*) e l'interfaccia che la implementa (*View*) non possono interagire tra loro in maniera diretta: il *Presenter* è un mediatore che si occupa di prendere in input i comandi e i dati della *View* e inviarli al *Model*, e viceversa. Questa architettura garantisce il rispetto di uno degli obiettivi dell'object-oriented design: la presentazione separata.
 
-Il sistema è progettato per essere esteso e semplice da utilizzare per un eventuale utente che lo estenderà per progettare il suo gioco. Nel progetto, la classe `TalosDynasty` estende la classe `GameController` per usufruirne e per aggiungere ulteriori funzionalità.
+Il sistema è progettato per essere esteso e semplice da utilizzare per un eventuale utente che lo estenderà per progettare il suo gioco. Nel progetto, la classe `Game` estende la classe `GameController` per usufruirne e per aggiungere ulteriori funzionalità.
 
 ## Struttura dei package e delle classi
 
@@ -112,7 +110,7 @@ Particolare è la creazione dell'interfaccia **iteratore circolare**. Si tratta 
 
 ### File
 
-L'input/output con i file è utilizzato per salvare i dati della partita. Per ricostruire una partita a partire da un salvataggio sono necessari tre oggetti:
+L'input/output con i file è utilizzato per salvare i dati della partita. Per ricostruire una partita a partire da un salvataggio sono necessari quattro oggetti:
 * immagine corrente 
 * nome del personaggio
 * inventario
