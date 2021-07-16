@@ -261,4 +261,4 @@ Andare dal _Mercante_, cliccare sull'amuleto a sinistra che aggiungerà all'inve
 
 A questo punto, andare in _Casa Porta_. Inizierà la battaglia col nemico. Cliccare sul nemico, esaurire il dialogo e premere velocemente il pulsante col simbolo del pugno per uccidere il nemico. Ucciso il nemico, voltarsi a destra e prendere la reliquia di Talos.
 
-A questo punto, tornare dallo Jarl (_Inizio_) e parlarci. Il gioco terminerà.
+Tornare dallo Jarl (_Inizio_) e parlarci. Il gioco terminerà.
