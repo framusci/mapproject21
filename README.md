@@ -239,7 +239,7 @@ recupera		(dizionario, chiave) 		-> valore	Restituisce il valore associato ad un
 ## Specifica semantica
 **Declare:** d: dizionario; k: chiave; v: valore
 
-![](documentazioneresources/specifica.png)
+![](documentazione/resources/specifica.png)
 
 `equals(l, m)`
 ![](documentazione/resources/specifica_equals.png)
