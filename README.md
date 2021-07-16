@@ -122,9 +122,10 @@ A tal proposito è stata scelta la rappresentazione in JSON dei dati utilizzando
 Qui di seguito, un esempio di un possibile salvataggio:
 ```javascript
 {
-	"currentImage":"mercante_e.png",
+	"currentImage":"jarl_n.png",
 	"name":"Tizio",
-	"inventory":["Moneta d'oro"]
+	"inventory":["Anello d'oro"],
+	"events":{"KID_EVENT":true,"ENEMY_EVENT":false}
 }
 ```
 
