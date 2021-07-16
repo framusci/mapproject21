@@ -251,4 +251,14 @@ Per completare il gioco passo per passo, leggere la seguente guida. Di seguito, 
 
 ![](src/main/resources/Mappa_final.png)
 	
-Girarsi dalla parte opposta dello Jarl e andare in _Tempio Altari_. Si troverà una pergamena, cliccarci sopra. Girarsi e andare in _Tempio Entrata_: ci sarà una bambina che proporrà un gioco. Per risolvere direttamente questo gioco si può aprire `saveGame.json` e aggiungere all'inventario "Anello d'oro"; oppure, si può modificare il codice scrivendo da qualche parte l'istruzione `addItem(Game.GOLDEN_RING);`. Ottenuto l'anello d'oro, andare dal _Fabbro_. Cliccando sul fabbro, aggiungerà all'inventario una moneta d'oro. Andare dal _Mercante_, cliccare sul mercante che aggiungerà all'inventario l'amuleto di Talos. A questo punto, andare in _Casa Porta_. Inizierà la battaglia col nemico. Cliccare sul nemico, esaurire il dialogo e premere velocemente il pulsante col simbolo del pugno per uccidere il nemico. Ucciso il nemico, voltarsi a destra e prendere la reliquia di Talos. A questo punto, tornare dallo Jarl (_Inizio_) e parlarci.
+Girarsi dalla parte opposta dello Jarl e andare in _Tempio Altari_. Si troverà una pergamena, cliccarci sopra.
+
+Girarsi e andare in _Tempio Entrata_: ci sarà una bambina che proporrà un gioco. Per risolvere direttamente questo gioco si può aprire `saveGame.json` e aggiungere all'inventario "Anello d'oro"; oppure, si può modificare il codice scrivendo da qualche parte l'istruzione `addItem(Game.GOLDEN_RING);`.
+
+Ottenuto l'anello d'oro, andare dal _Fabbro_. Cliccando sul fabbro, aggiungerà all'inventario una moneta d'oro.
+
+Andare dal _Mercante_, cliccare sull'amuleto a sinistra che aggiungerà all'inventario l'amuleto di Talos (cliccare sul libro a destra per un piccolo _easter egg_).
+
+A questo punto, andare in _Casa Porta_. Inizierà la battaglia col nemico. Cliccare sul nemico, esaurire il dialogo e premere velocemente il pulsante col simbolo del pugno per uccidere il nemico. Ucciso il nemico, voltarsi a destra e prendere la reliquia di Talos.
+
+A questo punto, tornare dallo Jarl (_Inizio_) e parlarci. Il gioco terminerà.
