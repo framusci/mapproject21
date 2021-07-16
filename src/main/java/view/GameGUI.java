@@ -591,11 +591,11 @@ public class GameGUI extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
 
         if (dialogue.hasNext()) {
-            jLabel4.setText("<html>" + dialogue.next() + "</html>");
+            jLabel4.setText("<html>" + dialogue.next() + "</html>"); //I tag html servono per il wrapping del testo.
         } else {
             jLabel4.setVisible(false);
 
-            if (win) {
+            if (win) { //Caso in cui il giocatore ha vinto e debba essere mostrata l'immagine finale.
                 cl.show(jPanel1, "card4");
                 setImage("end.png", jLabel1);
                 jButton7.setVisible(false);
@@ -692,7 +692,7 @@ public class GameGUI extends javax.swing.JFrame {
             core.guessGame(jTextField2.getText());
             jLabel4.setVisible(true);
             String result = core.getGameResult();
-            jLabel4.setText("<html>" + result.replace(". ", ".<br>") + "</html>");
+            jLabel4.setText("<html>" + result.replace(". ", ".<br>") + "</html>"); //Fa andare a capo la frase.
 
             if (result.equals(Game.WIN) || result.equals(Game.LOSE)) {
                 jTextField2.setText("");
@@ -713,7 +713,7 @@ public class GameGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton14ActionPerformed
 
-    //Mercante
+    //Amuleto
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         if (core.getPlayerInventory().contains(Game.GOLDEN_COIN)) {
             jButton15.setVisible(false);
@@ -788,10 +788,13 @@ public class GameGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     //Custom methods
+    
+    //Imposta l'immagine image nel label jLab. Serve a rendere più semplice l'utilizzo della funzione standard setIcon.
     private void setImage(String image, javax.swing.JLabel jLab) {
         jLab.setIcon(new ImageIcon(getClass().getResource("/" + image)));
     }
 
+    //Inizializzazione dei componenti
     private void startGame() {
         cl.show(jPanel1, "card4");
         setImage(core.currentImage(), jLabel1);
@@ -808,7 +811,7 @@ public class GameGUI extends javax.swing.JFrame {
         dialogue = dl.iterator();
 
         if (dialogue.hasNext()) {
-            jLabel4.setText("<html>" + dialogue.next() + "</html>");
+            jLabel4.setText("<html>" + dialogue.next() + "</html>"); //I tag html servono per il wrapping del testo.
             jLabel4.setVisible(true);
         } else {
             jLabel4.setVisible(false);

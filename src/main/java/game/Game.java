@@ -6,11 +6,11 @@ import java.util.Map;
 import model.GameController;
 
 /**
- *
- * @author franc
+ * Classe che estende GameController. Istanzia GameController e aggiunge
+ * costanti e altre funzionalità.
  */
 public class Game extends GameController {
-    
+
     //Dialogues
     public static final int MERCHANT_FIRST = 0;
     public static final int MERCHANT_NO_MONEY = 1;
@@ -56,6 +56,11 @@ public class Game extends GameController {
     private Enemy enemy;
     private Map<String, Integer> itemId;
 
+    /**
+     * Costruisce gli ogetti, si connette al database dei dialoghi, imposta un
+     * separatore dei dialoghi, inizializza la mappa e gli eventi. Usato per
+     * caricare una partita.
+     */
     public Game() {
         playerClient = new MinigameJabberClient();
         server = new MinigameJabberServer();
@@ -64,7 +69,7 @@ public class Game extends GameController {
         itemId = new HashMap();
         super.setDialogueDatabase("jdbc:h2:./resources/db/store", "sa", "");
         super.setDialogueSeparator("§");
-        
+
         itemId.put(GOLDEN_RING, GOLDEN_RING.hashCode());
         itemId.put(GOLDEN_COIN, GOLDEN_COIN.hashCode());
         itemId.put(TALOS_AMULET, TALOS_AMULET.hashCode());
@@ -137,12 +142,18 @@ public class Game extends GameController {
         super.addEdge("casa_porta_s.png", "casa_centro_s.png");
         super.addEdge("casa_centro_w.png", "casa_ingresso_w.png");
         super.addEdge("casa_ingresso_w.png", "casa_entrata_w.png");
-        
+
         //Events
         super.addEvent(KID_EVENT);
         super.addEvent(ENEMY_EVENT);
     }
 
+    /**
+     * Fa tutte le cose che fa <tt>Game()</tt>. In più, imposta il nome del
+     * giocatore e inizializza i dialoghi (utilizzando il nome del giocatore).
+     *
+     * @param playerName Il nome del giocatore.
+     */
     public Game(String playerName) {
         this();
         super.setPlayerName(playerName);
@@ -174,32 +185,64 @@ public class Game extends GameController {
         super.addDialogue(BOOK, "\"The C Programming Language\". Un libro pericolosissimo.");
     }
 
+    /**
+     * Inizia il minigioco.
+     */
     public void startMiniGame() {
         server.start();
         playerClient.connect();
     }
 
+    /**
+     * Effettua un tentativo del minigioco.
+     *
+     * @param s Il numero inserito per effettuare il tentativo.
+     */
     public void guessGame(String s) {
         playerClient.attempt(s);
     }
 
+    /**
+     * Restituisce il risultato del tentativo del minigioco.
+     *
+     * @return L'esito.
+     */
     public String getGameResult() {
         return playerClient.getResult();
     }
-    
-    public void startBattle(){
+
+    /**
+     * Inizia la battaglia col nemico.
+     */
+    public void startBattle() {
         enemyThread.start();
     }
- 
-    public void hitEnemy(){
+
+    /**
+     * Colpisce il nemico infliggendogli 12 punti di danno.
+     */
+    public void hitEnemy() {
         enemy.changeHealth(-12);
     }
 
-    public int getEnemyHealth(){
+    /**
+     * Restituisce i punti vita del nemico.
+     *
+     * @return I punti vita del nemico.
+     */
+    public int getEnemyHealth() {
         return enemy.getHealth();
     }
 
-    public List loadDialogue(String name){
+    /**
+     * Carica un dialogo. Sovraccarica la funzione di GameController per
+     * permettere il caricamento dei dialoghi anche tramite nome oltre che per
+     * id. Serve per caricare i dialoghi relativi agli oggetti nell'inventario.
+     *
+     * @param name Il nome dell'oggetto da esaminare nell'inventario.
+     * @return Il dialogo.
+     */
+    public List loadDialogue(String name) {
         return super.loadDialogue(itemId.get(name));
     }
 }

@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Gestisce il server del minigioco.
+ */
 class MinigameJabberServer extends Thread {
 
     private BufferedReader in;
@@ -34,11 +37,17 @@ class MinigameJabberServer extends Thread {
     private int diffPosChars;
     private List<Character> numbers;
     
+    /**
+     * Costruisce un server vuoto.
+     */
     public MinigameJabberServer(){
         strToGuess = "";
         numbers = new ArrayList();
     }
 
+    /**
+     * Esegue il gioco tramite un thread.
+     */
     @Override
     public void run() {
         numbers.addAll(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'));
