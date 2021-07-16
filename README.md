@@ -185,7 +185,7 @@ Il `JFrame` è il punto d'ingresso del sistema. Ha dimensioni 1280x720 e non è 
 
 L'interfaccia di gioco è strutturata in modo tale che i pulsanti e gli altri elementi necessari all'interazione col gioco siano collocati in primo piano rispetto all'immagine di gioco, collocata sullo sfondo. Per implementare questa struttura è stato utilizzato un `jLayeredPane`, che stabilisce una relazione d'ordine sulla stratificazione delle componenti.
 
-![](src/main/resources/gui1.png)
+![](documentazione/resources/gui1.png)
 > Dettaglio della schermata iniziale, che mostra i pulsanti in primo piano e l'immagine sullo sfondo.
 
 I `jLabel` sono strumenti molto flessibili: sono utilizzati sia per mostrare il testo che per mostrare immagini. Per l'inventario è utilizzato un menù a tendina, una `jComboBox`.
