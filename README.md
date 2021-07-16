@@ -94,7 +94,7 @@ Contiene la descrizione della struttura dati "iteratore circolare", che consente
 * `CircularArrayList`: implementazione di `CircularIterator` che si avvale della struttura dati preesistente `ArrayList`, estendendola.
 
 ## Diagramma UML delle classi
-Di seguito è riportato il diagramma UML delle classi (comprende solo una porzione delle classi, la più significativa).
+Di seguito è riportato il diagramma UML delle classi (comprende solo una porzione significativa delle classi).
 
 ![](src/main/resources/UML_final.png)
 
