@@ -253,4 +253,4 @@ Ottenuto l'anello d'oro, andare avanti finché non si incontra una guardia, gira
 
 Di seguito, una mappa per agevolare la soluzione.
 
-![](src/main/resources/Mappa.png)
+![](src/main/resources/Mappa_final.png)
