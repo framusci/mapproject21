@@ -667,7 +667,7 @@ public class GameGUI extends javax.swing.JFrame {
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         if (!core.hasHappened(Game.KID_EVENT)) {
             displayDialogue(core.loadDialogue(Game.KID_FIRST));
-            addItem(Game.GOLDEN_RING); //Rimuovere il commento per vincere senza giocare
+            //addItem(Game.GOLDEN_RING); //Rimuovere il commento per vincere senza giocare
             jTextField2.setVisible(true);
             jButton14.setVisible(true);
             jButton13.setVisible(false);
